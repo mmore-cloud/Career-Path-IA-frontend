@@ -1,10 +1,10 @@
 import React from 'react';
 
-const ProfileForm = () => {
+const ProfileForm = ({ title = "Datos Personales", buttonText = "Guardar Perfil" }) => {
   return (
     <form className="p-4 p-md-5 bg-white shadow-sm rounded-4 border-0">
       <div className="text-center mb-4">
-        <h3 className="fw-bold text-primary">Datos Personales</h3>
+        <h3 className="fw-bold text-primary">{title}</h3>
       </div>
       
       <div className="mb-3">
@@ -35,7 +35,7 @@ const ProfileForm = () => {
 
       <div className="d-grid mt-4">
         <button type="button" className="btn btn-primary btn-lg fw-bold rounded-pill">
-          Guardar Perfil
+          {buttonText}
         </button>
       </div>
     </form>
