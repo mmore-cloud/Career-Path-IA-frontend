@@ -1,48 +1,83 @@
-import SectionTitle from "../components/SectionTitle";
+import React, { useState } from 'react';
+import { questions } from '../data/testQuestions';
+import QuestionCard from '../components/QuestionCard';
+import { useSEO } from '../hooks/useSEO';
 
-function Test() {
-  return (
-    <section className="py-5 bg-light">
-      <div className="container">
-        <SectionTitle
-          etiqueta="Test vocacional"
-          titulo="Explorá tus intereses"
-          descripcion="Esta sección será migrada por la integrante encargada de Test y Resultados."
-        />
+export default function Test({ onFinishTest }) {
+    useSEO({
+        title: 'Test Vocacional UTN | CareerPath AI',
+        description:
+            'Realizá el test vocacional de CareerPath AI y descubrí qué carrera de la UTN Facultad Regional Tucumán se adapta mejor a tu perfil.',
+        canonicalPath: '/test',
+    });
 
-        <div className="card border-0 shadow-sm rounded-4">
-          <div className="card-body p-4 p-md-5">
-            <h3 className="h5 fw-bold mb-3">
-              Pregunta de ejemplo
-            </h3>
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [userAnswers, setUserAnswers] = useState({});
 
-            <p className="text-secondary">
-              ¿Qué tipo de actividades disfrutás más?
-            </p>
+    const handleSelectOption = (optionIndex) => {
+        setUserAnswers({ ...userAnswers, [currentIndex]: optionIndex });
+    };
 
-            <div className="d-grid gap-3">
-              <button className="btn btn-outline-primary rounded-pill" disabled>
-                Resolver problemas con tecnología
-              </button>
+    const handleNext = () => {
+        if (userAnswers[currentIndex] === undefined) {
+            alert('Por favor seleccioná una opción para continuar.');
+            return;
+        }
+        if (currentIndex < questions.length - 1) {
+            setCurrentIndex(currentIndex + 1);
+        } else if (onFinishTest) {
+            onFinishTest(userAnswers);
+        }
+    };
 
-              <button className="btn btn-outline-primary rounded-pill" disabled>
-                Diseñar ideas visuales
-              </button>
+    const handlePrev = () => {
+        if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
+    };
 
-              <button className="btn btn-outline-primary rounded-pill" disabled>
-                Ayudar a otras personas
-              </button>
+    const progress = (currentIndex / questions.length) * 100;
+
+    return (
+        <main className="container py-5">
+            <header className="text-center mb-4">
+                <h1 className="fw-bold">Test Vocacional UTN</h1>
+                <p className="text-muted">
+                    Descubrí tu perfil profesional ideal en la UTN Facultad Regional Tucumán
+                </p>
+            </header>
+
+            <div className="progress mb-4" style={{ height: '10px' }}>
+                <div
+                    className="progress-bar bg-primary"
+                    role="progressbar"
+                    style={{ width: `${progress}%` }}
+                    aria-valuenow={progress}
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                ></div>
             </div>
 
-            <p className="text-secondary mt-4 mb-0">
-              Placeholder visual. Esta página será completada en otra parte del
-              TP.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+            <section>
+                <QuestionCard
+                    question={questions[currentIndex]}
+                    currentIndex={currentIndex}
+                    totalQuestions={questions.length}
+                    selectedAnswer={userAnswers[currentIndex]}
+                    onSelectOption={handleSelectOption}
+                />
 
-export default Test;
+                <div className="d-flex justify-content-between mt-4">
+                    <button
+                        onClick={handlePrev}
+                        className="btn btn-outline-secondary"
+                        disabled={currentIndex === 0}
+                    >
+                        Anterior
+                    </button>
+                    <button onClick={handleNext} className="btn btn-primary">
+                        {currentIndex === questions.length - 1 ? 'Finalizar' : 'Siguiente'}
+                    </button>
+                </div>
+            </section>
+        </main>
+    );
+}
