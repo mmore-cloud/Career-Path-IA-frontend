@@ -1,30 +1,37 @@
-function RouteTopic({ titulo, descripcion, estado }) {
-  const obtenerClaseEstado = () => {
-    if (estado === "Completado") {
-      return "bg-success";
-    }
-
-    if (estado === "En progreso") {
-      return "bg-primary";
-    }
-
-    return "bg-secondary";
-  };
-
+function RouteTopic({ topic, completado, onToggle }) {
   return (
-    <div className="card border-0 shadow-sm h-100">
-      <div className="card-body">
-        <div className="d-flex justify-content-between align-items-start mb-3">
-          <h3 className="h5 fw-bold mb-0">{titulo}</h3>
+    <div
+      className={`border rounded-3 p-3 h-100 ${
+        completado
+          ? "border-success bg-success-subtle"
+          : "border-light-subtle bg-white"
+      }`}
+    >
+      <div className="form-check d-flex align-items-start gap-2 mb-0">
+        <input
+          className="form-check-input mt-1"
+          type="checkbox"
+          id={`tema-${topic.id}`}
+          checked={completado}
+          onChange={() => onToggle(topic.id)}
+        />
 
-          <span className={`badge ${obtenerClaseEstado()}`}>
-            {estado}
+        <label
+          className="form-check-label w-100"
+          htmlFor={`tema-${topic.id}`}
+        >
+          <span
+            className={`fw-semibold d-block ${
+              completado ? "text-success" : "text-dark"
+            }`}
+          >
+            {topic.nombre}
           </span>
-        </div>
 
-        <p className="text-secondary mb-0">
-          {descripcion}
-        </p>
+          <small className="text-secondary">
+            {completado ? "Tema completado" : "Pendiente"}
+          </small>
+        </label>
       </div>
     </div>
   );
