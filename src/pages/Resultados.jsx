@@ -1,205 +1,213 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { carrerasUTN } from "../data/careers";
+import { questions } from "../data/testQuestions";
 import CareerCard from "../components/CareerCard";
-import { careers } from "../data/careers";
 import { useSEO } from "../hooks/useSEO";
+import { useLocalAuth } from "../hooks/useLocalAuth";
+import { getCareerRecommendations, getDominantArea } from "../utils/careerMatcher";
+import { buildLearningRouteFromCareer } from "../utils/learningRouteBuilder";
 
-const normalizeText = (value) =>
-  String(value ?? "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+const TEST_ANSWERS_KEY = "careerpath_test_answers";
+const RECOMMENDED_CAREERS_KEY = "careerpath_recommended_careers";
+const LEARNING_ROUTE_KEY = "careerpath_learning_route";
+const FAVORITES_KEY = "utn_favorites";
 
-const getCareerTitle = (career) => career.titulo ?? career.nombre ?? "Carrera UTN";
+export default function Resultados() {
+    useSEO({
+        title: "Resultados y Carreras UTN | CareerPath AI",
+        description:
+            "Explorá las carreras de la UTN Facultad Regional Tucumán recomendadas según tu test vocacional y guardá tus favoritas.",
+        canonicalPath: "/resultados",
+    });
 
-const getCareerArea = (career) => career.area ?? career.subtipo ?? "";
+    const { activeUser, isAuthenticated, isLoadingAuth } = useLocalAuth();
 
-const adaptCareerForCard = (career) => ({
-  ...career,
-  nombre: career.nombre ?? career.titulo,
-  titulo: career.titulo ?? career.nombre,
-  area: career.area ?? career.subtipo ?? "Carrera UTN",
-  descripcion: career.descripcion ?? "Información de la carrera UTN.",
-  duracion: career.duracion ?? "No especificada",
-  modalidad: career.modalidad ?? "No especificada",
-});
+    // useState: controla los inputs de búsqueda y filtro. Cambian con cada tecla/selección del usuario.
+    const [searchTerm, setSearchTerm] = useState("");
+    const [selectedArea, setSelectedArea] = useState("");
 
-export default function Resultados({ onRetakeTest }) {
-  useSEO({
-    title: "Resultados y Carreras UTN | CareerPath AI",
-    description:
-      "Explorá las carreras de la UTN, filtrá por área de interés y guardá tus favoritas.",
-    canonicalPath: "/resultados",
-  });
+    // useState: guarda el resultado del matching (carreras recomendadas) y si existe un test completado.
+    const [recommendedCareers, setRecommendedCareers] = useState([]);
+    const [hasTestAnswers, setHasTestAnswers] = useState(false);
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedArea, setSelectedArea] = useState("");
+    // useEffect: se ejecuta al montar y cada vez que cambia el usuario activo o termina de cargar la
+    // autenticación (dependencias [activeUser, isLoadingAuth]). Lee las respuestas del test desde
+    // localStorage, calcula las recomendaciones y, como efecto secundario, persiste el resultado
+    // (recomendaciones + ruta de aprendizaje base) para que Mi Ruta pueda leerlo después.
+    useEffect(() => {
+        if (isLoadingAuth || !activeUser) {
+            return;
+        }
 
-  const areaOptions = useMemo(() => {
-    const areas = careers
-      .map((career) => getCareerArea(career))
-      .filter(Boolean);
+        const storedAnswers = localStorage.getItem(TEST_ANSWERS_KEY);
 
-    return [...new Set(areas)];
-  }, []);
+        if (!storedAnswers) {
+            setHasTestAnswers(false);
+            setRecommendedCareers([]);
+            return;
+        }
 
-  const filteredCareers = useMemo(() => {
-    const normalizedSearch = normalizeText(searchTerm);
-    const normalizedSelectedArea = normalizeText(selectedArea);
+        let rawAnswers = {};
+        try {
+            rawAnswers = JSON.parse(storedAnswers);
+        } catch (error) {
+            console.error("Error al leer las respuestas del test:", error);
+            setHasTestAnswers(false);
+            return;
+        }
 
-    return careers
-      .filter((career) => {
-        const title = getCareerTitle(career);
-        const area = getCareerArea(career);
+        const answerList = Object.entries(rawAnswers)
+            .map(([questionIndex, optionIndex]) => questions[Number(questionIndex)]?.options?.[optionIndex])
+            .filter(Boolean);
 
-        const careerText = normalizeText(
-          [
-            career.id,
-            title,
-            area,
-            career.subtipo,
-            career.descripcion,
-            career.duracion,
-            career.modalidad,
-            career.facultades?.join(" "),
-            career.planNombre,
-          ].join(" ")
+        if (answerList.length === 0) {
+            setHasTestAnswers(false);
+            setRecommendedCareers([]);
+            return;
+        }
+
+        setHasTestAnswers(true);
+
+        const recommendations = getCareerRecommendations({
+            careers: carrerasUTN,
+            user: activeUser,
+            answers: answerList,
+            limit: 6,
+        });
+
+        const finalRecommendations = recommendations.length > 0 ? recommendations : carrerasUTN.slice(0, 4);
+        setRecommendedCareers(finalRecommendations);
+
+        localStorage.setItem(RECOMMENDED_CAREERS_KEY, JSON.stringify(finalRecommendations));
+
+        const dominantArea = getDominantArea(answerList);
+        const learningRoute = buildLearningRouteFromCareer(finalRecommendations[0], dominantArea);
+
+        if (learningRoute) {
+            localStorage.setItem(LEARNING_ROUTE_KEY, JSON.stringify(learningRoute));
+        }
+    }, [activeUser, isLoadingAuth]);
+
+    const filteredCareers = useMemo(() => {
+        return recommendedCareers.filter((career) => {
+            const matchesSearch =
+                career.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                career.descripcion.toLowerCase().includes(searchTerm.toLowerCase());
+            const matchesArea = selectedArea === "" || (career.area ?? "").toLowerCase() === selectedArea.toLowerCase();
+            return matchesSearch && matchesArea;
+        });
+    }, [recommendedCareers, searchTerm, selectedArea]);
+
+    const handleToggleFavorite = (id) => {
+        let favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
+        if (favorites.includes(id)) {
+            favorites = favorites.filter((favId) => favId !== id);
+            alert("Carrera eliminada de favoritos.");
+        } else {
+            favorites.push(id);
+            alert("Carrera guardada en favoritos.");
+        }
+        localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+    };
+
+    if (isLoadingAuth) {
+        return (
+            <main className="container py-5 text-center">
+                <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Cargando...</span>
+                </div>
+            </main>
         );
-
-        const matchesSearch =
-          normalizedSearch === "" || careerText.includes(normalizedSearch);
-
-        const matchesArea =
-          normalizedSelectedArea === "" ||
-          normalizeText(area) === normalizedSelectedArea ||
-          normalizeText(career.subtipo) === normalizedSelectedArea;
-
-        return matchesSearch && matchesArea;
-      })
-      .map(adaptCareerForCard);
-  }, [searchTerm, selectedArea]);
-
-  const handleToggleFavorite = (id) => {
-    let favorites = JSON.parse(localStorage.getItem("utn_favorites")) || [];
-
-    if (favorites.includes(id)) {
-      favorites = favorites.filter((favId) => favId !== id);
-      alert("Carrera eliminada de favoritos.");
-    } else {
-      favorites.push(id);
-      alert("Carrera guardada en favoritos.");
     }
 
-    localStorage.setItem("utn_favorites", JSON.stringify(favorites));
-  };
+    if (!isAuthenticated) {
+        return (
+            <main className="container py-5 text-center">
+                <i className="bi bi-person-lock display-4 text-primary mb-3"></i>
+                <h1 className="fw-bold">Primero iniciá sesión</h1>
+                <p className="text-muted">
+                    Necesitás iniciar sesión o crear una cuenta para generar tus resultados.
+                </p>
+                <Link to="/perfil" className="btn btn-primary rounded-pill mt-3">
+                    <i className="bi bi-arrow-right-circle me-2"></i>
+                    Ir a Mi Perfil
+                </Link>
+            </main>
+        );
+    }
 
-  return (
-    <main className="container py-5 cp-results-page">
-      <header className="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4 cp-fade-up">
-        <div>
-          <span className="badge rounded-pill text-bg-primary mb-3 cp-soft-badge">
-            <i className="bi bi-mortarboard me-2"></i>
-            Carreras UTN
-          </span>
+    if (!hasTestAnswers) {
+        return (
+            <main className="container py-5 text-center">
+                <i className="bi bi-clipboard-x display-4 text-primary mb-3"></i>
+                <h1 className="fw-bold">Todavía no hiciste el test</h1>
+                <p className="text-muted">
+                    Completá el test vocacional para ver tus carreras recomendadas.
+                </p>
+                <Link to="/test" className="btn btn-primary rounded-pill mt-3">
+                    <i className="bi bi-clipboard-check me-2"></i>
+                    Ir al Test Vocacional
+                </Link>
+            </main>
+        );
+    }
 
-          <h1 className="fw-bold mb-1">Resultados de tu Test Vocacional</h1>
+    return (
+        <main className="container py-5">
+            <header className="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                <div>
+                    <h1 className="fw-bold mb-1">Resultados de tu Test Vocacional</h1>
+                    <p className="text-muted mb-0">
+                        Hola {activeUser.nombre}, estas son las carreras recomendadas según tus respuestas.
+                    </p>
+                </div>
+                <Link to="/test" className="btn btn-outline-primary rounded-pill">
+                    <i className="bi bi-arrow-repeat me-2"></i>
+                    Repetir Test
+                </Link>
+            </header>
 
-          <p className="text-muted mb-0">
-            Explorá las carreras disponibles, sus áreas y sus planes de estudio.
-          </p>
-        </div>
+            <section className="row g-3 mb-4" aria-label="Filtros de búsqueda">
+                <div className="col-md-8">
+                    <label htmlFor="buscar-carrera" className="visually-hidden">Buscar carrera</label>
+                    <input
+                        id="buscar-carrera"
+                        type="text"
+                        className="form-control"
+                        placeholder="Buscar carrera..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+                <div className="col-md-4">
+                    <label htmlFor="filtro-area" className="visually-hidden">Filtrar por área</label>
+                    <select
+                        id="filtro-area"
+                        className="form-select"
+                        value={selectedArea}
+                        onChange={(e) => setSelectedArea(e.target.value)}
+                    >
+                        <option value="">Todas las áreas</option>
+                        <option value="Carrera de grado">Carrera de grado</option>
+                        <option value="Carrera de pregrado">Carrera de pregrado</option>
+                        <option value="complementación curricular">Complementación curricular</option>
+                        <option value="carrera de posgrado">Carrera de posgrado</option>
+                    </select>
+                </div>
+            </section>
 
-        {onRetakeTest && (
-          <button
-            onClick={onRetakeTest}
-            className="btn btn-primary rounded-pill cp-btn-animated"
-            type="button"
-          >
-            <i className="bi bi-arrow-repeat me-2"></i>
-            Repetir test
-          </button>
-        )}
-      </header>
-
-      <section
-        className="card border-0 shadow-sm rounded-4 mb-4 cp-fade-up"
-        aria-label="Filtros de búsqueda"
-      >
-        <div className="card-body p-4">
-          <div className="row g-3">
-            <div className="col-md-8">
-              <label htmlFor="buscar-carrera" className="form-label fw-semibold">
-                <i className="bi bi-search text-primary me-2"></i>
-                Buscar carrera
-              </label>
-
-              <input
-                id="buscar-carrera"
-                type="text"
-                className="form-control"
-                placeholder="Buscar por nombre, descripción, facultad o plan..."
-                value={searchTerm}
-                onChange={(event) => setSearchTerm(event.target.value)}
-              />
-            </div>
-
-            <div className="col-md-4">
-              <label htmlFor="filtro-area" className="form-label fw-semibold">
-                <i className="bi bi-funnel text-primary me-2"></i>
-                Filtrar por área
-              </label>
-
-              <select
-                id="filtro-area"
-                className="form-select"
-                value={selectedArea}
-                onChange={(event) => setSelectedArea(event.target.value)}
-              >
-                <option value="">Todas las áreas</option>
-
-                {areaOptions.map((area) => (
-                  <option value={area} key={area}>
-                    {area}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mb-3 cp-fade-up">
-        <p className="text-muted mb-0">
-          <i className="bi bi-list-check me-2 text-primary"></i>
-          Carreras encontradas: <strong>{filteredCareers.length}</strong>
-        </p>
-      </section>
-
-      <section
-        className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"
-        aria-label="Listado de carreras"
-      >
-        {filteredCareers.length === 0 ? (
-          <div className="col-12">
-            <div className="alert alert-info rounded-4 cp-fade-up" role="alert">
-              <i className="bi bi-info-circle me-2"></i>
-              No se encontraron carreras que coincidan con la búsqueda.
-            </div>
-          </div>
-        ) : (
-          filteredCareers.map((career, index) => (
-            <div
-              className="col cp-fade-up"
-              key={career.id}
-              style={{ animationDelay: `${index * 45}ms` }}
-            >
-              <CareerCard
-                career={career}
-                onToggleFavorite={handleToggleFavorite}
-              />
-            </div>
-          ))
-        )}
-      </section>
-    </main>
-  );
+            <section className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" aria-label="Listado de carreras recomendadas">
+                {filteredCareers.length === 0 ? (
+                    <p className="text-muted text-center">No se encontraron carreras que coincidan con la búsqueda.</p>
+                ) : (
+                    filteredCareers.map((career) => (
+                        <div className="col" key={career.id}>
+                            <CareerCard career={career} onToggleFavorite={handleToggleFavorite} />
+                        </div>
+                    ))
+                )}
+            </section>
+        </main>
+    );
 }
