@@ -2,9 +2,7 @@
   object-fit: cover;
 }
 
-.object-fit-cover {
-  object-fit: cover;
-}
+/* Navbar principal */
 
 .cp-header-react {
   z-index: 1050;
@@ -51,6 +49,8 @@
   box-shadow: 0 0 0 0.18rem rgba(13, 202, 240, 0.18);
   transform: translateY(-1px);
 }
+
+/* Menú mobile */
 
 .cp-menu-backdrop {
   position: fixed;
@@ -170,6 +170,136 @@
   color: rgba(255, 255, 255, 0.82);
 }
 
+/* Secciones del perfil, login y resultados */
+
+.cp-profile-section,
+.cp-results-page {
+  position: relative;
+  overflow: hidden;
+}
+
+.cp-profile-section::before,
+.cp-results-page::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  right: -120px;
+  width: 260px;
+  height: 260px;
+  background: rgba(13, 110, 253, 0.08);
+  border-radius: 999px;
+  filter: blur(4px);
+}
+
+.cp-profile-section > .container,
+.cp-results-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+.cp-auth-card,
+.cp-profile-card {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.cp-auth-card:hover,
+.cp-profile-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 1rem 2.5rem rgba(13, 20, 30, 0.12) !important;
+}
+
+.cp-info-card,
+.cp-career-card,
+.cp-route-preview,
+.cp-profile-form {
+  animation: cpFadeUp 0.55s ease both;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.cp-info-card:hover,
+.cp-career-card:hover,
+.cp-route-preview:hover,
+.cp-profile-form:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.75rem 1.5rem rgba(13, 110, 253, 0.12);
+}
+
+.cp-btn-animated {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cp-btn-animated:hover {
+  transform: translateY(-2px);
+}
+
+.cp-soft-badge {
+  box-shadow: 0 0.5rem 1rem rgba(13, 202, 240, 0.18);
+}
+
+.cp-auth-tabs .btn {
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.cp-auth-tabs .btn:hover {
+  transform: translateY(-2px);
+}
+
+.cp-glow-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.cp-glow-card::after {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 130px;
+  height: 130px;
+  background: rgba(13, 202, 240, 0.22);
+  border-radius: 999px;
+  filter: blur(8px);
+}
+
+.cp-glow-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.cp-chip {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cp-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.35rem 0.75rem rgba(13, 110, 253, 0.18);
+}
+
+.cp-fade-up,
+.cp-animated-card {
+  animation: cpFadeUp 0.55s ease both;
+}
+
+.cp-animated-card:hover {
+  transform: translateY(-3px);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Animaciones */
+
 @keyframes cpBackdropIn {
   from {
     opacity: 0;
@@ -192,6 +322,20 @@
   }
 }
 
+@keyframes cpFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+
 @media (max-width: 575.98px) {
   .cp-mobile-menu {
     top: 84px;
@@ -201,4 +345,21 @@
   .cp-mobile-panel {
     border-radius: 0 0 1.25rem 1.25rem;
   }
+
+  .cp-auth-tabs {
+    flex-direction: column;
+  }
+}
+
+.cp-option-card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.cp-option-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.55rem 1.2rem rgba(13, 110, 253, 0.12);
 }

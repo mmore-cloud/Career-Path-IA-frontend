@@ -1,7 +1,7 @@
 function RouteTopic({ topic, completado, onToggle }) {
   return (
     <div
-      className={`border rounded-3 p-3 h-100 ${
+      className={`border rounded-3 p-3 h-100 cp-option-card ${
         completado
           ? "border-success bg-success-subtle"
           : "border-light-subtle bg-white"
@@ -16,15 +16,18 @@ function RouteTopic({ topic, completado, onToggle }) {
           onChange={() => onToggle(topic.id)}
         />
 
-        <label
-          className="form-check-label w-100"
-          htmlFor={`tema-${topic.id}`}
-        >
+        <label className="form-check-label w-100" htmlFor={`tema-${topic.id}`}>
           <span
-            className={`fw-semibold d-block ${
+            className={`fw-semibold d-flex align-items-center gap-2 ${
               completado ? "text-success" : "text-dark"
             }`}
           >
+            <i
+              className={`bi ${
+                completado ? "bi-check-circle-fill" : "bi-circle"
+              }`}
+            ></i>
+
             {topic.nombre}
           </span>
 
