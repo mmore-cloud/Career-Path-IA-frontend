@@ -10,11 +10,11 @@ function RouteStep({
   const [abierto, setAbierto] = useState(abiertoInicial);
 
   const completadosEtapa = etapa.temas.filter((tema) =>
-    temasCompletados.includes(tema.id),
+    temasCompletados.includes(tema.id)
   ).length;
 
   return (
-    <article className="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
+    <article className="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden cp-route-preview">
       <div className="card-header bg-white border-0 p-0">
         <button
           type="button"
@@ -23,40 +23,31 @@ function RouteStep({
           aria-expanded={abierto}
         >
           <span className="badge rounded-pill bg-primary px-3 py-2">
+            <i className="bi bi-signpost-split me-2"></i>
             {etapa.numero}
           </span>
 
           <span className="flex-grow-1">
-            <span className="d-block fw-bold fs-5">
-              {etapa.titulo}
-            </span>
+            <span className="d-block fw-bold fs-5">{etapa.titulo}</span>
 
             <small className="text-secondary">
               {completadosEtapa} de {etapa.temas.length} temas completados
             </small>
           </span>
 
-          <span
-            className="fs-4 fw-bold text-primary"
-            aria-hidden="true"
-          >
-            {abierto ? "−" : "+"}
+          <span className="fs-4 text-primary" aria-hidden="true">
+            <i className={`bi ${abierto ? "bi-chevron-up" : "bi-chevron-down"}`}></i>
           </span>
         </button>
       </div>
 
       {abierto && (
         <div className="card-body border-top p-4">
-          <p className="text-secondary mb-4">
-            {etapa.descripcion}
-          </p>
+          <p className="text-secondary mb-4">{etapa.descripcion}</p>
 
           <div className="row g-3">
             {etapa.temas.map((topic) => (
-              <div
-                className="col-12 col-md-6"
-                key={topic.id}
-              >
+              <div className="col-12 col-md-6" key={topic.id}>
                 <RouteTopic
                   topic={topic}
                   completado={temasCompletados.includes(topic.id)}
