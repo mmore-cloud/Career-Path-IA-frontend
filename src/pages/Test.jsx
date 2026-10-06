@@ -20,16 +20,19 @@ export default function Test({ onFinishTest }) {
 
   const handleNext = () => {
     if (userAnswers[currentIndex] === undefined) {
-      alert("Por favor seleccioná una opción para continuar.");
-      return;
+        alert("Por favor seleccioná una opción para continuar.");
+        return;
     }
 
     if (currentIndex < questions.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    } else if (onFinishTest) {
-      onFinishTest(userAnswers);
+        setCurrentIndex(currentIndex + 1);
+    } else {
+        localStorage.setItem("careerpath_test_answers", JSON.stringify(userAnswers)); // ← línea nueva, temporal
+        if (onFinishTest) {
+            onFinishTest(userAnswers);
+        }
     }
-  };
+};
 
   const handlePrev = () => {
     if (currentIndex > 0) {
