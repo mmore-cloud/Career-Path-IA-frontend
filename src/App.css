@@ -363,3 +363,98 @@
   transform: translateY(-2px);
   box-shadow: 0 0.55rem 1.2rem rgba(13, 110, 253, 0.12);
 }
+/* Migración repo anterior: modo oscuro, modal de carreras y favoritos */
+
+[data-theme="dark"] body,
+body.dark-mode {
+  background: #07111f;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .bg-light {
+  background-color: #07111f !important;
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .modal-content,
+[data-theme="dark"] .accordion-item,
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+  background-color: #0f172a;
+  color: #f8fafc;
+  border-color: rgba(148, 163, 184, 0.25);
+}
+
+[data-theme="dark"] .text-muted,
+[data-theme="dark"] .text-secondary {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .accordion-button {
+  background-color: #111827;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .accordion-button:not(.collapsed) {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+.cp-career-card-list {
+  min-height: auto;
+}
+
+.cp-detail-card {
+  border: 1px solid rgba(13, 110, 253, 0.14);
+  border-radius: 1rem;
+  padding: 1rem;
+  height: 100%;
+  background: rgba(13, 110, 253, 0.04);
+  display: grid;
+  gap: 0.25rem;
+}
+
+.cp-detail-card i {
+  font-size: 1.35rem;
+}
+
+.cp-detail-card span {
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+.cp-detail-card strong {
+  font-size: 0.95rem;
+}
+
+.cp-modal-backdrop {
+  background: rgba(15, 23, 42, 0.72);
+}
+
+.res-toast-careerpath {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1080;
+  max-width: min(360px, calc(100vw - 2rem));
+  border-radius: 1rem;
+  padding: 0.9rem 1rem;
+  color: #0f172a;
+  background: #ffffff;
+  border: 1px solid rgba(13, 110, 253, 0.15);
+  box-shadow: 0 1rem 2rem rgba(15, 23, 42, 0.18);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.res-toast-careerpath.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-theme="dark"] .res-toast-careerpath {
+  color: #f8fafc;
+  background: #0f172a;
+  border-color: rgba(148, 163, 184, 0.25);
+}

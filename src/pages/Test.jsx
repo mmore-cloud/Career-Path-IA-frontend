@@ -1,90 +1,154 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { questions } from "../data/testQuestions";
+import { careers } from "../data/careers";
 import QuestionCard from "../components/QuestionCard";
 import { useSEO } from "../hooks/useSEO";
+import { useLocalAuth } from "../hooks/useLocalAuth";
+import {
+  getCareerRecommendations,
+  getDominantArea,
+} from "../utils/careerMatcher";
+import { buildLearningRouteFromCareer } from "../utils/learningRouteBuilder";
+
+const TEST_ANSWERS_KEY = "careerpath_test_answers";
+const RECOMMENDED_CAREERS_KEY = "careerpath_recommended_careers";
+const LEARNING_ROUTE_KEY = "careerpath_learning_route";
 
 export default function Test() {
   useSEO({
     title: "Test Vocacional UTN | CareerPath AI",
-    description: "Realizá el test vocacional de CareerPath AI y descubrí qué carrera de la UTN se adapta mejor a tu perfil.",
+    description:
+      "Realizá el test vocacional de CareerPath AI y descubrí qué carrera de la UTN se adapta mejor a tu perfil.",
     canonicalPath: "/test",
   });
 
-  const [activeUserId, setActiveUserId] = useState(null);
+  const navigate = useNavigate();
+  const { activeUser, isAuthenticated, isLoadingAuth } = useLocalAuth();
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
-  const [isFinished, setIsFinished] = useState(false);
 
-  // Validar si hay usuario logueado en localStorage al entrar
   useEffect(() => {
-    const userId = localStorage.getItem('careerpath_active_user_id');
-    setActiveUserId(userId);
-  }, []);
+    const savedAnswers = localStorage.getItem(TEST_ANSWERS_KEY);
+
+    if (savedAnswers) {
+      navigate("/ruta", { replace: true });
+    }
+  }, [navigate]);
 
   const handleSelectOption = (optionIndex) => {
-    setUserAnswers({ ...userAnswers, [currentIndex]: optionIndex });
+    setUserAnswers((currentAnswers) => ({
+      ...currentAnswers,
+      [currentIndex]: optionIndex,
+    }));
+  };
+
+  const saveResultsAndGoToRoute = (answersToSave) => {
+    localStorage.setItem(TEST_ANSWERS_KEY, JSON.stringify(answersToSave));
+
+    const answerList = Object.entries(answersToSave)
+      .map(
+        ([questionIndex, optionIndex]) =>
+          questions[Number(questionIndex)]?.options?.[optionIndex]
+      )
+      .filter(Boolean);
+
+    const recommendations = getCareerRecommendations({
+      careers,
+      user: activeUser,
+      answers: answerList,
+      limit: 8,
+    });
+
+    const finalRecommendations =
+      recommendations.length > 0 ? recommendations : careers.slice(0, 8);
+
+    localStorage.setItem(
+      RECOMMENDED_CAREERS_KEY,
+      JSON.stringify(finalRecommendations)
+    );
+
+    const dominantArea = getDominantArea(answerList);
+
+    const learningRoute = buildLearningRouteFromCareer(
+      finalRecommendations[0],
+      dominantArea
+    );
+
+    if (learningRoute) {
+      localStorage.setItem(LEARNING_ROUTE_KEY, JSON.stringify(learningRoute));
+    }
+
+    Swal.fire({
+      icon: "success",
+      title: "Test completado",
+      text: "Ya generamos tus recomendaciones y tu ruta de aprendizaje.",
+      confirmButtonText: "Ver mi ruta",
+    }).then(() => {
+      navigate("/ruta");
+    });
   };
 
   const handleNext = () => {
     if (userAnswers[currentIndex] === undefined) {
-      alert("Por favor seleccioná una opción para continuar.");
+      Swal.fire({
+        icon: "warning",
+        title: "Falta responder",
+        text: "Seleccioná una opción para continuar con el test.",
+        confirmButtonText: "Entendido",
+      });
+
       return;
     }
 
     if (currentIndex < questions.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    } else {
-      // Guardar en localStorage usando la clave obligatoria del equipo
-      localStorage.setItem('careerpath_test_answers', JSON.stringify(userAnswers));
-      setIsFinished(true);
+      setCurrentIndex((currentValue) => currentValue + 1);
+      return;
     }
+
+    saveResultsAndGoToRoute(userAnswers);
   };
 
   const handlePrev = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
+      setCurrentIndex((currentValue) => currentValue - 1);
     }
   };
 
-  // ESTADO VACÍO: No hay cuenta iniciada
-  if (!activeUserId) {
+  if (isLoadingAuth) {
+    return (
+      <main className="container py-5 text-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Cargando...</span>
+        </div>
+      </main>
+    );
+  }
+
+  if (!isAuthenticated) {
     return (
       <main className="container py-5 text-center cp-fade-up">
         <div className="py-5">
           <i className="bi bi-person-lock display-1 text-secondary mb-4 d-block"></i>
-          <h2 className="fw-bold mb-3">Acceso Restringido</h2>
+
+          <h2 className="fw-bold mb-3">Primero creá tu perfil</h2>
+
           <p className="text-muted mb-4 lead">
-            Necesitas tener una cuenta iniciada para realizar y guardar tu test vocacional.
+            Necesitás tener una cuenta iniciada para realizar y guardar tu test
+            vocacional.
           </p>
+
           <Link to="/perfil" className="btn btn-primary rounded-pill px-5 py-2">
-            Iniciar Sesión o Registrarse
+            Comenzar mi perfil
           </Link>
         </div>
       </main>
     );
   }
 
-  // ESTADO FINALIZADO: Test completado
-  if (isFinished) {
-    return (
-      <main className="container py-5 text-center cp-fade-up">
-        <div className="py-5">
-          <i className="bi bi-check-circle-fill display-1 text-success mb-4 d-block"></i>
-          <h2 className="fw-bold mb-3">¡Test Completado!</h2>
-          <p className="text-muted mb-4 lead">
-            Tus respuestas se han guardado con éxito. Ahora cruzaremos tus datos para mostrarte las mejores opciones.
-          </p>
-          <Link to="/resultados" className="btn btn-success btn-lg rounded-pill px-5">
-            Ver mis Resultados <i className="bi bi-arrow-right ms-2"></i>
-          </Link>
-        </div>
-      </main>
-    );
-  }
-
-  // ESTADO ACTIVO: Mostrando el Test
-  const progress = (currentIndex / questions.length) * 100;
+  const progress = Math.round(((currentIndex + 1) / questions.length) * 100);
 
   return (
     <main className="container py-5">
@@ -93,9 +157,12 @@ export default function Test() {
           <i className="bi bi-clipboard-check me-2"></i>
           Test vocacional
         </span>
+
         <h1 className="fw-bold">Test Vocacional UTN</h1>
+
         <p className="text-muted">
-          Descubrí tu perfil profesional ideal en la UTN Facultad Regional Tucumán.
+          Respondé pensando en tus intereses, habilidades, valores y forma de
+          trabajar.
         </p>
       </header>
 
@@ -103,12 +170,14 @@ export default function Test() {
         <div
           className="progress-bar bg-primary"
           role="progressbar"
-          style={{ width: `${progress}%`, transition: 'width 0.5s ease-in-out' }}
+          style={{ width: `${progress}%`, transition: "width 0.5s ease-in-out" }}
+          aria-valuenow={progress}
+          aria-valuemin="0"
+          aria-valuemax="100"
         ></div>
       </div>
 
       <section>
-        {/* Usamos 'key' para asegurar el re-renderizado de la tarjeta */}
         <QuestionCard
           key={currentIndex}
           question={questions[currentIndex]}
@@ -137,7 +206,7 @@ export default function Test() {
             {currentIndex === questions.length - 1 ? (
               <>
                 <i className="bi bi-flag me-2"></i>
-                Finalizar
+                Finalizar y ver mi ruta
               </>
             ) : (
               <>
