@@ -1,6 +1,3 @@
-cat > src/components/CareerCard.jsx <<'EOF'
-import React from "react";
-
 export default function CareerCard({
   career,
   isFavorite = false,
@@ -81,4 +78,3 @@ export default function CareerCard({
     </article>
   );
 }
-EOF

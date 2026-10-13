@@ -575,4 +575,3 @@ export default function Resultados() {
     </main>
   );
 }
-EOFcat > src/pages/Resultados.jsx <<'EOF'
