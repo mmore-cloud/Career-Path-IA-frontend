@@ -7,11 +7,17 @@ function RouteStep({
   onToggleTema,
   abiertoInicial = false,
 }) {
+  // Controla si la etapa está abierta o cerrada.
   const [abierto, setAbierto] = useState(abiertoInicial);
 
+  // Calcula cuántos temas de esta etapa están completados.
   const completadosEtapa = etapa.temas.filter((tema) =>
-    temasCompletados.includes(tema.id)
+    temasCompletados.includes(tema.id),
   ).length;
+
+  const toggleEtapa = () => {
+    setAbierto((estadoActual) => !estadoActual);
+  };
 
   return (
     <article className="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden cp-route-preview">
@@ -19,7 +25,7 @@ function RouteStep({
         <button
           type="button"
           className="btn w-100 text-start p-4 d-flex align-items-center gap-3"
-          onClick={() => setAbierto(!abierto)}
+          onClick={toggleEtapa}
           aria-expanded={abierto}
         >
           <span className="badge rounded-pill bg-primary px-3 py-2">
@@ -28,29 +34,47 @@ function RouteStep({
           </span>
 
           <span className="flex-grow-1">
-            <span className="d-block fw-bold fs-5">{etapa.titulo}</span>
+            <span className="d-block fw-bold fs-5">
+              {etapa.titulo}
+            </span>
 
             <small className="text-secondary">
               {completadosEtapa} de {etapa.temas.length} temas completados
             </small>
           </span>
 
-          <span className="fs-4 text-primary" aria-hidden="true">
-            <i className={`bi ${abierto ? "bi-chevron-up" : "bi-chevron-down"}`}></i>
+          <span
+            className="fs-4 text-primary"
+            aria-hidden="true"
+          >
+            <i
+              className={`bi ${
+                abierto
+                  ? "bi-chevron-up"
+                  : "bi-chevron-down"
+              }`}
+            ></i>
           </span>
         </button>
       </div>
 
       {abierto && (
         <div className="card-body border-top p-4">
-          <p className="text-secondary mb-4">{etapa.descripcion}</p>
+          <p className="text-secondary mb-4">
+            {etapa.descripcion}
+          </p>
 
           <div className="row g-3">
             {etapa.temas.map((topic) => (
-              <div className="col-12 col-md-6" key={topic.id}>
+              <div
+                className="col-12 col-md-6"
+                key={topic.id}
+              >
                 <RouteTopic
                   topic={topic}
-                  completado={temasCompletados.includes(topic.id)}
+                  completado={temasCompletados.includes(
+                    topic.id,
+                  )}
                   onToggle={onToggleTema}
                 />
               </div>

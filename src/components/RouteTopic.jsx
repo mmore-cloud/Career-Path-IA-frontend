@@ -1,4 +1,9 @@
 function RouteTopic({ topic, completado, onToggle }) {
+  // Marca o desmarca el tema actual.
+  const handleToggle = () => {
+    onToggle(topic.id);
+  };
+
   return (
     <div
       className={`border rounded-3 p-3 h-100 cp-option-card ${
@@ -13,18 +18,25 @@ function RouteTopic({ topic, completado, onToggle }) {
           type="checkbox"
           id={`tema-${topic.id}`}
           checked={completado}
-          onChange={() => onToggle(topic.id)}
+          onChange={handleToggle}
         />
 
-        <label className="form-check-label w-100" htmlFor={`tema-${topic.id}`}>
+        <label
+          className="form-check-label w-100"
+          htmlFor={`tema-${topic.id}`}
+        >
           <span
             className={`fw-semibold d-flex align-items-center gap-2 ${
-              completado ? "text-success" : "text-dark"
+              completado
+                ? "text-success"
+                : "text-dark"
             }`}
           >
             <i
               className={`bi ${
-                completado ? "bi-check-circle-fill" : "bi-circle"
+                completado
+                  ? "bi-check-circle-fill"
+                  : "bi-circle"
               }`}
             ></i>
 
@@ -32,7 +44,9 @@ function RouteTopic({ topic, completado, onToggle }) {
           </span>
 
           <small className="text-secondary">
-            {completado ? "Tema completado" : "Pendiente"}
+            {completado
+              ? "Tema completado"
+              : "Pendiente"}
           </small>
         </label>
       </div>

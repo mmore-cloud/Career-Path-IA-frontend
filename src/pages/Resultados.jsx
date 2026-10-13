@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { carrerasUTN } from "../data/careers";
+import { careers } from "../data/careers";
 import { questions } from "../data/testQuestions";
 import CareerCard from "../components/CareerCard";
 import { useSEO } from "../hooks/useSEO";
@@ -70,13 +70,13 @@ export default function Resultados() {
         setHasTestAnswers(true);
 
         const recommendations = getCareerRecommendations({
-            careers: carrerasUTN,
+            careers: careers,
             user: activeUser,
             answers: answerList,
             limit: 6,
         });
 
-        const finalRecommendations = recommendations.length > 0 ? recommendations : carrerasUTN.slice(0, 4);
+        const finalRecommendations = recommendations.length > 0 ? recommendations : careers.slice(0, 4);
         setRecommendedCareers(finalRecommendations);
 
         localStorage.setItem(RECOMMENDED_CAREERS_KEY, JSON.stringify(finalRecommendations));
