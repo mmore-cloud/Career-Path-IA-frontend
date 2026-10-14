@@ -10,6 +10,8 @@ import {
   getDominantArea,
 } from "../utils/careerMatcher";
 import { buildLearningRouteFromCareer } from "../utils/learningRouteBuilder";
+// IMPORTAMOS EL HOOK QUE CREÓ LEANDRO (Parte 2)
+import { useOportunidadesApi } from "../hooks/useOportunidadesApi";
 
 const TEST_ANSWERS_KEY = "careerpath_test_answers";
 const RECOMMENDED_CAREERS_KEY = "careerpath_recommended_careers";
@@ -58,6 +60,9 @@ export default function Resultados() {
   });
 
   const { activeUser, isAuthenticated, isLoadingAuth } = useLocalAuth();
+  
+  // TRAEMOS LOS DATOS DE LA API (Tu parte integrando la Parte 2)
+  const { oportunidades, cargando, error } = useOportunidadesApi();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedArea, setSelectedArea] = useState("");
@@ -399,6 +404,88 @@ export default function Resultados() {
           ))
         )}
       </section>
+
+      <section className="mt-5 pt-4 border-top cp-fade-up">
+        <div className="mb-4">
+          <h2 className="fw-bold h3 mb-2">
+            <i className="bi bi-briefcase-fill text-primary me-2"></i>
+            Oportunidades Laborales y Futuro Profesional
+          </h2>
+          <p className="text-muted">
+            Explorá el mercado laboral actual con empleos reales traídos directamente desde <strong>The Muse</strong>. 
+            ¡Mirá hacia dónde puede llevarte tu carrera!
+          </p>
+        </div>
+
+        {/* 1. Estado de carga */}
+        {cargando ? (
+          <div className="text-center py-5 bg-light rounded-4 border border-light-subtle">
+            <div className="spinner-border text-primary mb-3" role="status">
+              <span className="visually-hidden">Cargando oportunidades...</span>
+            </div>
+            <p className="text-muted mb-0">Buscando las mejores oportunidades laborales para vos...</p>
+          </div>
+        ) : error ? (
+          /* 2. Estado de error */
+          <div className="alert alert-danger rounded-4 d-flex align-items-center">
+            <i className="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
+            <div>
+              <strong>No pudimos cargar los empleos.</strong><br />
+              {error}
+            </div>
+          </div>
+        ) : oportunidades.length === 0 ? (
+          /* 3. Estado vacío (sin datos) */
+          <div className="alert alert-info rounded-4 d-flex align-items-center">
+            <i className="bi bi-info-circle-fill fs-4 me-3"></i>
+            <div>
+              <strong>Sin resultados.</strong><br />
+              No hay oportunidades laborales disponibles en este momento para mostrar.
+            </div>
+          </div>
+        ) : (
+          /* 4. Visualización de los datos (Tarjetas) */
+          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {/* Solo mostramos las primeras 6 para no saturar la pantalla */}
+            {oportunidades.slice(0, 6).map((job, index) => (
+              <div className="col" key={job.id || index}>
+                <div className="card h-100 shadow-sm border-0 rounded-4 transition-all">
+                  <div className="card-body p-4 d-flex flex-column">
+                    <span className="badge bg-primary-subtle text-primary border border-primary-subtle mb-3 align-self-start">
+                      {job.categories?.[0]?.name || "Tecnología y Negocios"}
+                    </span>
+                    
+                    <h3 className="h6 fw-bold mb-2 text-dark lh-base">
+                      {job.name}
+                    </h3>
+                    
+                    <div className="text-muted small mb-4">
+                      <div className="mb-1">
+                        <i className="bi bi-building me-2"></i>
+                        <span className="fw-medium">{job.company?.name || "Empresa Confidencial"}</span>
+                      </div>
+                      <div>
+                        <i className="bi bi-geo-alt me-2"></i>
+                        {job.locations?.[0]?.name || "Remoto / No especificado"}
+                      </div>
+                    </div>
+
+                    <a 
+                      href={job.refs?.landing_page || "#"} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="btn btn-outline-primary rounded-pill mt-auto w-100"
+                    >
+                      Ver postulación <i className="bi bi-box-arrow-up-right ms-2"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+      {/* FIN DE LA SECCIÓN DE LA API */}
 
       {toastMessage && (
         <div className="res-toast-careerpath visible" role="status">
