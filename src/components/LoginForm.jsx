@@ -61,9 +61,7 @@ function LoginForm({ onLogin, onRegister, authError, isLoading }) {
               </span>
 
               <h1 className="h3 fw-bold mb-3">
-                {mode === "login"
-                  ? "Iniciar sesión"
-                  : "Crear cuenta"}
+                {mode === "login" ? "Iniciar sesión" : "Crear cuenta"}
               </h1>
 
               <p className="text-secondary mb-0">
@@ -107,7 +105,10 @@ function LoginForm({ onLogin, onRegister, authError, isLoading }) {
             {mode === "login" && (
               <form onSubmit={handleLoginSubmit} className="cp-fade-up">
                 <div className="mb-3">
-                  <label className="form-label fw-semibold" htmlFor="loginEmail">
+                  <label
+                    className="form-label fw-semibold"
+                    htmlFor="loginEmail"
+                  >
                     <i className="bi bi-envelope me-2 text-primary"></i>
                     Gmail
                   </label>
@@ -229,18 +230,6 @@ function LoginForm({ onLogin, onRegister, authError, isLoading }) {
                 </button>
               </form>
             )}
-
-            <div className="mt-4 p-3 bg-light rounded-4">
-              <p className="fw-semibold mb-2">
-                <i className="bi bi-people me-2 text-primary"></i>
-                Usuarios precargados
-              </p>
-
-              <p className="small text-secondary mb-0">
-                Ya hay 5 usuarios locales cargados. Todos usan la contraseña{" "}
-                <strong>123456</strong>.
-              </p>
-            </div>
           </div>
         </article>
       </div>

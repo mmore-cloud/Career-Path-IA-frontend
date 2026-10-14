@@ -1,56 +1,40 @@
 function RouteTopic({ topic, completado, onToggle }) {
-  // Marca o desmarca el tema actual.
   const handleToggle = () => {
     onToggle(topic.id);
   };
 
   return (
-    <div
-      className={`border rounded-3 p-3 h-100 cp-option-card ${
+    <label
+      className={`border rounded-3 p-3 h-100 d-flex align-items-start gap-3 shadow-sm ${
         completado
           ? "border-success bg-success-subtle"
-          : "border-light-subtle bg-white"
+          : "border-secondary-subtle bg-body-tertiary"
       }`}
+      htmlFor={`tema-${topic.id}`}
+      style={{ cursor: "pointer" }}
     >
-      <div className="form-check d-flex align-items-start gap-2 mb-0">
-        <input
-          className="form-check-input mt-1"
-          type="checkbox"
-          id={`tema-${topic.id}`}
-          checked={completado}
-          onChange={handleToggle}
-        />
+      <input
+        className="form-check-input mt-1"
+        type="checkbox"
+        id={`tema-${topic.id}`}
+        checked={completado}
+        onChange={handleToggle}
+      />
 
-        <label
-          className="form-check-label w-100"
-          htmlFor={`tema-${topic.id}`}
+      <span className="d-block">
+        <span
+          className={`d-block fw-semibold ${
+            completado ? "text-success" : "text-body"
+          }`}
         >
-          <span
-            className={`fw-semibold d-flex align-items-center gap-2 ${
-              completado
-                ? "text-success"
-                : "text-dark"
-            }`}
-          >
-            <i
-              className={`bi ${
-                completado
-                  ? "bi-check-circle-fill"
-                  : "bi-circle"
-              }`}
-            ></i>
+          {topic.nombre}
+        </span>
 
-            {topic.nombre}
-          </span>
-
-          <small className="text-secondary">
-            {completado
-              ? "Tema completado"
-              : "Pendiente"}
-          </small>
-        </label>
-      </div>
-    </div>
+        <small className="text-secondary">
+          {completado ? "Aprobada / promocionada" : "Pendiente"}
+        </small>
+      </span>
+    </label>
   );
 }
 

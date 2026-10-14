@@ -9,6 +9,7 @@ export function useThemeMode() {
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.setAttribute("data-bs-theme", theme);
     document.body.classList.toggle("dark-mode", theme === "dark");
     localStorage.setItem(THEME_KEY, theme);
   }, [theme]);

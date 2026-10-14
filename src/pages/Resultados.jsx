@@ -10,8 +10,6 @@ import {
   getDominantArea,
 } from "../utils/careerMatcher";
 import { buildLearningRouteFromCareer } from "../utils/learningRouteBuilder";
-// IMPORTAMOS EL HOOK QUE CREÓ LEANDRO (Parte 2)
-import { useOportunidadesApi } from "../hooks/useOportunidadesApi";
 
 const TEST_ANSWERS_KEY = "careerpath_test_answers";
 const RECOMMENDED_CAREERS_KEY = "careerpath_recommended_careers";
@@ -60,9 +58,6 @@ export default function Resultados() {
   });
 
   const { activeUser, isAuthenticated, isLoadingAuth } = useLocalAuth();
-  
-  // TRAEMOS LOS DATOS DE LA API (Tu parte integrando la Parte 2)
-  const { oportunidades, cargando, error } = useOportunidadesApi();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedArea, setSelectedArea] = useState("");
@@ -72,6 +67,8 @@ export default function Resultados() {
   const [favorites, setFavorites] = useState(readFavorites);
   const [selectedCareer, setSelectedCareer] = useState(null);
   const [toastMessage, setToastMessage] = useState("");
+  const [openPlanIndex, setOpenPlanIndex] = useState(null);
+  const [showCareerSites, setShowCareerSites] = useState(false);
 
   useEffect(() => {
     if (isLoadingAuth || !activeUser) {
@@ -100,7 +97,7 @@ export default function Resultados() {
     const answerList = Object.entries(rawAnswers)
       .map(
         ([questionIndex, optionIndex]) =>
-          questions[Number(questionIndex)]?.options?.[optionIndex]
+          questions[Number(questionIndex)]?.options?.[optionIndex],
       )
       .filter(Boolean);
 
@@ -122,19 +119,20 @@ export default function Resultados() {
     const finalRecommendationsRaw =
       recommendations.length > 0 ? recommendations : careers.slice(0, 4);
 
-    const finalRecommendations = finalRecommendationsRaw.map(adaptCareerForCard);
+    const finalRecommendations =
+      finalRecommendationsRaw.map(adaptCareerForCard);
 
     setRecommendedCareers(finalRecommendations);
 
     localStorage.setItem(
       RECOMMENDED_CAREERS_KEY,
-      JSON.stringify(finalRecommendations)
+      JSON.stringify(finalRecommendations),
     );
 
     const dominantArea = getDominantArea(answerList);
     const learningRoute = buildLearningRouteFromCareer(
       finalRecommendations[0],
-      dominantArea
+      dominantArea,
     );
 
     if (learningRoute) {
@@ -154,6 +152,20 @@ export default function Resultados() {
     return () => clearTimeout(timeout);
   }, [toastMessage]);
 
+  useEffect(() => {
+    if (selectedCareer) {
+      setOpenPlanIndex(null);
+      setShowCareerSites(false);
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [selectedCareer]);
+
   const filteredCareers = useMemo(() => {
     const normalizedSearch = normalizeText(searchTerm);
     const normalizedSelectedArea = normalizeText(selectedArea);
@@ -172,7 +184,7 @@ export default function Resultados() {
             career?.modalidad,
             career?.planNombre,
             career?.facultades?.join(" "),
-          ].join(" ")
+          ].join(" "),
         );
 
         const matchesSearch =
@@ -215,6 +227,12 @@ export default function Resultados() {
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(updatedFavorites));
   };
 
+  const handleRetakeTest = () => {
+    localStorage.removeItem(TEST_ANSWERS_KEY);
+    localStorage.removeItem(RECOMMENDED_CAREERS_KEY);
+    localStorage.removeItem(LEARNING_ROUTE_KEY);
+  };
+
   const closeModal = () => {
     setSelectedCareer(null);
   };
@@ -236,7 +254,7 @@ export default function Resultados() {
 
         <h1 className="fw-bold">Primero iniciá sesión</h1>
 
-        <p className="text-muted">
+        <p className="text-secondary">
           Necesitás iniciar sesión o crear una cuenta para generar tus
           resultados.
         </p>
@@ -256,7 +274,7 @@ export default function Resultados() {
 
         <h1 className="fw-bold">Todavía no hiciste el test</h1>
 
-        <p className="text-muted">
+        <p className="text-secondary">
           Completá el test vocacional para ver tus carreras recomendadas.
         </p>
 
@@ -279,15 +297,19 @@ export default function Resultados() {
 
           <h1 className="fw-bold mb-1">Resultados de tu Test Vocacional</h1>
 
-          <p className="text-muted mb-0">
+          <p className="text-secondary mb-0">
             Hola {activeUser?.nombre ?? "usuario"}, estas son las carreras
             recomendadas según tus respuestas.
           </p>
         </div>
 
-        <Link to="/test" className="btn btn-outline-primary rounded-pill">
+        <Link
+          to="/test"
+          className="btn btn-outline-primary rounded-pill"
+          onClick={handleRetakeTest}
+        >
           <i className="bi bi-arrow-repeat me-2"></i>
-          Repetir Test
+          Rehacer test
         </Link>
       </header>
 
@@ -339,7 +361,11 @@ export default function Resultados() {
             Vista
           </label>
 
-          <div className="btn-group w-100" role="group" aria-label="Cambiar vista">
+          <div
+            className="btn-group w-100"
+            role="group"
+            aria-label="Cambiar vista"
+          >
             <button
               className={`btn btn-outline-primary ${
                 viewMode === "grid" ? "active" : ""
@@ -364,7 +390,7 @@ export default function Resultados() {
       </section>
 
       <section className="mb-3 cp-fade-up">
-        <p className="text-muted mb-0">
+        <p className="text-secondary mb-0">
           <i className="bi bi-list-check me-2 text-primary"></i>
           Carreras recomendadas encontradas:{" "}
           <strong>{filteredCareers.length}</strong>
@@ -405,88 +431,6 @@ export default function Resultados() {
         )}
       </section>
 
-      <section className="mt-5 pt-4 border-top cp-fade-up">
-        <div className="mb-4">
-          <h2 className="fw-bold h3 mb-2">
-            <i className="bi bi-briefcase-fill text-primary me-2"></i>
-            Oportunidades Laborales y Futuro Profesional
-          </h2>
-          <p className="text-muted">
-            Explorá el mercado laboral actual con empleos reales traídos directamente desde <strong>The Muse</strong>. 
-            ¡Mirá hacia dónde puede llevarte tu carrera!
-          </p>
-        </div>
-
-        {/* 1. Estado de carga */}
-        {cargando ? (
-          <div className="text-center py-5 bg-light rounded-4 border border-light-subtle">
-            <div className="spinner-border text-primary mb-3" role="status">
-              <span className="visually-hidden">Cargando oportunidades...</span>
-            </div>
-            <p className="text-muted mb-0">Buscando las mejores oportunidades laborales para vos...</p>
-          </div>
-        ) : error ? (
-          /* 2. Estado de error */
-          <div className="alert alert-danger rounded-4 d-flex align-items-center">
-            <i className="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
-            <div>
-              <strong>No pudimos cargar los empleos.</strong><br />
-              {error}
-            </div>
-          </div>
-        ) : oportunidades.length === 0 ? (
-          /* 3. Estado vacío (sin datos) */
-          <div className="alert alert-info rounded-4 d-flex align-items-center">
-            <i className="bi bi-info-circle-fill fs-4 me-3"></i>
-            <div>
-              <strong>Sin resultados.</strong><br />
-              No hay oportunidades laborales disponibles en este momento para mostrar.
-            </div>
-          </div>
-        ) : (
-          /* 4. Visualización de los datos (Tarjetas) */
-          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            {/* Solo mostramos las primeras 6 para no saturar la pantalla */}
-            {oportunidades.slice(0, 6).map((job, index) => (
-              <div className="col" key={job.id || index}>
-                <div className="card h-100 shadow-sm border-0 rounded-4 transition-all">
-                  <div className="card-body p-4 d-flex flex-column">
-                    <span className="badge bg-primary-subtle text-primary border border-primary-subtle mb-3 align-self-start">
-                      {job.categories?.[0]?.name || "Tecnología y Negocios"}
-                    </span>
-                    
-                    <h3 className="h6 fw-bold mb-2 text-dark lh-base">
-                      {job.name}
-                    </h3>
-                    
-                    <div className="text-muted small mb-4">
-                      <div className="mb-1">
-                        <i className="bi bi-building me-2"></i>
-                        <span className="fw-medium">{job.company?.name || "Empresa Confidencial"}</span>
-                      </div>
-                      <div>
-                        <i className="bi bi-geo-alt me-2"></i>
-                        {job.locations?.[0]?.name || "Remoto / No especificado"}
-                      </div>
-                    </div>
-
-                    <a 
-                      href={job.refs?.landing_page || "#"} 
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="btn btn-outline-primary rounded-pill mt-auto w-100"
-                    >
-                      Ver postulación <i className="bi bi-box-arrow-up-right ms-2"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
-      {/* FIN DE LA SECCIÓN DE LA API */}
-
       {toastMessage && (
         <div className="res-toast-careerpath visible" role="status">
           <i className="bi bi-info-circle me-2"></i>
@@ -496,115 +440,176 @@ export default function Resultados() {
 
       {selectedCareer && (
         <div
-          className="modal fade show d-block cp-modal-backdrop"
-          tabIndex="-1"
+          className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center p-3 bg-dark bg-opacity-75"
+          style={{
+            zIndex: 2000,
+            backdropFilter: "blur(8px)",
+          }}
           role="dialog"
           aria-modal="true"
+          onClick={closeModal}
         >
-          <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div className="modal-content border-0 rounded-4">
-              <div className="modal-header">
+          <article
+            className="card border-0 shadow-lg rounded-4 w-100"
+            style={{ maxWidth: "680px" }}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="card-body p-3 p-md-4">
+              <div className="d-flex justify-content-between align-items-start gap-3 mb-3">
                 <div>
                   <span className="badge rounded-pill text-bg-primary mb-2">
                     <i className="bi bi-mortarboard me-2"></i>
                     {getCareerArea(selectedCareer)}
                   </span>
 
-                  <h2 className="modal-title h4 fw-bold">
+                  <h2 className="h4 fw-bold mb-0">
                     {getCareerTitle(selectedCareer)}
                   </h2>
                 </div>
 
                 <button
                   type="button"
-                  className="btn-close"
+                  className="btn btn-sm btn-outline-secondary rounded-circle flex-shrink-0"
                   aria-label="Cerrar"
                   onClick={closeModal}
-                ></button>
+                >
+                  <i className="bi bi-x-lg"></i>
+                </button>
               </div>
 
-              <div className="modal-body">
-                <p className="text-secondary">
-                  {getCareerDescription(selectedCareer)}
-                </p>
+              <p className="text-secondary small mb-3">
+                {getCareerDescription(selectedCareer)}
+              </p>
 
-                <div className="row g-3 my-3">
-                  <div className="col-md-4">
-                    <div className="cp-detail-card">
-                      <i className="bi bi-clock text-primary"></i>
-                      <span>Duración</span>
-                      <strong>{selectedCareer.duracion ?? "No especificada"}</strong>
-                    </div>
-                  </div>
+              <div className="row g-2 mb-3">
+                <div className="col-4">
+                  <div className="bg-body-tertiary border rounded-3 p-2 h-100">
+                    <i className="bi bi-clock text-primary d-block mb-1"></i>
 
-                  <div className="col-md-4">
-                    <div className="cp-detail-card">
-                      <i className="bi bi-display text-primary"></i>
-                      <span>Modalidad</span>
-                      <strong>{selectedCareer.modalidad ?? "No especificada"}</strong>
-                    </div>
-                  </div>
+                    <small className="text-secondary d-block">Duración</small>
 
-                  <div className="col-md-4">
-                    <div className="cp-detail-card">
-                      <i className="bi bi-award text-primary"></i>
-                      <span>Tipo</span>
-                      <strong>{selectedCareer.subtipo ?? selectedCareer.tipo ?? "UTN"}</strong>
-                    </div>
+                    <strong className="small">
+                      {selectedCareer.duracion ?? "No especificada"}
+                    </strong>
                   </div>
                 </div>
 
-                <h3 className="h6 fw-bold mt-4">
-                  <i className="bi bi-building me-2 text-primary"></i>
-                  Facultades
-                </h3>
+                <div className="col-4">
+                  <div className="bg-body-tertiary border rounded-3 p-2 h-100">
+                    <i className="bi bi-display text-primary d-block mb-1"></i>
 
-                <div className="d-flex flex-wrap gap-2 mb-4">
+                    <small className="text-secondary d-block">Modalidad</small>
+
+                    <strong className="small">
+                      {selectedCareer.modalidad ?? "No especificada"}
+                    </strong>
+                  </div>
+                </div>
+
+                <div className="col-4">
+                  <div className="bg-body-tertiary border rounded-3 p-2 h-100">
+                    <i className="bi bi-award text-primary d-block mb-1"></i>
+
+                    <small className="text-secondary d-block">Tipo</small>
+
+                    <strong className="small">
+                      {selectedCareer.subtipo ?? selectedCareer.tipo ?? "UTN"}
+                    </strong>
+                  </div>
+                </div>
+              </div>
+
+              <div className="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-secondary rounded-pill"
+                  onClick={() =>
+                    setShowCareerSites((currentValue) => !currentValue)
+                  }
+                >
+                  <i className="bi bi-building me-2"></i>
+                  {showCareerSites ? "Ocultar facultades" : "Ver facultades"}
+                </button>
+
+                <small className="text-secondary">
+                  {selectedCareer.facultades?.length ?? 0} sede/s cargada/s
+                </small>
+              </div>
+
+              {showCareerSites && (
+                <div className="d-flex flex-wrap gap-1 mb-3">
                   {selectedCareer.facultades?.length > 0 ? (
                     selectedCareer.facultades.map((sede) => (
-                      <span className="badge rounded-pill text-bg-light" key={sede}>
+                      <span
+                        className="badge rounded-pill text-bg-secondary"
+                        key={sede}
+                      >
                         {sede}
                       </span>
                     ))
                   ) : (
-                    <span className="text-muted small">
+                    <span className="text-secondary small">
                       Consultar disponibilidad en la UTN.
                     </span>
                   )}
                 </div>
+              )}
 
-                <h3 className="h6 fw-bold">
-                  <i className="bi bi-journal-text me-2 text-primary"></i>
-                  {selectedCareer.planNombre ?? "Plan de estudios"}
-                </h3>
+              <div className="border rounded-3 overflow-hidden mb-3">
+                <div className="bg-body-tertiary px-3 py-2 border-bottom">
+                  <div className="d-flex justify-content-between align-items-center gap-2">
+                    <h3 className="h6 fw-bold mb-0">
+                      <i className="bi bi-journal-text me-2 text-primary"></i>
+                      {selectedCareer.planNombre ?? "Plan de estudios"}
+                    </h3>
+
+                    <small className="text-secondary d-none d-sm-inline">
+                      Tocá un año para ver materias
+                    </small>
+                  </div>
+                </div>
 
                 {selectedCareer.planEstudios?.length > 0 ? (
-                  <div className="accordion" id="accordionPlanCarrera">
+                  <div
+                    className="accordion accordion-flush"
+                    id="accordionPlanCarrera"
+                  >
                     {selectedCareer.planEstudios.map((bloque, index) => {
                       const collapseId = `planCarrera${index}`;
+                      const isOpen = openPlanIndex === index;
 
                       return (
                         <div className="accordion-item" key={collapseId}>
                           <h4 className="accordion-header">
                             <button
-                              className="accordion-button collapsed"
+                              className={`accordion-button py-2 ${
+                                isOpen ? "" : "collapsed"
+                              }`}
                               type="button"
-                              data-bs-toggle="collapse"
-                              data-bs-target={`#${collapseId}`}
+                              onClick={() =>
+                                setOpenPlanIndex(isOpen ? null : index)
+                              }
+                              aria-expanded={isOpen}
+                              aria-controls={collapseId}
                             >
-                              {bloque.nivel}
+                              <span className="fw-semibold small">
+                                {bloque.nivel ?? `Año ${index + 1}`}
+                              </span>
                             </button>
                           </h4>
 
                           <div
                             id={collapseId}
-                            className="accordion-collapse collapse"
-                            data-bs-parent="#accordionPlanCarrera"
+                            className={`accordion-collapse collapse ${
+                              isOpen ? "show" : ""
+                            }`}
                           >
-                            <div className="accordion-body">
-                              <ul className="mb-0">
-                                {bloque.materias?.map((materia) => (
-                                  <li key={materia}>{materia}</li>
+                            <div className="accordion-body py-2">
+                              <ul className="mb-0 small ps-3">
+                                {(bloque.materias ?? []).map((materia) => (
+                                  <li className="mb-1" key={materia}>
+                                    {materia}
+                                  </li>
                                 ))}
                               </ul>
                             </div>
@@ -614,7 +619,7 @@ export default function Resultados() {
                     })}
                   </div>
                 ) : (
-                  <div className="alert alert-info rounded-4">
+                  <div className="alert alert-info rounded-0 mb-0 py-2 small">
                     <i className="bi bi-info-circle me-2"></i>
                     El detalle del plan todavía no está cargado. Podés consultar
                     la fuente oficial de la UTN.
@@ -622,13 +627,13 @@ export default function Resultados() {
                 )}
               </div>
 
-              <div className="modal-footer">
+              <div className="d-flex flex-wrap justify-content-end gap-2">
                 {selectedCareer.fuenteOficial && (
                   <a
                     href={selectedCareer.fuenteOficial}
                     target="_blank"
                     rel="noreferrer"
-                    className="btn btn-outline-primary rounded-pill"
+                    className="btn btn-outline-primary btn-sm rounded-pill"
                   >
                     <i className="bi bi-box-arrow-up-right me-2"></i>
                     Fuente oficial
@@ -640,7 +645,7 @@ export default function Resultados() {
                     href={selectedCareer.planUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="btn btn-primary rounded-pill"
+                    className="btn btn-primary btn-sm rounded-pill"
                   >
                     <i className="bi bi-journal-bookmark me-2"></i>
                     Ver plan
@@ -649,14 +654,14 @@ export default function Resultados() {
 
                 <button
                   type="button"
-                  className="btn btn-secondary rounded-pill"
+                  className="btn btn-secondary btn-sm rounded-pill"
                   onClick={closeModal}
                 >
                   Cerrar
                 </button>
               </div>
             </div>
-          </div>
+          </article>
         </div>
       )}
     </main>

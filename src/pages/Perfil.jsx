@@ -7,6 +7,10 @@ import { useLocalAuth } from "../hooks/useLocalAuth";
 import { getCareerRecommendations } from "../utils/careerMatcher";
 import { buildLearningRouteFromCareer } from "../utils/learningRouteBuilder";
 
+const TEST_ANSWERS_KEY = "careerpath_test_answers";
+const RECOMMENDED_CAREERS_KEY = "careerpath_recommended_careers";
+const LEARNING_ROUTE_KEY = "careerpath_learning_route";
+
 function Perfil() {
   const {
     activeUser,
@@ -39,9 +43,24 @@ function Perfil() {
   }, [activeUser, hasVocationalData]);
 
   useEffect(() => {
+    const hasStoredTest = Boolean(localStorage.getItem(TEST_ANSWERS_KEY));
+
+    if (hasStoredTest) {
+      try {
+        const storedRoute = JSON.parse(
+          localStorage.getItem(LEARNING_ROUTE_KEY),
+        );
+        setLearningRoute(storedRoute);
+      } catch {
+        setLearningRoute(null);
+      }
+
+      return;
+    }
+
     if (recommendations.length === 0) {
-      localStorage.removeItem("careerpath_recommended_careers");
-      localStorage.removeItem("careerpath_learning_route");
+      localStorage.removeItem(RECOMMENDED_CAREERS_KEY);
+      localStorage.removeItem(LEARNING_ROUTE_KEY);
       setLearningRoute(null);
       return;
     }
@@ -51,18 +70,15 @@ function Perfil() {
     setLearningRoute(generatedRoute);
 
     localStorage.setItem(
-      "careerpath_recommended_careers",
-      JSON.stringify(recommendations)
+      RECOMMENDED_CAREERS_KEY,
+      JSON.stringify(recommendations),
     );
 
-    localStorage.setItem(
-      "careerpath_learning_route",
-      JSON.stringify(generatedRoute)
-    );
+    localStorage.setItem(LEARNING_ROUTE_KEY, JSON.stringify(generatedRoute));
   }, [recommendations]);
 
   return (
-    <section className="py-5 bg-light cp-profile-section">
+    <section className="py-5 bg-body-tertiary cp-profile-section">
       <div className="container">
         <SectionTitle
           etiqueta="Mi perfil"

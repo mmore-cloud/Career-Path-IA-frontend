@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+
+const TEST_ANSWERS_KEY = "careerpath_test_answers";
+const RECOMMENDED_CAREERS_KEY = "careerpath_recommended_careers";
 
 function UserProfileSummary({
   user,
@@ -14,12 +17,28 @@ function UserProfileSummary({
     habilidades: "",
   });
 
+  const [hasCompletedTest, setHasCompletedTest] = useState(false);
+  const [savedRecommendations, setSavedRecommendations] = useState([]);
+
   useEffect(() => {
     setProfileData({
       intereses: user.intereses?.join(", ") ?? "",
       habilidades: user.habilidades?.join(", ") ?? "",
     });
   }, [user]);
+
+  useEffect(() => {
+    setHasCompletedTest(Boolean(localStorage.getItem(TEST_ANSWERS_KEY)));
+
+    try {
+      const storedRecommendations =
+        JSON.parse(localStorage.getItem(RECOMMENDED_CAREERS_KEY)) || [];
+
+      setSavedRecommendations(storedRecommendations);
+    } catch {
+      setSavedRecommendations([]);
+    }
+  }, [user.id]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -51,6 +70,14 @@ function UserProfileSummary({
 
   const hasProfileData =
     user.intereses?.length > 0 || user.habilidades?.length > 0;
+
+  const careersToShow = useMemo(() => {
+    if (savedRecommendations.length > 0) {
+      return savedRecommendations.slice(0, 4);
+    }
+
+    return recommendations.slice(0, 4);
+  }, [savedRecommendations, recommendations]);
 
   return (
     <article className="card border-0 shadow-sm rounded-4 cp-profile-card cp-fade-up">
@@ -93,7 +120,7 @@ function UserProfileSummary({
 
         <section className="row g-4 mb-4">
           <div className="col-md-6">
-            <div className="p-3 bg-light rounded-4 h-100 cp-info-card">
+            <div className="p-3 bg-body-tertiary rounded-4 h-100 cp-info-card">
               <p className="text-secondary small mb-1">
                 <i className="bi bi-envelope me-2"></i>
                 Gmail
@@ -104,21 +131,25 @@ function UserProfileSummary({
           </div>
 
           <div className="col-md-6">
-            <div className="p-3 bg-light rounded-4 h-100 cp-info-card">
+            <div className="p-3 bg-body-tertiary rounded-4 h-100 cp-info-card">
               <p className="text-secondary small mb-1">
                 <i className="bi bi-check-circle me-2"></i>
                 Estado
               </p>
 
               <p className="fw-semibold mb-0">
-                {hasProfileData ? "Perfil iniciado" : "Perfil pendiente"}
+                {hasCompletedTest
+                  ? "Test vocacional completado"
+                  : hasProfileData
+                    ? "Perfil iniciado"
+                    : "Perfil pendiente"}
               </p>
             </div>
           </div>
         </section>
 
         <form
-          className="p-4 rounded-4 bg-light mb-4 cp-profile-form"
+          className="p-4 rounded-4 bg-body-tertiary mb-4 cp-profile-form"
           onSubmit={handleSubmit}
         >
           <h2 className="h5 fw-bold mb-3">
@@ -224,46 +255,69 @@ function UserProfileSummary({
           </h2>
 
           <p className="text-white-50 mb-3">
-            Después de cargar tus datos, podés iniciar el test. Más adelante las
-            respuestas se usarán para mostrar resultados en el perfil y generar
-            la ruta de aprendizaje.
+            {hasCompletedTest
+              ? "Ya completaste el test. Podés revisar tus resultados o continuar con tu ruta de aprendizaje."
+              : "Después de cargar tus datos, podés iniciar el test. Las respuestas se usarán para mostrar resultados en el perfil y generar la ruta de aprendizaje."}
           </p>
 
-          <Link
-            className={`btn rounded-pill fw-semibold cp-btn-animated ${
-              hasProfileData ? "btn-info" : "btn-outline-light disabled"
-            }`}
-            to="/test"
-          >
-            <i className="bi bi-play-circle me-2"></i>
-            Iniciar test
-          </Link>
+          {hasCompletedTest ? (
+            <div className="d-flex flex-column flex-sm-row gap-2">
+              <Link
+                className="btn btn-info rounded-pill fw-semibold cp-btn-animated"
+                to="/resultados"
+              >
+                <i className="bi bi-stars me-2"></i>
+                Ver resultados
+              </Link>
+
+              <Link
+                className="btn btn-outline-light rounded-pill fw-semibold cp-btn-animated"
+                to="/ruta"
+              >
+                <i className="bi bi-signpost-split me-2"></i>
+                Ver mi ruta
+              </Link>
+            </div>
+          ) : (
+            <Link
+              className="btn btn-info rounded-pill fw-semibold cp-btn-animated"
+              to="/test"
+            >
+              <i className="bi bi-play-circle me-2"></i>
+              Realizar test
+            </Link>
+          )}
         </section>
 
-        {recommendations.length > 0 && (
+        {hasCompletedTest && careersToShow.length > 0 && (
           <section className="mb-4">
             <h2 className="h5 fw-bold mb-3">
               <i className="bi bi-mortarboard text-primary me-2"></i>
-              Carreras recomendadas
+              Resumen de carreras recomendadas
             </h2>
 
             <div className="row g-3">
-              {recommendations.map((career, index) => (
-                <div className="col-md-6" key={career.id}>
+              {careersToShow.map((career, index) => (
+                <div className="col-md-6" key={career.id ?? career.titulo}>
                   <article
-                    className="card h-100 border-0 bg-light rounded-4 cp-career-card"
+                    className="card h-100 border-0 bg-body-tertiary rounded-4 cp-career-card"
                     style={{ animationDelay: `${index * 80}ms` }}
                   >
                     <div className="card-body p-4">
                       <span className="badge rounded-pill text-bg-primary mb-3">
                         <i className="bi bi-graph-up-arrow me-2"></i>
-                        Puntaje {career.score}
+                        {career.score
+                          ? `Puntaje ${career.score}`
+                          : "Recomendada"}
                       </span>
 
-                      <h3 className="h6 fw-bold">{career.titulo}</h3>
+                      <h3 className="h6 fw-bold">
+                        {career.titulo ?? career.nombre}
+                      </h3>
 
                       <p className="small text-secondary mb-2">
-                        {career.descripcion}
+                        {career.descripcion ??
+                          "Carrera recomendada según tu perfil vocacional."}
                       </p>
 
                       <p className="small mb-1">
@@ -282,25 +336,6 @@ function UserProfileSummary({
                 </div>
               ))}
             </div>
-          </section>
-        )}
-
-        {learningRoute && (
-          <section className="p-4 rounded-4 border bg-white cp-route-preview">
-            <h2 className="h5 fw-bold mb-3">
-              <i className="bi bi-signpost-split text-primary me-2"></i>
-              Base para Mi Ruta
-            </h2>
-
-            <p className="text-secondary mb-3">
-              Se dejó preparada una ruta inicial para que la página Mi Ruta la
-              pueda leer desde <code>localStorage</code>.
-            </p>
-
-            <p className="mb-0">
-              <i className="bi bi-list-check me-2 text-primary"></i>
-              <strong>Cantidad de etapas:</strong> {learningRoute.steps.length}
-            </p>
           </section>
         )}
       </div>

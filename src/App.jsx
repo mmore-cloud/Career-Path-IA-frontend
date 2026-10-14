@@ -13,7 +13,7 @@ import NotFound from "./pages/NotFound";
 
 function App() {
   return (
-    <div className="d-flex flex-column min-vh-100 bg-light">
+    <div className="d-flex flex-column min-vh-100 bg-body">
       <ScrollToTop />
 
       <AppNavbar />
