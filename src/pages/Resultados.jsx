@@ -10,6 +10,7 @@ import {
   getDominantArea,
 } from "../utils/careerMatcher";
 import { buildLearningRouteFromCareer } from "../utils/learningRouteBuilder";
+import { useOportunidadesApi } from "../hooks/useOportunidadesApi";
 
 const TEST_ANSWERS_KEY = "careerpath_test_answers";
 const RECOMMENDED_CAREERS_KEY = "careerpath_recommended_careers";
@@ -41,6 +42,255 @@ const adaptCareerForCard = (career) => ({
   modalidad: career?.modalidad ?? "No especificada",
 });
 
+const getProfileValueText = (value) => {
+  if (value == null) {
+    return "";
+  }
+
+  if (typeof value === "string" || typeof value === "number") {
+    return String(value);
+  }
+
+  if (Array.isArray(value)) {
+    return value.map(getProfileValueText).filter(Boolean).join(" ");
+  }
+
+  if (typeof value === "object") {
+    return [
+      value.texto,
+      value.text,
+      value.label,
+      value.nombre,
+      value.titulo,
+      value.descripcion,
+      value.area,
+      value.tipo,
+      value.subtipo,
+      value.valor,
+      value.value,
+      value.category,
+      value.categoria,
+    ]
+      .map(getProfileValueText)
+      .filter(Boolean)
+      .join(" ");
+  }
+
+  return String(value);
+};
+
+const JOB_SEARCH_RULES = [
+  {
+    terms: [
+      "sistemas",
+      "software",
+      "programacion",
+      "programador",
+      "informatica",
+      "codigo",
+      "aplicaciones",
+      "web",
+      "frontend",
+      "backend",
+      "desarrollo",
+      "logica",
+      "algoritmo",
+      "algoritmos",
+    ],
+    keyword: "software developer systems analyst web developer",
+    label: "Software, sistemas y desarrollo web",
+    icon: "bi-code-slash",
+  },
+  {
+    terms: [
+      "datos",
+      "data",
+      "estadistica",
+      "analisis",
+      "analitica",
+      "reportes",
+      "metricas",
+      "matematica",
+      "probabilidad",
+      "base de datos",
+      "bases de datos",
+      "sql",
+    ],
+    keyword: "data analyst business intelligence analyst",
+    label: "Datos, análisis e inteligencia de negocios",
+    icon: "bi-bar-chart-line",
+  },
+  {
+    terms: [
+      "industrial",
+      "procesos",
+      "produccion",
+      "calidad",
+      "logistica",
+      "gestion",
+      "organizacion",
+      "mejora",
+      "operaciones",
+      "proyectos",
+      "planificacion",
+    ],
+    keyword: "operations analyst process improvement project manager",
+    label: "Procesos, gestión y operaciones",
+    icon: "bi-diagram-3",
+  },
+  {
+    terms: [
+      "redes",
+      "seguridad",
+      "ciberseguridad",
+      "servidores",
+      "infraestructura",
+      "soporte",
+      "sistemas operativos",
+      "administracion de sistemas",
+    ],
+    keyword: "cybersecurity analyst network administrator IT support",
+    label: "Redes, seguridad e infraestructura",
+    icon: "bi-shield-lock",
+  },
+  {
+    terms: [
+      "electronica",
+      "electrica",
+      "circuitos",
+      "automatizacion",
+      "robotica",
+      "control",
+      "sensores",
+      "microcontroladores",
+    ],
+    keyword: "electronics engineer automation engineer electrical engineer",
+    label: "Electrónica, electricidad y automatización",
+    icon: "bi-cpu",
+  },
+  {
+    terms: [
+      "mecanica",
+      "maquinas",
+      "mantenimiento",
+      "diseño",
+      "cad",
+      "materiales",
+      "fabricacion",
+      "manufactura",
+    ],
+    keyword: "mechanical engineer maintenance engineer CAD designer",
+    label: "Mecánica, diseño y mantenimiento",
+    icon: "bi-gear",
+  },
+  {
+    terms: [
+      "civil",
+      "construccion",
+      "obra",
+      "estructuras",
+      "planos",
+      "arquitectura",
+      "edificacion",
+    ],
+    keyword: "civil engineer construction project coordinator",
+    label: "Construcción, obras y civil",
+    icon: "bi-buildings",
+  },
+  {
+    terms: [
+      "quimica",
+      "laboratorio",
+      "alimentos",
+      "ambiente",
+      "procesos quimicos",
+      "control de calidad",
+      "materiales",
+    ],
+    keyword: "quality control analyst process engineer laboratory technician",
+    label: "Química, laboratorio y calidad",
+    icon: "bi-droplet",
+  },
+  {
+    terms: [
+      "negocios",
+      "empresas",
+      "administracion",
+      "clientes",
+      "requerimientos",
+      "documentacion",
+      "comunicacion",
+      "producto",
+      "usuarios",
+    ],
+    keyword: "business analyst project coordinator product analyst",
+    label: "Negocios, análisis y producto",
+    icon: "bi-briefcase",
+  },
+];
+
+const buildMuseSearchUrl = (keyword) =>
+  `https://www.themuse.com/search/jobs?keyword=${encodeURIComponent(keyword)}`;
+
+const getOpportunitySearchesFromProfile = ({
+  careersForSearch,
+  answerTexts,
+  dominantAreaName,
+}) => {
+  const answerProfileText = normalizeText(
+    [dominantAreaName, ...answerTexts].join(" "),
+  );
+
+  const careerMatches = careersForSearch.flatMap((career) => {
+    const careerText = normalizeText(
+      [
+        getCareerTitle(career),
+        getCareerDescription(career),
+        getCareerArea(career),
+        career?.subtipo,
+        career?.tipo,
+        career?.planNombre,
+        career?.modalidad,
+        career?.facultades?.join(" "),
+      ].join(" "),
+    );
+
+    return JOB_SEARCH_RULES.filter((rule) =>
+      rule.terms.some(
+        (term) =>
+          careerText.includes(normalizeText(term)) ||
+          answerProfileText.includes(normalizeText(term)),
+      ),
+    ).map((rule) => ({
+      ...rule,
+      careerTitle: getCareerTitle(career),
+      careerArea: getCareerArea(career),
+    }));
+  });
+
+  const uniqueMatches = careerMatches.filter(
+    (search, index, array) =>
+      array.findIndex((item) => item.keyword === search.keyword) === index,
+  );
+
+  if (uniqueMatches.length > 0) {
+    return uniqueMatches;
+  }
+
+  return [
+    {
+      keyword: "technology jobs entry level",
+      label: "Tecnología y futuro profesional",
+      icon: "bi-briefcase",
+      careerTitle:
+        careersForSearch[0] != null
+          ? getCareerTitle(careersForSearch[0])
+          : "Perfil vocacional",
+      careerArea: dominantAreaName || "Tecnología",
+    },
+  ];
+};
+
 function readFavorites() {
   try {
     return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
@@ -58,6 +308,7 @@ export default function Resultados() {
   });
 
   const { activeUser, isAuthenticated, isLoadingAuth } = useLocalAuth();
+  const { oportunidades, cargando, error } = useOportunidadesApi();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedArea, setSelectedArea] = useState("");
@@ -69,6 +320,8 @@ export default function Resultados() {
   const [toastMessage, setToastMessage] = useState("");
   const [openPlanIndex, setOpenPlanIndex] = useState(null);
   const [showCareerSites, setShowCareerSites] = useState(false);
+  const [testAnswerTexts, setTestAnswerTexts] = useState([]);
+  const [dominantAreaName, setDominantAreaName] = useState("");
 
   useEffect(() => {
     if (isLoadingAuth || !activeUser) {
@@ -80,6 +333,8 @@ export default function Resultados() {
     if (!storedAnswers) {
       setHasTestAnswers(false);
       setRecommendedCareers([]);
+      setTestAnswerTexts([]);
+      setDominantAreaName("");
       return;
     }
 
@@ -91,6 +346,8 @@ export default function Resultados() {
       console.error("Error al leer las respuestas del test:", error);
       setHasTestAnswers(false);
       setRecommendedCareers([]);
+      setTestAnswerTexts([]);
+      setDominantAreaName("");
       return;
     }
 
@@ -104,10 +361,13 @@ export default function Resultados() {
     if (answerList.length === 0) {
       setHasTestAnswers(false);
       setRecommendedCareers([]);
+      setTestAnswerTexts([]);
+      setDominantAreaName("");
       return;
     }
 
     setHasTestAnswers(true);
+    setTestAnswerTexts(answerList.map(getProfileValueText).filter(Boolean));
 
     const recommendations = getCareerRecommendations({
       careers,
@@ -130,6 +390,8 @@ export default function Resultados() {
     );
 
     const dominantArea = getDominantArea(answerList);
+    setDominantAreaName(getProfileValueText(dominantArea));
+
     const learningRoute = buildLearningRouteFromCareer(
       finalRecommendations[0],
       dominantArea,
@@ -208,6 +470,17 @@ export default function Resultados() {
 
     return [...new Set(areas)];
   }, [recommendedCareers]);
+
+  const opportunitySearches = useMemo(() => {
+    const careersForSearch =
+      filteredCareers.length > 0 ? filteredCareers : recommendedCareers;
+
+    return getOpportunitySearchesFromProfile({
+      careersForSearch,
+      answerTexts: testAnswerTexts,
+      dominantAreaName,
+    });
+  }, [filteredCareers, recommendedCareers, testAnswerTexts, dominantAreaName]);
 
   const handleToggleFavorite = (career) => {
     const careerId = career.id;
@@ -428,6 +701,114 @@ export default function Resultados() {
               />
             </div>
           ))
+        )}
+      </section>
+
+      <section className="mt-5 pt-4 border-top cp-fade-up">
+        <div className="mb-4">
+          <h2 className="fw-bold h3 mb-2">
+            <i className="bi bi-briefcase-fill text-primary me-2"></i>
+            Oportunidades Laborales y Futuro Profesional
+          </h2>
+
+          <p className="text-secondary mb-0">
+            Explorá búsquedas laborales actuales relacionadas con tus respuestas
+            del test, tu área dominante y las carreras UTN recomendadas para tu
+            perfil.
+          </p>
+
+          {!cargando && !error && oportunidades?.length > 0 && (
+            <p className="text-secondary small mt-2 mb-0">
+              Se detectaron {oportunidades?.length ?? 0} referencias desde The
+              Muse, pero abrimos búsquedas actualizadas para evitar enlaces
+              vencidos.
+            </p>
+          )}
+        </div>
+
+        {cargando && (
+          <div className="text-center py-5 bg-body-tertiary rounded-4 border border-light-subtle mb-4">
+            <div className="spinner-border text-primary mb-3" role="status">
+              <span className="visually-hidden">
+                Preparando búsquedas laborales...
+              </span>
+            </div>
+
+            <p className="text-secondary mb-0">
+              Preparando búsquedas laborales relacionadas con tu perfil...
+            </p>
+          </div>
+        )}
+
+        {error && (
+          <div className="alert alert-warning rounded-4 d-flex align-items-center">
+            <i className="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
+
+            <div>
+              <strong>No pudimos validar ofertas puntuales en The Muse.</strong>
+              <br />
+              Igual podés abrir búsquedas actuales por área para evitar enlaces
+              vencidos.
+            </div>
+          </div>
+        )}
+
+        {opportunitySearches.length === 0 ? (
+          <div className="alert alert-info rounded-4 d-flex align-items-center">
+            <i className="bi bi-info-circle-fill fs-4 me-3"></i>
+
+            <div>
+              <strong>Sin búsquedas sugeridas.</strong>
+              <br />
+              No se detectaron áreas suficientes para sugerir oportunidades
+              laborales.
+            </div>
+          </div>
+        ) : (
+          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {opportunitySearches.slice(0, 6).map((search, index) => (
+              <div className="col" key={`${search.keyword}-${index}`}>
+                <article className="card h-100 shadow-sm border-0 rounded-4 cp-career-card">
+                  <div className="card-body p-4 d-flex flex-column">
+                    <span className="badge bg-primary-subtle text-primary border border-primary-subtle mb-3 align-self-start">
+                      <i className={`bi ${search.icon} me-2`}></i>
+                      {search.label}
+                    </span>
+
+                    <h3 className="h6 fw-bold mb-2 lh-base">{search.label}</h3>
+
+                    <p className="text-secondary small mb-4">
+                      Esta búsqueda se arma según tus respuestas del test, el
+                      área dominante y las carreras que el sistema te recomienda
+                      estudiar.
+                    </p>
+
+                    <div className="text-secondary small mb-4">
+                      <div className="mb-1">
+                        <i className="bi bi-stars me-2"></i>
+                        Carrera relacionada: {search.careerTitle}
+                      </div>
+
+                      <div>
+                        <i className="bi bi-search me-2"></i>
+                        Búsqueda sugerida: {search.keyword}
+                      </div>
+                    </div>
+
+                    <a
+                      href={buildMuseSearchUrl(search.keyword)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-outline-primary rounded-pill mt-auto w-100"
+                    >
+                      Ver postulaciones actuales
+                      <i className="bi bi-box-arrow-up-right ms-2"></i>
+                    </a>
+                  </div>
+                </article>
+              </div>
+            ))}
+          </div>
         )}
       </section>
 
