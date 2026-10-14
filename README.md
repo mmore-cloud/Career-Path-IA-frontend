@@ -6,7 +6,7 @@ CareerPath AI es una aplicación web orientada a acompañar a estudiantes durant
 
 El proyecto corresponde al **Trabajo Práctico Nº 5** de la **Tecnicatura Universitaria en Programación de la Universidad Tecnológica Nacional (UTN)** y representa la evolución del proyecto original desarrollado con HTML, CSS, Bootstrap y JavaScript hacia una arquitectura moderna basada en **React + Vite**.
 
-La aplicación organiza el recorrido del usuario en distintas etapas: presentación de la plataforma, creación del perfil, test vocacional, exploración de carreras, resultados y seguimiento de una ruta de aprendizaje.
+La aplicación organiza el recorrido del usuario en distintas etapas: presentación de la plataforma, creación del perfil, test vocacional, exploración de carreras, resultados, seguimiento de una ruta de aprendizaje y conexión con oportunidades laborales reales.
 
 ---
 
@@ -41,6 +41,7 @@ La plataforma permite:
 - consultar una ruta de aprendizaje;
 - marcar conocimientos como completados;
 - visualizar el progreso general de aprendizaje;
+- visualizar oportunidades laborales del mercado actual;
 - conservar determinada información mediante `localStorage`.
 
 ---
@@ -55,7 +56,7 @@ La versión actual incluye:
 - página de Inicio;
 - página de Perfil;
 - Test Vocacional interactivo;
-- sección de Resultados;
+- sección de Resultados con integración de API pública;
 - búsqueda y filtrado de carreras;
 - favoritos almacenados en el navegador;
 - Ruta de Aprendizaje interactiva;
@@ -71,11 +72,17 @@ La arquitectura queda preparada para futuras ampliaciones como:
 - base de datos;
 - autenticación;
 - persistencia de usuarios;
-- APIs externas;
 - sistema de recomendaciones;
 - integración real de Inteligencia Artificial.
 
 > En el estado actual del proyecto, CareerPath AI representa el concepto y la arquitectura de una plataforma de orientación vocacional. La implementación de un motor real de Inteligencia Artificial queda planteada como una evolución futura del sistema.
+
+---
+
+# 🔌 API Pública Utilizada
+
+- **The Muse API** (`https://www.themuse.com/api/public/jobs`)
+  - **Propósito:** Se integra en la sección de resultados para enlazar las respuestas del test vocacional, el área dominante y las carreras recomendadas con búsquedas de empleo actualizadas del mercado profesional mediante peticiones HTTP.
 
 ---
 
@@ -101,6 +108,7 @@ JSX
 Componentes reutilizables
 Hooks
 Datos separados de la interfaz
+Consumo de API con Axios
 ```
 
 La migración no consistió simplemente en copiar archivos HTML a JSX.
@@ -169,6 +177,8 @@ React DOM
 React Router DOM
 Bootstrap
 React Bootstrap
+Axios (para peticiones HTTP a la API pública)
+SweetAlert2 (para alertas y manejo visual de errores)
 ```
 
 Vite se utiliza como herramienta de desarrollo y construcción del proyecto.
@@ -211,7 +221,7 @@ Allí React renderiza el componente principal y utiliza:
 
 ```jsx
 <BrowserRouter>
-  <App />
+  <App/>
 </BrowserRouter>
 ```
 
@@ -274,6 +284,7 @@ Career-Path-IA-frontend/
 │   ├── index.css
 │   └── main.jsx
 │
+├── .env.example
 ├── .gitignore
 ├── .oxlintrc.json
 ├── eslint.config.js
@@ -310,7 +321,7 @@ Actualmente existen las siguientes rutas:
 | `/` | Home | Página principal |
 | `/perfil` | Perfil | Información del estudiante |
 | `/test` | Test | Test vocacional |
-| `/resultados` | Resultados | Exploración de carreras |
+| `/resultados` | Resultados | Exploración de carreras y ofertas laborales |
 | `/ruta` | Ruta | Ruta de aprendizaje |
 | `*` | NotFound | Página de error 404 |
 
@@ -318,12 +329,12 @@ La configuración general es:
 
 ```jsx
 <Routes>
-  <Route path="/" element={<Home />} />
-  <Route path="/perfil" element={<Perfil />} />
-  <Route path="/test" element={<Test />} />
-  <Route path="/resultados" element={<Resultados />} />
-  <Route path="/ruta" element={<Ruta />} />
-  <Route path="*" element={<NotFound />} />
+  <Route element="{<Home" path="/"/>} />
+  <Route element="{<Perfil" path="/perfil"/>} />
+  <Route element="{<Test" path="/test"/>} />
+  <Route element="{<Resultados" path="/resultados"/>} />
+  <Route element="{<Ruta" path="/ruta"/>} />
+  <Route element="{<NotFound" path="*"/>} />
 </Routes>
 ```
 
@@ -469,10 +480,7 @@ El componente recibe información mediante props.
 Ejemplo:
 
 ```jsx
-<ProfileForm
-  title="Completá tus Datos Personales"
-  buttonText="Guardar y Continuar"
-/>
+<ProfileForm buttonText="Guardar y Continuar" title="Completá tus Datos Personales"/>
 ```
 
 Actualmente esta sección representa la interfaz visual del perfil.
@@ -569,7 +577,7 @@ evitando escribir manualmente cada alternativa.
 
 ---
 
-# 📊 Resultados
+# 📊 Resultados y Oportunidades Laborales
 
 La página:
 
@@ -596,7 +604,8 @@ La página implementa:
 - filtrado por área o tipo;
 - renderizado dinámico;
 - mensaje cuando no existen coincidencias;
-- almacenamiento de favoritos.
+- almacenamiento de favoritos;
+- integración de la sección de oportunidades laborales conectada a la API de The Muse (con Axios, estados de carga y manejo de errores).
 
 Las carreras primero son filtradas utilizando:
 
@@ -784,7 +793,7 @@ El checkbox se encuentra controlado por React:
 checked={completado}
 ```
 
-Cuando el usuario marca o desmarca un tema:
+Когда el usuario marca o desmarca un tema:
 
 ```jsx
 onChange={() => onToggle(topic.id)}
@@ -915,11 +924,7 @@ Las props permiten enviar datos y funciones desde un componente padre hacia un c
 Por ejemplo, en Mi Ruta:
 
 ```jsx
-<RouteTopic
-  topic={topic}
-  completado={temasCompletados.includes(topic.id)}
-  onToggle={onToggleTema}
-/>
+<RouteTopic completado="{temasCompletados.includes(topic.id)}" onToggle="{onToggleTema}" topic="{topic}"/>
 ```
 
 En este caso:
@@ -1056,7 +1061,7 @@ para detectar cuándo cambia la ruta actual.
 
 # 🔍 SEO
 
-El proyecto implementa SEO básico.
+El proyecto implementa estrategias SEO.
 
 Dentro de:
 
@@ -1108,7 +1113,7 @@ src/pages/NotFound.jsx
 React Router utiliza esta página mediante:
 
 ```jsx
-<Route path="*" element={<NotFound />} />
+<Route element="{<NotFound" path="*"/>} />
 ```
 
 Si el usuario intenta ingresar a una ruta inexistente, se muestra una interfaz personalizada que permite volver al Inicio.
@@ -1176,12 +1181,25 @@ Esto permite evitar una cantidad excesiva de CSS personalizado.
 
 ---
 
-# ⚙️ Instalación
+# ⚙️ Configuración del archivo .env
+
+Para configurar correctamente el consumo de la API pública en el proyecto:
+
+1. Duplicar el archivo de ejemplo `.env.example` en la raíz del proyecto y renombrarlo a `.env`.
+2. Verificar que incluya la variable de entorno:
+   ```env
+   VITE_API_URL=[https://www.themuse.com/api/public/jobs](https://www.themuse.com/api/public/jobs)
+   ```
+*(Nota: El archivo `.env` se encuentra protegido en el `.gitignore` para evitar subir credenciales o URLs de entornos locales a GitHub).*
+
+---
+
+# 📥 Instalación
 
 ## 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/mmore-cloud/Career-Path-IA-frontend.git
+git clone [https://github.com/mmore-cloud/Career-Path-IA-frontend.git](https://github.com/mmore-cloud/Career-Path-IA-frontend.git)
 ```
 
 ## 2. Entrar a la carpeta
@@ -1336,6 +1354,7 @@ feat/react-router-navigation
 feat/home-profile-seo
 feat/test-results
 feat/route-readme-deploy
+feat/integracion-final-documentacion
 ```
 
 Cada rama corresponde a un bloque específico de trabajo.
@@ -1357,7 +1376,7 @@ Parte 3
 Test Vocacional + Resultados
 
 Parte 4
-Mi Ruta + README + Responsive + Deploy
+Mi Ruta + README + Responsive + Deploy + Integración de API Pública
 ```
 
 Cada integrante desarrolla su parte de forma independiente y posteriormente se integra mediante Pull Request hacia `dev`.
@@ -1375,7 +1394,7 @@ Vercel
 URL del proyecto:
 
 ```text
-https://career-path-ia-frontend.vercel.app
+[https://career-path-ia-frontend.vercel.app](https://career-path-ia-frontend.vercel.app)
 ```
 
 El repositorio contiene:
@@ -1419,7 +1438,7 @@ sin que Vercel devuelva un error 404 del servidor.
 Proyecto desarrollado con React + Vite:
 
 ```text
-https://github.com/mmore-cloud/Career-Path-IA-frontend
+[https://github.com/mmore-cloud/Career-Path-IA-frontend](https://github.com/mmore-cloud/Career-Path-IA-frontend)
 ```
 
 ## Repositorio anterior
@@ -1427,7 +1446,7 @@ https://github.com/mmore-cloud/Career-Path-IA-frontend
 Proyecto utilizado como referencia durante la migración:
 
 ```text
-https://github.com/Leandro-Nunez21/TP1-C9-TUP-UTN
+[https://github.com/Leandro-Nunez21/TP1-C9-TUP-UTN](https://github.com/Leandro-Nunez21/TP1-C9-TUP-UTN)
 ```
 
 ---
@@ -1470,6 +1489,7 @@ Actualmente el proyecto cuenta con:
 ✅ Hook personalizado de SEO
 ✅ Responsive revisado
 ✅ Configuración de Vercel incluida
+✅ Integración con la API de The Muse (Axios y SweetAlert2)
 ```
 
 ---
@@ -1523,4 +1543,3 @@ Algunas mejoras posibles son:
 
 ## © 2026 CareerPath AI
 
-Proyecto académico desarrollado por el equipo **C9 TUP UTN**.
