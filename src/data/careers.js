@@ -4,18 +4,19 @@ export const careers = [
     "titulo": "Ingeniería Aeroespacial",
     "area": "grado",
     "subtipo": "Ingeniería",
-    "duracion": "6 niveles",
+    "duracion": "6 años",
     "modalidad": "Presencial",
     "descripcion": "Especialidad tecnológica centrada en aeronaves, vehículos espaciales, máquinas de vuelo, plantas propulsoras, sistemas de control, instalaciones aeroportuarias y transporte aéreo.",
     "facultades": [
       "Facultad Regional Haedo"
     ],
+
     "fuenteOficial": "https://frh.utn.edu.ar/carreras/",
     "planUrl": "https://frh.utn.edu.ar/carreras/ingenieria-aeronautica-aeroespacial/plan-de-estudio-ing-aeronautica/",
     "planNombre": "Plan vigente - Ingeniería Aeroespacial",
     "planEstudios": [
       {
-        "nivel": "Primer nivel",
+        "nivel": "Primer año",
         "materias": [
           "Conocimientos Aeronáuticos y Espaciales I",
           "Sistemas de Representación en Ingeniería",
@@ -29,7 +30,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Segundo nivel",
+        "nivel": "Segundo año",
         "materias": [
           "Conocimientos Aeronáuticos y Espaciales II",
           "Estructuras Aeroespaciales I",
@@ -43,7 +44,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Tercer nivel",
+        "nivel": "Tercer año",
         "materias": [
           "Matemáticas Avanzadas para Ingeniería",
           "Programación y Análisis Numérico",
@@ -57,7 +58,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Cuarto nivel",
+        "nivel": "Cuarto año",
         "materias": [
           "Sistemas de Vehículos Aéreos y Espaciales",
           "Motores Aeronáuticos",
@@ -72,7 +73,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Quinto nivel",
+        "nivel": "Quinto año",
         "materias": [
           "Procesos de Fabricación Aeroespacial",
           "Proyecto y Diseño Aerodinámico",
@@ -86,7 +87,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Sexto nivel",
+        "nivel": "Sexto año",
         "materias": [
           "Proyecto y Diseño de Estructuras Espaciales",
           "Mantenimiento General de Aeronaves",
@@ -95,6 +96,7 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://frh.utn.edu.ar/carreras/ingenieria-aeronautica-aeroespacial/plan-de-estudio-ing-aeronautica/",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -110,12 +112,13 @@ export const careers = [
     "facultades": [
       "Facultad Regional Haedo"
     ],
+
     "fuenteOficial": "https://frh.utn.edu.ar/carreras/bioingenieria/",
     "planUrl": "https://frh.utn.edu.ar/carreras/bioingenieria/plan-de-estudios-bioingenieria/",
     "planNombre": "Plan vigente - Bioingeniería",
     "planEstudios": [
       {
-        "nivel": "Primer nivel",
+        "nivel": "Primer año",
         "materias": [
           "Ingeniería y Sociedad",
           "Análisis Matemático I",
@@ -128,7 +131,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Segundo nivel",
+        "nivel": "Segundo año",
         "materias": [
           "Análisis de Señales y Sistemas",
           "Física II",
@@ -139,7 +142,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Tercer nivel",
+        "nivel": "Tercer año",
         "materias": [
           "Biología",
           "Técnicas Digitales I",
@@ -154,7 +157,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Cuarto nivel",
+        "nivel": "Cuarto año",
         "materias": [
           "Técnicas Digitales II",
           "Sistemas de Control Básicos",
@@ -167,7 +170,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Quinto nivel",
+        "nivel": "Quinto año",
         "materias": [
           "Electivas",
           "Bioinstrumentación",
@@ -181,6 +184,7 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://frh.utn.edu.ar/carreras/bioingenieria/plan-de-estudios-bioingenieria/",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -211,12 +215,13 @@ export const careers = [
       "Tucumán",
       "Venado Tuerto"
     ],
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/civil",
     "planUrl": "https://impulso.frbb.utn.edu.ar/frbb/info/pages/civil01.html",
     "planNombre": "Plan de Estudios 2023",
     "planEstudios": [
       {
-        "nivel": "Primer nivel",
+        "nivel": "Primer año",
         "materias": [
           "Análisis Matemático I",
           "Álgebra y Geometría Analítica",
@@ -229,7 +234,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Segundo nivel",
+        "nivel": "Segundo año",
         "materias": [
           "Análisis Matemático II",
           "Estabilidad",
@@ -241,7 +246,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Tercer nivel",
+        "nivel": "Tercer año",
         "materias": [
           "Resistencia de Materiales",
           "Tecnología del Hormigón",
@@ -256,7 +261,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Cuarto nivel",
+        "nivel": "Cuarto año",
         "materias": [
           "Geotecnia",
           "Instalaciones Sanitarias y de Gas",
@@ -268,7 +273,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Quinto nivel",
+        "nivel": "Quinto año",
         "materias": [
           "Construcciones Metálicas y de Madera",
           "Cimentaciones",
@@ -281,13 +286,14 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Sexto nivel",
+        "nivel": "Sexto año",
         "materias": [
           "Proyecto Final",
           "Práctica Profesional Supervisada"
         ]
       }
     ],
+
     "fuentePlan": "https://impulso.frbb.utn.edu.ar/frbb/info/pages/civil01.html",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -298,6 +304,7 @@ export const careers = [
     "area": "grado",
     "subtipo": "Ingeniería",
     "duracion": "5 años",
+    "modalidad": "Presencial",
     "descripcion": "Integra mecánica y electricidad para proyectar, construir, instalar y mantener sistemas mecánicos, térmicos y de generación, transmisión y distribución de energía.",
     "facultades": [
       "Chubut",
@@ -314,12 +321,13 @@ export const careers = [
       "Tierra del Fuego",
       "Venado Tuerto"
     ],
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/electromecanica",
     "planUrl": "https://www.frlr.utn.edu.ar/estudiantes/planificaciones-y-horarios-carreras-grado/",
     "planNombre": "Plan 2023 - Ordenanza N° 1851",
     "planEstudios": [
       {
-        "nivel": "Primer nivel",
+        "nivel": "Primer año",
         "materias": [
           "Análisis Matemático I",
           "Química General",
@@ -332,7 +340,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Segundo nivel",
+        "nivel": "Segundo año",
         "materias": [
           "Física II",
           "Estabilidad",
@@ -345,7 +353,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Tercer nivel",
+        "nivel": "Tercer año",
         "materias": [
           "Tecnología Mecánica",
           "Ingeniería Electromecánica III",
@@ -358,7 +366,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Cuarto nivel",
+        "nivel": "Cuarto año",
         "materias": [
           "Elementos de Máquinas",
           "Electrónica Industrial",
@@ -371,7 +379,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Quinto nivel",
+        "nivel": "Quinto año",
         "materias": [
           "Redes de Distribución e Instalaciones Eléctricas",
           "Máquinas y Equipos de Transporte",
@@ -386,10 +394,10 @@ export const careers = [
         ]
       }
     ],
+
+    "fuentePlan": "https://www.frlr.utn.edu.ar/estudiantes/planificaciones-y-horarios-carreras-grado/",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "modalidad": "Presencial",
-    "fuentePlan": "https://www.frlr.utn.edu.ar/estudiantes/planificaciones-y-horarios-carreras-grado/"
+    "estadoPlan": "verificado"
   },
   {
     "id": "ing-electronica",
@@ -414,12 +422,13 @@ export const careers = [
       "Tucumán",
       "Villa María"
     ],
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/electronica",
     "planUrl": "https://www.frlr.utn.edu.ar/estudiantes/planificaciones-y-horarios-carreras-grado/",
     "planNombre": "Plan 2023 - Ordenanza N° 1849",
     "planEstudios": [
       {
-        "nivel": "Primer nivel",
+        "nivel": "Primer año",
         "materias": [
           "Informática I",
           "Álgebra y Geometría Analítica",
@@ -431,7 +440,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Segundo nivel",
+        "nivel": "Segundo año",
         "materias": [
           "Informática II",
           "Análisis de Señales y Sistemas",
@@ -443,7 +452,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Tercer nivel",
+        "nivel": "Tercer año",
         "materias": [
           "Teoría de los Circuitos I",
           "Técnicas Digitales I",
@@ -455,7 +464,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Cuarto nivel",
+        "nivel": "Cuarto año",
         "materias": [
           "Técnicas Digitales II",
           "Medidas Electrónicas I",
@@ -467,7 +476,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Quinto nivel",
+        "nivel": "Quinto año",
         "materias": [
           "Técnicas Digitales III",
           "Medidas Electrónicas II",
@@ -479,7 +488,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Sexto nivel",
+        "nivel": "Sexto año",
         "materias": [
           "Economía",
           "Proyecto Final",
@@ -488,9 +497,10 @@ export const careers = [
         ]
       }
     ],
+
+    "fuentePlan": "https://www.frlr.utn.edu.ar/estudiantes/planificaciones-y-horarios-carreras-grado/",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "fuentePlan": "https://www.frlr.utn.edu.ar/estudiantes/planificaciones-y-horarios-carreras-grado/"
+    "estadoPlan": "verificado"
   },
   {
     "id": "ing-energia",
@@ -503,6 +513,7 @@ export const careers = [
     "facultades": [
       "Facultad Regional Santa Cruz"
     ],
+
     "fuenteOficial": "https://www.frsc.utn.edu.ar/web/ingenieria-en-energia/",
     "planUrl": "https://www.frsc.utn.edu.ar/web/ingenieria-en-energia-todo-lo-que-tenes-que-saber-sobre-la-carrera-del-futuro/",
     "planNombre": "Plan vigente",
@@ -571,8 +582,9 @@ export const careers = [
         ]
       }
     ],
-    "planVerificado": true,
+
     "fuentePlan": "https://www.frsc.utn.edu.ar/web/ingenieria-en-energia-todo-lo-que-tenes-que-saber-sobre-la-carrera-del-futuro/",
+    "planVerificado": true,
     "estadoPlan": "verificado"
   },
   {
@@ -597,12 +609,13 @@ export const careers = [
       "Santa Fe",
       "Tucumán"
     ],
+
     "fuenteOficial": "https://www.frc.utn.edu.ar/carreras/ingenieria-en-energia-electrica/",
     "planUrl": "https://proxy.frbb.utn.edu.ar/frbb/info/pages/electrica01.html",
     "planNombre": "Plan de Estudios 2023",
     "planEstudios": [
       {
-        "nivel": "Primer nivel",
+        "nivel": "Primer año",
         "materias": [
           "Análisis Matemático I",
           "Álgebra y Geometría Analítica",
@@ -615,7 +628,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Segundo nivel",
+        "nivel": "Segundo año",
         "materias": [
           "Física II",
           "Probabilidad y Estadística",
@@ -629,7 +642,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Tercer nivel",
+        "nivel": "Tercer año",
         "materias": [
           "Física III",
           "Tecnologías y Ensayos de Materiales Eléctricos",
@@ -643,7 +656,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Cuarto nivel",
+        "nivel": "Cuarto año",
         "materias": [
           "Legislación",
           "Economía",
@@ -657,7 +670,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Quinto nivel",
+        "nivel": "Quinto año",
         "materias": [
           "Electrónica II",
           "Generación, Transmisión y Distribución de la Energía Eléctrica",
@@ -668,6 +681,7 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://proxy.frbb.utn.edu.ar/frbb/info/pages/electrica01.html",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -677,17 +691,20 @@ export const careers = [
     "titulo": "Ingeniería en Industria Automotriz",
     "area": "grado",
     "subtipo": "Ingeniería",
-    "duracion": "5 niveles",
+    "duracion": "5 años",
+    "cargaHoraria": "3.776 h reloj + PPS incluida",
+    "modalidad": "Presencial",
     "descripcion": "Forma profesionales para planificar, programar, implementar y evaluar sistemas productivos, organizativos y de información de la industria automotriz.",
     "facultades": [
       "Facultad Regional General Pacheco"
     ],
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/industria-automotriz",
     "planUrl": "https://www.frgp.utn.edu.ar/public/files/ORD_CSU_2013-2023_DC_ING_IND_AUTOMOTRIZ_PLAN_2024.pdf",
     "planNombre": "Plan 2024 - Ordenanza CSU N.º 2013/2023",
     "planEstudios": [
       {
-        "nivel": "Primer nivel",
+        "nivel": "Primer año",
         "materias": [
           "Análisis Matemático I",
           "Química General",
@@ -700,7 +717,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Segundo nivel",
+        "nivel": "Segundo año",
         "materias": [
           "Análisis Matemático II",
           "Probabilidad y Estadística",
@@ -713,7 +730,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Tercer nivel",
+        "nivel": "Tercer año",
         "materias": [
           "Análisis Numérico y Cálculo Avanzado",
           "Termodinámica y Máquinas Térmicas",
@@ -728,7 +745,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Cuarto nivel",
+        "nivel": "Cuarto año",
         "materias": [
           "Instalaciones y Plantas Industriales",
           "Seguridad, Higiene e Ingeniería Ambiental",
@@ -744,7 +761,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Quinto nivel",
+        "nivel": "Quinto año",
         "materias": [
           "Mantenimiento",
           "Control de Gestión",
@@ -756,11 +773,10 @@ export const careers = [
         ]
       }
     ],
+
+    "fuentePlan": "https://www.frgp.utn.edu.ar/public/files/ORD_CSU_2013-2023_DC_ING_IND_AUTOMOTRIZ_PLAN_2024.pdf",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "cargaHoraria": "3.776 h reloj + PPS incluida",
-    "modalidad": "Presencial",
-    "fuentePlan": "https://www.frgp.utn.edu.ar/public/files/ORD_CSU_2013-2023_DC_ING_IND_AUTOMOTRIZ_PLAN_2024.pdf"
+    "estadoPlan": "verificado"
   },
   {
     "id": "ing-sistemas-informacion",
@@ -786,6 +802,7 @@ export const careers = [
       "Venado Tuerto",
       "Villa María"
     ],
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/sistemas-de-informacion",
     "planUrl": "https://frba.utn.edu.ar/sistemas/plan-de-estudios-2023/",
     "planNombre": "Plan vigente 2023 - Ordenanza N° 1877",
@@ -856,6 +873,7 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://frba.utn.edu.ar/sistemas/plan-de-estudios-2023/",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -871,6 +889,7 @@ export const careers = [
     "facultades": [
       "Facultad Regional Mendoza"
     ],
+
     "fuenteOficial": "https://www4.frm.utn.edu.ar/ingenieria-en-telecomunicaciones/",
     "planUrl": "https://www4.frm.utn.edu.ar/plan-de-estudio-de-ing-en-telecomunicaciones/",
     "planNombre": "Plan 2024 - Ingeniería en Telecomunicaciones",
@@ -938,9 +957,10 @@ export const careers = [
         ]
       }
     ],
+
+    "fuentePlan": "https://www4.frm.utn.edu.ar/plan-de-estudio-de-ing-en-telecomunicaciones/",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "fuentePlan": "https://www4.frm.utn.edu.ar/plan-de-estudio-de-ing-en-telecomunicaciones/"
+    "estadoPlan": "verificado"
   },
   {
     "id": "ing-ferroviaria",
@@ -957,7 +977,7 @@ export const careers = [
     "planNombre": "Plan 2023",
     "planEstudios": [
       {
-        "nivel": "Primer nivel",
+        "nivel": "Primer año",
         "materias": [
           "Análisis Matemático I",
           "Álgebra y Geometría Analítica",
@@ -970,7 +990,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Segundo nivel",
+        "nivel": "Segundo año",
         "materias": [
           "Análisis Matemático II",
           "Probabilidad y Estadística",
@@ -984,7 +1004,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Tercer nivel",
+        "nivel": "Tercer año",
         "materias": [
           "Estructuras Ferroviarias II",
           "Explotación Técnica, Programación y Diagramación",
@@ -998,7 +1018,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Cuarto nivel",
+        "nivel": "Cuarto año",
         "materias": [
           "Máquinas Térmicas",
           "Sistemas de Control",
@@ -1012,7 +1032,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Quinto nivel",
+        "nivel": "Quinto año",
         "materias": [
           "Electrificación de Alta Potencia",
           "Planificación y Control de Mantenimiento",
@@ -1026,12 +1046,13 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Sexto nivel",
+        "nivel": "Sexto año",
         "materias": [
           "Proyecto Final"
         ]
       }
     ],
+
     "fuentePlan": "https://frh.utn.edu.ar/carreras/ingenieria-ferroviaria/plan-de-estudio-ing-ferroviaria/",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -1059,12 +1080,13 @@ export const careers = [
       "Tierra del Fuego",
       "Trenque Lauquen"
     ],
+    
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/industrial",
     "planUrl": "https://web.frtl.utn.edu.ar/plan-de-estudios-ingenieria-industrial/",
     "planNombre": "Plan 2023 - Ordenanza N° 1908",
     "planEstudios": [
       {
-        "nivel": "Primer nivel",
+        "nivel": "Primer año",
         "materias": [
           "Análisis Matemático I",
           "Química General",
@@ -1077,7 +1099,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Segundo nivel",
+        "nivel": "Segundo año",
         "materias": [
           "Análisis Matemático II",
           "Administración General",
@@ -1090,7 +1112,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Tercer nivel",
+        "nivel": "Tercer año",
         "materias": [
           "Costos y Presupuestos",
           "Estudio del Trabajo",
@@ -1104,7 +1126,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Cuarto nivel",
+        "nivel": "Cuarto año",
         "materias": [
           "Seguridad, Higiene e Ingeniería Ambiental",
           "Investigación Operativa",
@@ -1119,7 +1141,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Quinto nivel",
+        "nivel": "Quinto año",
         "materias": [
           "Mantenimiento",
           "Manejo de Materiales y Distribución de Plantas",
@@ -1159,12 +1181,13 @@ export const careers = [
       "Tucumán",
       "Villa María"
     ],
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/mecanica",
     "planUrl": "https://frba.utn.edu.ar/mecanica/plan-de-estudios-2023/",
     "planNombre": "Plan 2023 - Ordenanza N° 1901",
     "planEstudios": [
       {
-        "nivel": "Primer nivel",
+        "nivel": "Primer año",
         "materias": [
           "Análisis Matemático I",
           "Química General",
@@ -1177,7 +1200,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Segundo nivel",
+        "nivel": "Segundo año",
         "materias": [
           "Materiales No Metálicos",
           "Estabilidad I",
@@ -1190,7 +1213,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Tercer nivel",
+        "nivel": "Tercer año",
         "materias": [
           "Termodinámica",
           "Mecánica Racional",
@@ -1204,7 +1227,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Cuarto nivel",
+        "nivel": "Cuarto año",
         "materias": [
           "Economía",
           "Elementos de Máquinas",
@@ -1217,7 +1240,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Quinto nivel",
+        "nivel": "Quinto año",
         "materias": [
           "Mantenimiento",
           "Máquinas Alternativas y Turbomáquinas",
@@ -1246,12 +1269,13 @@ export const careers = [
       "Córdoba",
       "San Nicolás"
     ],
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/metalurgica",
     "planUrl": "https://www.frsn.utn.edu.ar/wp-content/uploads/2024/09/Plan-de-estudio-Ing-Metalurgica-2023.pdf",
     "planNombre": "Plan 2023 - Ingeniería Metalúrgica",
     "planEstudios": [
       {
-        "nivel": "Primer nivel",
+        "nivel": "Primer año",
         "materias": [
           "Análisis Matemático I",
           "Álgebra y Geometría Analítica",
@@ -1265,7 +1289,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Segundo nivel",
+        "nivel": "Segundo año",
         "materias": [
           "Física II",
           "Ingeniería de los Procesos II",
@@ -1279,7 +1303,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Tercer nivel",
+        "nivel": "Tercer año",
         "materias": [
           "Higiene y Seguridad e Ingeniería Ambiental",
           "Metalurgia Física I",
@@ -1296,7 +1320,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Cuarto nivel",
+        "nivel": "Cuarto año",
         "materias": [
           "Metalurgia Física II",
           "Metalurgia Extractiva de los No Ferrosos",
@@ -1312,7 +1336,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Quinto nivel",
+        "nivel": "Quinto año",
         "materias": [
           "Soldadura",
           "Fundición de Metales Ferrosos y No Ferrosos",
@@ -1329,21 +1353,23 @@ export const careers = [
         ]
       }
     ],
+
+    "fuentePlan": "https://www.frsn.utn.edu.ar/wp-content/uploads/2024/09/Plan-de-estudio-Ing-Metalurgica-2023.pdf",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "fuentePlan": "https://www.frsn.utn.edu.ar/wp-content/uploads/2024/09/Plan-de-estudio-Ing-Metalurgica-2023.pdf"
+    "estadoPlan": "verificado"
   },
   {
     "id": "ing-naval",
     "titulo": "Ingeniería Naval",
     "area": "grado",
     "subtipo": "Ingeniería",
-    "duracion": "6 años",
+    "duracion": "5 años",
     "descripcion": "Se orienta al diseño, planificación, proyecto y construcción de material flotante, buques, plataformas y otras estructuras vinculadas al ámbito naval.",
     "facultades": [
       "Buenos Aires",
       "Mar del Plata"
     ],
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/naval",
     "planUrl": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/naval",
     "planNombre": "Consultar plan oficial",
@@ -1364,6 +1390,7 @@ export const careers = [
       "Mar del Plata",
       "Tierra del Fuego"
     ],
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/pesquera",
     "planUrl": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/pesquera",
     "planNombre": "Consultar plan oficial",
@@ -1393,6 +1420,7 @@ export const careers = [
       "Tierra del Fuego",
       "Villa María"
     ],
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/quimica",
     "planUrl": "https://frm.utn.edu.ar/plan-de-estudio-ing-quimica/",
     "planNombre": "Plan 2023 - Ordenanzas N° 1875, 1876 y 2082",
@@ -1431,7 +1459,7 @@ export const careers = [
           "Matemática Superior Aplicada",
           "Microbiología y Química Biológica",
           "Química Analítica",
-          "Físicoquímica",
+          "Fisicoquímica",
           "Fenómenos de Transporte",
           "Ciencia de los Materiales",
           "Química Aplicada",
@@ -1464,9 +1492,10 @@ export const careers = [
         ]
       }
     ],
+
+    "fuentePlan": "https://frm.utn.edu.ar/plan-de-estudio-ing-quimica/",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "fuentePlan": "https://frm.utn.edu.ar/plan-de-estudio-ing-quimica/"
+    "estadoPlan": "verificado"
   },
   {
     "id": "ing-textil",
@@ -1478,6 +1507,7 @@ export const careers = [
     "facultades": [
       "Facultad Regional Buenos Aires"
     ],
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/textil",
     "planUrl": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/textil",
     "planNombre": "Consultar plan oficial",
@@ -1502,6 +1532,7 @@ export const careers = [
       "Trenque Lauquen",
       "Villa María"
     ],
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/lar",
     "planUrl": "https://www.frcon.utn.edu.ar/lic-en-administracion-rural/plan-de-estudios-lic-en-administracion-rural/",
     "planNombre": "Plan de Estudios 2026",
@@ -1562,6 +1593,7 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://www.frcon.utn.edu.ar/lic-en-administracion-rural/plan-de-estudios-lic-en-administracion-rural/",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -1581,6 +1613,7 @@ export const careers = [
       "Rafaela",
       "San Nicolás"
     ],
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/loi",
     "planUrl": "https://www.frbb.utn.edu.ar/frbb/info/pages/loi01.html",
     "planNombre": "Plan de Estudios vigente",
@@ -1656,12 +1689,13 @@ export const careers = [
     "facultades": [
       "Se dicta en distintas Facultades Regionales de la UTN"
     ],
+
     "fuenteOficial": "https://www.frc.utn.edu.ar/carreras/tecnicatura-universitaria-en-programacion/",
     "planUrl": "https://sanfrancisco.utn.edu.ar/carreras/tecnicatura-universitaria-en-programacion/plan-2024/plan2024_tecnicatura_superior_en_programacion.pdf",
     "planNombre": "Plan 2024 - Ordenanza N° 2018",
     "planEstudios": [
       {
-        "nivel": "Nivel I - Primer cuatrimestre",
+        "nivel": "Primer cuatrimestre",
         "materias": [
           "Programación I",
           "Arquitectura y Sistemas Operativos",
@@ -1670,7 +1704,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Nivel I - Segundo cuatrimestre",
+        "nivel": "Segundo cuatrimestre",
         "materias": [
           "Programación II",
           "Probabilidad y Estadística",
@@ -1679,7 +1713,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Nivel II - Primer cuatrimestre",
+        "nivel": "Tercer cuatrimestre",
         "materias": [
           "Programación III",
           "Base de Datos II",
@@ -1688,7 +1722,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "Nivel II - Segundo cuatrimestre",
+        "nivel": "Cuarto cuatrimestre",
         "materias": [
           "Programación IV",
           "Metodología de Sistemas II",
@@ -1704,6 +1738,7 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://sanfrancisco.utn.edu.ar/carreras/tecnicatura-universitaria-en-programacion/plan-2024/plan2024_tecnicatura_superior_en_programacion.pdf",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -1725,12 +1760,13 @@ export const careers = [
       "Reconquista",
       "San Nicolás"
     ],
+
     "fuenteOficial": "https://mdp.utn.edu.ar/sied/tecnicatura-universitaria-en-tecnologias-de-la-informacion/",
     "planUrl": "https://www.frsf.utn.edu.ar/images/TUTI/TUTI_Plan_de_Estudio.pdf",
     "planNombre": "Ordenanza CS N.º 1547",
     "planEstudios": [
       {
-        "nivel": "1.er cuatrimestre",
+        "nivel": "Primer cuatrimestre",
         "materias": [
           "Matemática Elemental",
           "Modelos, Sistemas y Organizaciones",
@@ -1738,7 +1774,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "2.º cuatrimestre",
+        "nivel": "Segundo cuatrimestre",
         "materias": [
           "Análisis de Sistemas de Información",
           "Arquitectura de Computadoras y Sistemas Operativos",
@@ -1747,7 +1783,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "3.er cuatrimestre",
+        "nivel": "Tercer cuatrimestre",
         "materias": [
           "Base de Datos",
           "Diseño de Sistemas de Información",
@@ -1755,7 +1791,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "4.º cuatrimestre",
+        "nivel": "Cuarto cuatrimestre",
         "materias": [
           "Comunicación y Redes",
           "Desarrollo de Sistemas de Información",
@@ -1763,7 +1799,7 @@ export const careers = [
         ]
       },
       {
-        "nivel": "5.º cuatrimestre",
+        "nivel": "Quinto cuatrimestre",
         "materias": [
           "Electiva Programación",
           "Electiva Computación",
@@ -1771,9 +1807,10 @@ export const careers = [
         ]
       }
     ],
+
+    "fuentePlan": "https://www.frsf.utn.edu.ar/plan-de-estudio",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "fuentePlan": "https://www.frsf.utn.edu.ar/plan-de-estudio"
+    "estadoPlan": "verificado"
   },
   {
     "id": "tu-telecomunicaciones",
@@ -1788,6 +1825,7 @@ export const careers = [
     "facultades": [
       "Distintas Facultades Regionales"
     ],
+
     "fuenteOficial": "https://www.frc.utn.edu.ar/carreras/tecnicatura-universitaria-en-telecomunicaciones/",
     "planUrl": "https://sceu.frba.utn.edu.ar/e-learning/detalle/carrera/2408/tecnicatura-universitaria-en-telecomunicaciones",
     "planNombre": "Plan vigente - Tecnicatura Universitaria en Telecomunicaciones",
@@ -1844,6 +1882,7 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://sceu.frba.utn.edu.ar/e-learning/detalle/carrera/2408/tecnicatura-universitaria-en-telecomunicaciones",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -1854,12 +1893,14 @@ export const careers = [
     "area": "pregrado",
     "subtipo": "Tecnicatura Universitaria",
     "duracion": "2 años",
+    "modalidad": "Presencial",
     "descripcion": "Combina formación en administración y gestión con capacitación tecnológica para desempeñarse en organizaciones públicas y privadas.",
     "facultades": [
       "Santa Cruz",
       "Buenos Aires",
-      "otras regionales según oferta"
+      "Otras regionales según oferta"
     ],
+
     "fuenteOficial": "https://www.frsc.utn.edu.ar/web/tecnicatura-superior-en-administracion/",
     "planUrl": "https://frm.utn.edu.ar/plan-de-estudio-tec-univ-adminsitracion/",
     "planNombre": "Plan vigente - Ordenanza N° 2111/24",
@@ -1878,6 +1919,7 @@ export const careers = [
           "Seminario"
         ]
       },
+
       {
         "nivel": "Segundo año",
         "materias": [
@@ -1894,7 +1936,8 @@ export const careers = [
         ]
       }
     ],
-    "modalidad": "Presencial",
+
+
     "fuentePlan": "https://frm.utn.edu.ar/plan-de-estudio-tec-univ-adminsitracion/",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -1909,8 +1952,9 @@ export const careers = [
     "facultades": [
       "Mendoza",
       "Buenos Aires",
-      "otras regionales según oferta"
+      "Otras regionales según oferta"
     ],
+
     "fuenteOficial": "https://www.utn.edu.ar/es/secretaria-academica/educacion-distancia",
     "planUrl": "https://www.frlr.utn.edu.ar/carreras/tecnicatura-universitaria-en-higiene-y-seguridad-en-el-trabajo/",
     "planNombre": "Plan vigente - Tecnicatura Universitaria en Higiene y Seguridad en el Trabajo",
@@ -1958,20 +2002,23 @@ export const careers = [
         ]
       }
     ],
+
+    "fuentePlan": "https://www.frlr.utn.edu.ar/carreras/tecnicatura-universitaria-en-higiene-y-seguridad-en-el-trabajo/",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "fuentePlan": "https://www.frlr.utn.edu.ar/carreras/tecnicatura-universitaria-en-higiene-y-seguridad-en-el-trabajo/"
+    "estadoPlan": "verificado"
   },
   {
     "id": "tu-ciudades-inteligentes",
     "titulo": "Tecnicatura Universitaria en Ciudades Inteligentes",
     "area": "pregrado",
     "subtipo": "Tecnicatura Universitaria",
+    "duracion": "2 años y medio",
     "modalidad": "A distancia y asincrónica",
     "descripcion": "Propuesta vinculada con tecnologías y soluciones para el desarrollo de ciudades inteligentes.",
     "facultades": [
       "Consorcio de Facultades Regionales UTN"
     ],
+
     "fuenteOficial": "https://fra.utn.edu.ar/tecnicatura-universitaria-en-ciudades-inteligentes-ingreso/",
     "planUrl": "https://www.frn.utn.edu.ar/media/attachments/2023/10/24/informacin-tuci-completo.pdf",
     "planNombre": "Plan vigente - Ordenanza N° 1690/18",
@@ -2031,6 +2078,8 @@ export const careers = [
     "titulo": "Tecnicatura Universitaria en Logística",
     "area": "pregrado",
     "subtipo": "Tecnicatura Universitaria",
+    "duracion": "3 años",
+    "cargaHoraria": "1.768 horas reloj",
     "descripcion": "Tecnicatura ofrecida por distintas Facultades Regionales de la Universidad Tecnológica Nacional.",
     "facultades": [
       "Distintas Facultades Regionales"
@@ -2076,17 +2125,16 @@ export const careers = [
         ]
       }
     ],
+    "fuentePlan": "https://utn.edu.ar/images/oferta_academica/planes_estudio/Plan-Estudio-TS-en-Logistica.pdf",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "duracion": "3 años",
-    "cargaHoraria": "1.768 horas reloj",
-    "fuentePlan": "https://utn.edu.ar/images/oferta_academica/planes_estudio/Plan-Estudio-TS-en-Logistica.pdf"
+    "estadoPlan": "verificado"
   },
   {
     "id": "tu-mecatronica",
     "titulo": "Tecnicatura Universitaria en Mecatrónica",
     "area": "pregrado",
     "subtipo": "Tecnicatura Universitaria",
+    "duracion": "2 años",
     "descripcion": "Tecnicatura vinculada con mecánica, electrónica, automatización y sistemas de control aplicados a procesos y equipos.",
     "facultades": [
       "Distintas Facultades Regionales"
@@ -2137,16 +2185,16 @@ export const careers = [
         ]
       }
     ],
+    "fuentePlan": "https://www.frc.utn.edu.ar/carreras/tecnicatura-universitaria-en-mecatronica/",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "duracion": "2 años",
-    "fuentePlan": "https://www.frc.utn.edu.ar/carreras/tecnicatura-universitaria-en-mecatronica/"
+    "estadoPlan": "verificado"
   },
   {
     "id": "tu-mantenimiento-industrial",
     "titulo": "Tecnicatura Universitaria en Mantenimiento Industrial",
     "area": "pregrado",
     "subtipo": "Tecnicatura Universitaria",
+    "duracion": "2 años",
     "descripcion": "Tecnicatura UTN orientada al mantenimiento de instalaciones, equipos y procesos industriales.",
     "facultades": [
       "Distintas Facultades Regionales"
@@ -2195,6 +2243,9 @@ export const careers = [
     "titulo": "Tecnicatura Universitaria en Gestión de la Industria Automotriz",
     "area": "pregrado",
     "subtipo": "Tecnicatura Universitaria",
+    "duracion": "3 años",
+    "cargaHoraria": "1.700 horas",
+    "modalidad": "Presencial",
     "descripcion": "Tecnicatura UTN vinculada con la gestión de procesos y actividades de la industria automotriz.",
     "facultades": [
       "Regional Delta / extensiones según oferta"
@@ -2250,22 +2301,21 @@ export const careers = [
         ]
       }
     ],
+    "fuentePlan": "https://www.frgp.utn.edu.ar/carreras/tugia",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "duracion": "3 años",
-    "cargaHoraria": "1.700 horas",
-    "modalidad": "Presencial",
-    "fuentePlan": "https://www.frgp.utn.edu.ar/carreras/tugia"
+    "estadoPlan": "verificado"
   },
   {
     "id": "tu-energias-sustentables",
     "titulo": "Tecnicatura Universitaria en Energías Sustentables",
     "area": "pregrado",
     "subtipo": "Tecnicatura Universitaria",
+    "duracion": "2 años y medio",
+    "cargaHoraria": "1.924 horas reloj",
     "descripcion": "Carrera de pregrado UTN vinculada con tecnologías y gestión de energías sustentables.",
     "facultades": [
       "Facultad Regional Chubut",
-      "otras regionales según oferta"
+      "Otras regionales según oferta"
     ],
     "fuenteOficial": "https://www.frch.utn.edu.ar/inscripcion/",
     "planUrl": "https://www.frch.utn.edu.ar/wp-content/uploads/2024/12/Anexo-II-.pdf",
@@ -2316,21 +2366,21 @@ export const careers = [
         ]
       }
     ],
+    "fuentePlan": "https://www.frch.utn.edu.ar/wp-content/uploads/2024/12/Anexo-II-.pdf",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "cargaHoraria": "1.924 horas reloj",
-    "fuentePlan": "https://www.frch.utn.edu.ar/wp-content/uploads/2024/12/Anexo-II-.pdf"
+    "estadoPlan": "verificado"
   },
   {
     "id": "tu-videojuegos",
     "titulo": "Tecnicatura Universitaria en Desarrollo y Producción de Videojuegos",
     "area": "pregrado",
     "subtipo": "Tecnicatura Universitaria",
+    "duracion": "2 años",
     "modalidad": "A distancia",
     "descripcion": "Carrera UTN orientada al desarrollo y producción de videojuegos.",
     "facultades": [
       "Facultad Regional Chubut",
-      "otras regionales según oferta"
+      "Otras regionales según oferta"
     ],
     "fuenteOficial": "https://www.frch.utn.edu.ar/inscripcion/",
     "planUrl": "https://sceu.frba.utn.edu.ar/e-learning/detalle//3401/tecnicatura-universitaria-en-desarrollo-y-produccion-de-videojuegos",
@@ -2385,11 +2435,12 @@ export const careers = [
     "titulo": "Tecnicatura Universitaria en Comercio Electrónico y Marketing Digital",
     "area": "pregrado",
     "subtipo": "Tecnicatura Universitaria",
+    "duracion": "2 años y medio",
     "modalidad": "A distancia",
     "descripcion": "Carrera de pregrado UTN vinculada con comercio electrónico y marketing digital.",
     "facultades": [
       "Facultad Regional Chubut",
-      "otras regionales según oferta"
+      "Otras regionales según oferta"
     ],
     "fuenteOficial": "https://www.frch.utn.edu.ar/inscripcion/",
     "planUrl": "https://sceu.frba.utn.edu.ar/e-learning/detalle//1603/tecnicatura-universitaria-en-comercio-electronico-y-marketing-digital?id=999196748",
@@ -2443,7 +2494,7 @@ export const careers = [
         ]
       }
     ],
-    "duracion": "2 años y medio",
+
     "fuentePlan": "https://sceu.frba.utn.edu.ar/e-learning/detalle//1603/tecnicatura-universitaria-en-comercio-electronico-y-marketing-digital?id=999196748",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -2453,6 +2504,7 @@ export const careers = [
     "titulo": "Licenciatura en Administración de Empresas",
     "area": "complementacion",
     "subtipo": "Ciclo de Complementación Curricular",
+    "duracion": "2 años",
     "modalidad": "A distancia",
     "descripcion": "Ciclo destinado a personas con formación técnica previa en administración para completar una formación universitaria de licenciatura.",
     "facultades": [
@@ -2463,6 +2515,7 @@ export const careers = [
       "Mar del Plata",
       "Santa Cruz"
     ],
+
     "fuenteOficial": "https://www.utn.edu.ar/es/secretaria-academica/educacion-distancia",
     "planUrl": "https://sceu.frba.utn.edu.ar/e-learning/detalle/carrera/2276/licenciatura-en-administracion-de-empresas",
     "planNombre": "Plan vigente - Licenciatura en Administración de Empresas",
@@ -2502,7 +2555,7 @@ export const careers = [
         ]
       }
     ],
-    "duracion": "2 años",
+
     "fuentePlan": "https://sceu.frba.utn.edu.ar/e-learning/detalle/carrera/2276/licenciatura-en-administracion-de-empresas",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -2512,10 +2565,13 @@ export const careers = [
     "titulo": "Licenciatura en Gestión de Empresas Turísticas y Hoteleras",
     "area": "complementacion",
     "subtipo": "Ciclo de Complementación Curricular",
+    "duracion": "2 años",
+    "modalidad": "A distancia",
     "descripcion": "Ciclo de complementación curricular ofrecido por la UTN en el área de gestión turística y hotelera.",
     "facultades": [
       "Oferta UTN a distancia según regional"
     ],
+
     "fuenteOficial": "https://www4.frm.utn.edu.ar/plan-de-estudio-lic-gestion-de-empresas-turisticas-2/",
     "planUrl": "https://www4.frm.utn.edu.ar/plan-de-estudio-lic-gestion-de-empresas-turisticas-2/",
     "planNombre": "Plan de estudios vigente publicado por UTN Facultad Regional Mendoza",
@@ -2543,17 +2599,19 @@ export const careers = [
         ]
       }
     ],
+
+    "fuentePlan": "https://www4.frm.utn.edu.ar/plan-de-estudio-lic-gestion-de-empresas-turisticas-2/",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "duracion": "2 años",
-    "modalidad": "A distancia",
-    "fuentePlan": "https://www4.frm.utn.edu.ar/plan-de-estudio-lic-gestion-de-empresas-turisticas-2/"
+    "estadoPlan": "verificado"
   },
   {
     "id": "ccc-tecnologias-educativas-inclusivas",
     "titulo": "Licenciatura en Tecnologías Educativas Inclusivas",
     "area": "complementacion",
     "subtipo": "Ciclo de Complementación Curricular",
+    "duracion": "2 años",
+    "cargaHoraria": "1.124 horas",
+    "modalidad": "A distancia",
     "descripcion": "Forma profesionales para diseñar configuraciones de apoyo y propuestas educativas con tecnologías orientadas a la inclusión y al Diseño Universal del Aprendizaje.",
     "facultades": [
       "Buenos Aires",
@@ -2564,6 +2622,7 @@ export const careers = [
       "Concordia",
       "La Plata"
     ],
+
     "fuenteOficial": "https://dpec.frro.utn.edu.ar/carrera.php?idCarrera=30",
     "planUrl": "https://dpec.frro.utn.edu.ar/gestor/frm-carreras/folletos/folletoCarrera_84%20-%20%20Folleto%20Difusi%C3%B3n%20-%20Licenciatura%20en%20Tecnolog%C3%ADas%20Inclusivas%20en%20Educaci%C3%B3n.pdf",
     "planNombre": "Plan de estudio - Licenciatura en Tecnologías Inclusivas en Educación",
@@ -2595,24 +2654,24 @@ export const careers = [
         ]
       }
     ],
+
+    "fuentePlan": "https://dpec.frro.utn.edu.ar/carrera.php?idCarrera=30",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "duracion": "2 años",
-    "modalidad": "A distancia",
-    "cargaHoraria": "1.124 horas",
-    "fuentePlan": "https://dpec.frro.utn.edu.ar/carrera.php?idCarrera=30"
+    "estadoPlan": "verificado"
   },
   {
     "id": "ccc-gestion-ambiental",
     "titulo": "Licenciatura en Gestión Ambiental",
     "area": "complementacion",
     "subtipo": "Ciclo de Complementación Curricular",
+    "duracion": "2 años",
     "modalidad": "A distancia",
     "descripcion": "Ciclo de licenciatura UTN orientado a la gestión ambiental.",
     "facultades": [
       "Facultad Regional Chubut",
-      "otras regionales según oferta"
+      "Otras regionales según oferta"
     ],
+
     "fuenteOficial": "https://www.frch.utn.edu.ar/inscripcion/",
     "planUrl": "https://sceu.frba.utn.edu.ar/e-learning/detalle/carrera/3512/licenciatura-en-gestion-ambiental",
     "planNombre": "Plan vigente - Licenciatura en Gestión Ambiental",
@@ -2628,15 +2687,15 @@ export const careers = [
           "Teledetección Aplicada a los Recursos Naturales"
         ]
       },
+      
       {
         "nivel": "Segundo cuatrimestre",
         "materias": [
-          "Teledetección Aplicada a los Recursos Naturales",
           "Política y Ética Ambiental",
           "Inglés Técnico",
-          "Evaluación y Gestión de Recursos Hídricos"
-        ]
+          "Evaluación y Gestión de Recursos Hídricos"]
       },
+
       {
         "nivel": "Tercer cuatrimestre",
         "materias": [
@@ -2656,22 +2715,25 @@ export const careers = [
         ]
       }
     ],
-    "duracion": "2 años",
+
     "fuentePlan": "https://sceu.frba.utn.edu.ar/e-learning/detalle/carrera/3512/licenciatura-en-gestion-ambiental",
     "planVerificado": true,
     "estadoPlan": "verificado"
   },
+
   {
     "id": "ccc-higiene-seguridad",
     "titulo": "Licenciatura en Higiene y Seguridad en el Trabajo",
     "area": "complementacion",
     "subtipo": "Ciclo de Complementación Curricular",
+    "duracion": "2 años",
     "modalidad": "A distancia según oferta",
     "descripcion": "Ciclo de licenciatura UTN para profundizar la formación profesional en higiene, prevención y seguridad laboral.",
     "facultades": [
       "Facultad Regional Chubut",
-      "otras regionales según oferta"
+      "Otras regionales según oferta"
     ],
+
     "fuenteOficial": "https://www.frch.utn.edu.ar/inscripcion/",
     "planUrl": "https://www.frc.utn.edu.ar/carreras/licenciatura-en-higiene-y-seguridad-en-el-trabajo/",
     "planNombre": "Plan oficial - Licenciatura en Higiene y Seguridad en el Trabajo",
@@ -2690,6 +2752,7 @@ export const careers = [
           "Taller de Integración I"
         ]
       },
+
       {
         "nivel": "Segundo año",
         "materias": [
@@ -2706,6 +2769,7 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://www.frc.utn.edu.ar/carreras/licenciatura-en-higiene-y-seguridad-en-el-trabajo/",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -2715,12 +2779,14 @@ export const careers = [
     "titulo": "Licenciatura en Tecnología Educativa",
     "area": "complementacion",
     "subtipo": "Ciclo de Complementación Curricular",
+    "duracion": "1 año y medio",
     "modalidad": "A distancia",
     "descripcion": "Ciclo de licenciatura UTN vinculado con tecnologías aplicadas a los procesos de enseñanza y aprendizaje.",
     "facultades": [
       "Facultad Regional Chubut",
-      "otras regionales según oferta"
+      "Otras regionales según oferta"
     ],
+
     "fuenteOficial": "https://www.frch.utn.edu.ar/inscripcion/",
     "planUrl": "https://sceu.frba.utn.edu.ar/e-learning/detalle/carrera/1235/licenciatura-en-tecnologia-educativa?id=186140",
     "planNombre": "Plan vigente - Licenciatura en Tecnología Educativa",
@@ -2752,7 +2818,7 @@ export const careers = [
         ]
       }
     ],
-    "duracion": "1 año y medio",
+
     "fuentePlan": "https://sceu.frba.utn.edu.ar/e-learning/detalle/carrera/1235/licenciatura-en-tecnologia-educativa?id=186140",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -2762,10 +2828,13 @@ export const careers = [
     "titulo": "Licenciatura en Producción de Bioimágenes",
     "area": "complementacion",
     "subtipo": "Ciclo de Complementación Curricular",
+    "duracion": "2 años",
+    "cargaHoraria": "1.248 horas",
     "descripcion": "Oferta de complementación vinculada con el área de producción de bioimágenes.",
     "facultades": [
       "Facultad Regional Venado Tuerto"
     ],
+
     "fuenteOficial": "https://frvt.utn.edu.ar/carreras/",
     "planUrl": "https://www.utn.edu.ar/images/oferta_academica/planes_estudio/Plan-Estudio-Lic-en-Produccion-de-Bioimagenes.pdf",
     "planNombre": "Ordenanza N.º 1488",
@@ -2795,26 +2864,26 @@ export const careers = [
         ]
       }
     ],
+
+    "fuentePlan": "https://www.utn.edu.ar/images/oferta_academica/planes_estudio/Plan-Estudio-Lic-en-Produccion-de-Bioimagenes.pdf",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "duracion": "2 años",
-    "cargaHoraria": "1.248 horas",
-    "fuentePlan": "https://www.utn.edu.ar/images/oferta_academica/planes_estudio/Plan-Estudio-Lic-en-Produccion-de-Bioimagenes.pdf"
+    "estadoPlan": "verificado"
   },
   {
     "id": "pos-esp-docencia-universitaria",
     "titulo": "Especialización en Docencia Universitaria",
     "area": "posgrado",
     "subtipo": "Especialización",
-    "duracion": "1 año y medio",
+    "duracion": "2 años",
     "cargaHoraria": "470 h reloj",
     "modalidad": "Presencial",
     "tituloOtorgado": "Especialista en Docencia Universitaria",
     "descripcion": "Profundiza en didáctica universitaria, evaluación, teorías del aprendizaje, tecnologías educativas y problemáticas de la educación superior.",
     "facultades": [
       "Facultad Regional Córdoba",
-      "otras regionales"
+      "Otras regionales"
     ],
+
     "fuenteOficial": "https://www.frc.utn.edu.ar/carreras/especializacion-en-docencia-universitaria/",
     "planUrl": "https://frt.utn.edu.ar/especializacion-en-docencia-universitaria/",
     "planNombre": "Plan de Estudios - Ordenanza CS N° 1370",
@@ -2845,6 +2914,7 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://frt.utn.edu.ar/especializacion-en-docencia-universitaria/",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -2854,13 +2924,14 @@ export const careers = [
     "titulo": "Especialización en Ingeniería en Control Automático",
     "area": "posgrado",
     "subtipo": "Especialización",
-    "duracion": "Especialización - estructura curricular vigente",
+    "duracion": "2 años",
     "cargaHoraria": "450 h",
     "modalidad": "Presencial mediada por virtualidad",
     "descripcion": "Formación avanzada en análisis, automatización y tecnologías de control para resolver problemas complejos de ingeniería.",
     "facultades": [
       "Facultad Regional Córdoba"
     ],
+
     "fuenteOficial": "https://www.frc.utn.edu.ar/carreras/especializacion-en-ingenieria-en-control-automatico/",
     "planUrl": "https://www.frc.utn.edu.ar/carreras/especializacion-en-ingenieria-en-control-automatico/",
     "planNombre": "Ordenanza N.º 2001/2023 - estructura curricular actualizada",
@@ -2889,23 +2960,25 @@ export const careers = [
         ]
       }
     ],
+
+    "fuentePlan": "https://www.frc.utn.edu.ar/carreras/especializacion-en-ingenieria-en-control-automatico/",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "fuentePlan": "https://www.frc.utn.edu.ar/carreras/especializacion-en-ingenieria-en-control-automatico/"
+    "estadoPlan": "verificado"
   },
   {
     "id": "pos-esp-gerencial",
     "titulo": "Especialización en Ingeniería Gerencial",
     "area": "posgrado",
     "subtipo": "Especialización",
-    "duracion": "1 año y medio",
+    "duracion": "2 años",
     "cargaHoraria": "410 h reloj",
     "modalidad": "Presencial",
     "descripcion": "Formación orientada a planificación, gestión y control de organizaciones y fortalecimiento de funciones ejecutivas.",
     "facultades": [
       "Facultad Regional Córdoba",
-      "otras regionales"
+      "Otras regionales"
     ],
+
     "fuenteOficial": "https://www.frc.utn.edu.ar/carreras/especializacion-en-ingenieria-gerencial/",
     "planUrl": "https://fra.utn.edu.ar/especializacion-en-ingenieria-gerencial/",
     "planNombre": "Plan vigente - Especialización en Ingeniería Gerencial",
@@ -2955,6 +3028,7 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://fra.utn.edu.ar/especializacion-en-ingenieria-gerencial/",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -2964,13 +3038,14 @@ export const careers = [
     "titulo": "Especialización en Automóviles de Competición",
     "area": "posgrado",
     "subtipo": "Especialización",
-    "duracion": "1 año y medio",
+    "duracion": "2 años",
     "cargaHoraria": "420 h reloj",
     "modalidad": "Presencial",
     "descripcion": "Especialización en ingeniería, reglamentación y gestión aplicada al desarrollo integral de automóviles de competición.",
     "facultades": [
       "Facultad Regional Córdoba"
     ],
+
     "fuenteOficial": "https://www.frc.utn.edu.ar/carreras/especializacion-en-automoviles-de-competicion/",
     "planUrl": "https://www.frc.utn.edu.ar/carreras/especializacion-en-automoviles-de-competicion/",
     "planNombre": "Consultar plan oficial",
@@ -2983,13 +3058,14 @@ export const careers = [
     "titulo": "Especialización en Enseñanza e Innovación para Carreras Tecnológicas",
     "area": "posgrado",
     "subtipo": "Especialización",
-    "duracion": "1 año y medio",
+    "duracion": "2 años",
     "cargaHoraria": "416 h reloj",
     "modalidad": "A distancia / implementación UTN",
     "descripcion": "Desarrolla competencias docentes para implementar enfoques innovadores y centrados en estudiantes de carreras tecnológicas.",
     "facultades": [
       "Universidad Tecnológica Nacional"
     ],
+
     "fuenteOficial": "https://www.frc.utn.edu.ar/carreras/especializacion-en-ensenanza-e-innovacion-para-carreras-tecnologicas/",
     "planUrl": "https://www.frc.utn.edu.ar/carreras/especializacion-en-ensenanza-e-innovacion-para-carreras-tecnologicas/",
     "planNombre": "Ordenanza Rectoral CSU N° 2125/2025",
@@ -3002,7 +3078,7 @@ export const careers = [
     "titulo": "Especialización en Centrales Nucleares",
     "area": "posgrado",
     "subtipo": "Especialización",
-    "duracion": "4 cuatrimestres",
+    "duracion": "2 años",
     "descripcion": "Carrera de posgrado orientada a profesionales de ingeniería y áreas afines vinculadas con centrales nucleares.",
     "facultades": [
       "Facultad Regional Delta"
@@ -3019,10 +3095,12 @@ export const careers = [
     "titulo": "Maestría en Administración de Negocios",
     "area": "posgrado",
     "subtipo": "Maestría",
+    "duracion": "2 años",
+    "cargaHoraria": "700 horas",
     "descripcion": "Carrera de posgrado de la Universidad Tecnológica Nacional en administración y gestión de negocios.",
     "facultades": [
       "Facultad Regional Córdoba",
-      "otras regionales"
+      "Otras regionales"
     ],
     "fuenteOficial": "https://frt.utn.edu.ar/maestria-en-administracion-de-negocios/",
     "planUrl": "https://frt.utn.edu.ar/maestria-en-administracion-de-negocios/",
@@ -3078,21 +3156,20 @@ export const careers = [
         ]
       }
     ],
+    "fuentePlan": "https://frt.utn.edu.ar/maestria-en-administracion-de-negocios/",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "duracion": "700 horas",
-    "cargaHoraria": "700 horas",
-    "fuentePlan": "https://frt.utn.edu.ar/maestria-en-administracion-de-negocios/"
+    "estadoPlan": "verificado"
   },
   {
     "id": "pos-mae-docencia",
     "titulo": "Maestría en Docencia Universitaria",
     "area": "posgrado",
     "subtipo": "Maestría",
+    "duracion": "2 años",
     "descripcion": "Carrera de posgrado UTN orientada a la formación avanzada en docencia universitaria.",
     "facultades": [
       "Facultad Regional Córdoba",
-      "otras regionales"
+      "Otras regionales"
     ],
     "fuenteOficial": "https://www.frc.utn.edu.ar/posgrado2027/",
     "planUrl": "https://www.frc.utn.edu.ar/posgrado2027/",
@@ -3106,6 +3183,7 @@ export const careers = [
     "titulo": "Maestría en Energías Renovables - Mención Solar",
     "area": "posgrado",
     "subtipo": "Maestría",
+    "duracion": "2 años",
     "descripcion": "Carrera de posgrado UTN vinculada con energías renovables y tecnología solar.",
     "facultades": [
       "Facultad Regional Córdoba"
@@ -3122,10 +3200,11 @@ export const careers = [
     "titulo": "Maestría en Ingeniería Ambiental",
     "area": "posgrado",
     "subtipo": "Maestría",
+    "duracion": "2 años",
     "descripcion": "Carrera de posgrado UTN en el campo de la ingeniería ambiental.",
     "facultades": [
       "Facultad Regional Córdoba",
-      "otras regionales"
+      "Otras regionales"
     ],
     "fuenteOficial": "https://www.frc.utn.edu.ar/posgrado2027/",
     "planUrl": "https://www.frc.utn.edu.ar/posgrado2027/",
@@ -3139,10 +3218,11 @@ export const careers = [
     "titulo": "Maestría en Ingeniería en Calidad",
     "area": "posgrado",
     "subtipo": "Maestría",
+    "duracion": "2 años",
     "descripcion": "Carrera de posgrado UTN en gestión, evaluación y mejora de la calidad en organizaciones y procesos.",
     "facultades": [
       "Facultad Regional Córdoba",
-      "otras regionales"
+      "Otras regionales"
     ],
     "fuenteOficial": "https://www.frc.utn.edu.ar/posgrado2027/",
     "planUrl": "https://www.frc.utn.edu.ar/posgrado2027/",
@@ -3156,10 +3236,12 @@ export const careers = [
     "titulo": "Maestría en Ingeniería en Sistemas de Información",
     "area": "posgrado",
     "subtipo": "Maestría",
+    "duracion": "2 años",
+    "cargaHoraria": "700 horas",
     "descripcion": "Carrera de posgrado UTN orientada a la profundización en ingeniería y gestión de sistemas de información.",
     "facultades": [
       "Facultad Regional Córdoba",
-      "otras regionales"
+      "Otras regionales"
     ],
     "fuenteOficial": "https://frt.utn.edu.ar/maestria-y-especializacion-en-isi/",
     "planUrl": "https://frba.utn.edu.ar/posgrado/estructura-curricular-maestria-ingenieria-en-sistemas-de-informacion/",
@@ -3176,11 +3258,9 @@ export const careers = [
       {
         "nivel": "Formación específica - optativos",
         "materias": [
-          "Sistemas de Información en las Organizaciones",
-          "Inteligencia de Negocios: DW y DM",
-          "Diseño de Aplicaciones basadas en Smart Contract para Blockchain",
-          "Modelado Conceptual de Sistemas de Información",
-          "Pericias Informáticas"
+          "Sistemas de Información / IA",
+          "Inteligencia de Negocios",
+          "Diseño de Aplicaciones"
         ]
       },
       {
@@ -3198,10 +3278,8 @@ export const careers = [
         ]
       }
     ],
+    "fuentePlan": "https://frba.utn.edu.ar/posgrado/estructura-curricular-maestria-ingenieria-en-sistemas-de-informacion/",
     "planVerificado": true,
-    "estadoPlan": "verificado",
-    "duracion": "700 horas",
-    "cargaHoraria": "700 horas",
-    "fuentePlan": "https://frba.utn.edu.ar/posgrado/estructura-curricular-maestria-ingenieria-en-sistemas-de-informacion/"
+    "estadoPlan": "verificado"
   }
 ];
