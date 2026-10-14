@@ -29,14 +29,23 @@ export default function Test() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
+  const [hasPreviousTest, setHasPreviousTest] = useState(false);
+  const [isRetaking, setIsRetaking] = useState(false);
 
   useEffect(() => {
-    const savedAnswers = localStorage.getItem(TEST_ANSWERS_KEY);
+    setHasPreviousTest(Boolean(localStorage.getItem(TEST_ANSWERS_KEY)));
+  }, []);
 
-    if (savedAnswers) {
-      navigate("/ruta", { replace: true });
-    }
-  }, [navigate]);
+  const handleStartAgain = () => {
+    localStorage.removeItem(TEST_ANSWERS_KEY);
+    localStorage.removeItem(RECOMMENDED_CAREERS_KEY);
+    localStorage.removeItem(LEARNING_ROUTE_KEY);
+
+    setUserAnswers({});
+    setCurrentIndex(0);
+    setHasPreviousTest(false);
+    setIsRetaking(true);
+  };
 
   const handleSelectOption = (optionIndex) => {
     setUserAnswers((currentAnswers) => ({
@@ -51,7 +60,7 @@ export default function Test() {
     const answerList = Object.entries(answersToSave)
       .map(
         ([questionIndex, optionIndex]) =>
-          questions[Number(questionIndex)]?.options?.[optionIndex]
+          questions[Number(questionIndex)]?.options?.[optionIndex],
       )
       .filter(Boolean);
 
@@ -67,14 +76,14 @@ export default function Test() {
 
     localStorage.setItem(
       RECOMMENDED_CAREERS_KEY,
-      JSON.stringify(finalRecommendations)
+      JSON.stringify(finalRecommendations),
     );
 
     const dominantArea = getDominantArea(answerList);
 
     const learningRoute = buildLearningRouteFromCareer(
       finalRecommendations[0],
-      dominantArea
+      dominantArea,
     );
 
     if (learningRoute) {
@@ -148,6 +157,52 @@ export default function Test() {
     );
   }
 
+  if (hasPreviousTest && !isRetaking) {
+    return (
+      <main className="container py-5 text-center cp-fade-up">
+        <div className="card border-0 shadow-sm rounded-4 mx-auto">
+          <div className="card-body p-4 p-md-5">
+            <i className="bi bi-check-circle-fill display-1 text-success mb-4 d-block"></i>
+
+            <h1 className="fw-bold mb-3">Ya completaste el test</h1>
+
+            <p className="text-muted mb-4 lead">
+              Podés ver tus resultados, continuar tu ruta o rehacer el test para
+              actualizar tus recomendaciones.
+            </p>
+
+            <div className="d-flex flex-column flex-sm-row justify-content-center gap-3">
+              <Link
+                to="/resultados"
+                className="btn btn-primary rounded-pill px-4"
+              >
+                <i className="bi bi-stars me-2"></i>
+                Ver resultados
+              </Link>
+
+              <Link
+                to="/ruta"
+                className="btn btn-outline-primary rounded-pill px-4"
+              >
+                <i className="bi bi-signpost-split me-2"></i>
+                Ver mi ruta
+              </Link>
+
+              <button
+                type="button"
+                className="btn btn-outline-secondary rounded-pill px-4"
+                onClick={handleStartAgain}
+              >
+                <i className="bi bi-arrow-repeat me-2"></i>
+                Rehacer test
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   const progress = Math.round(((currentIndex + 1) / questions.length) * 100);
 
   return (
@@ -170,7 +225,10 @@ export default function Test() {
         <div
           className="progress-bar bg-primary"
           role="progressbar"
-          style={{ width: `${progress}%`, transition: "width 0.5s ease-in-out" }}
+          style={{
+            width: `${progress}%`,
+            transition: "width 0.5s ease-in-out",
+          }}
           aria-valuenow={progress}
           aria-valuemin="0"
           aria-valuemax="100"

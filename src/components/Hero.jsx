@@ -30,17 +30,23 @@ const Hero = ({
                 className="btn btn-info btn-lg rounded-pill fw-semibold px-4 cp-btn-animated"
                 to={primaryBtn.link}
               >
-                <i className={`bi ${primaryBtn.icon ?? "bi-arrow-right-circle"} me-2`}></i>
+                <i
+                  className={`bi ${primaryBtn.icon ?? "bi-arrow-right-circle"} me-2`}
+                ></i>
                 {primaryBtn.text}
               </Link>
 
-              <Link
-                className="btn btn-outline-light btn-lg rounded-pill px-4 cp-btn-animated"
-                to={secondaryBtn.link}
-              >
-                <i className={`bi ${secondaryBtn.icon ?? "bi-signpost-split"} me-2`}></i>
-                {secondaryBtn.text}
-              </Link>
+              {secondaryBtn && (
+                <Link
+                  className="btn btn-outline-light btn-lg rounded-pill px-4 cp-btn-animated"
+                  to={secondaryBtn.link}
+                >
+                  <i
+                    className={`bi ${secondaryBtn.icon ?? "bi-signpost-split"} me-2`}
+                  ></i>
+                  {secondaryBtn.text}
+                </Link>
+              )}
             </div>
 
             <p className="small text-white-50 mt-3 mb-0">
@@ -76,9 +82,7 @@ const Hero = ({
                     </span>
 
                     <div>
-                      <h3 className="h6 fw-bold mb-1">
-                        Conocé tus intereses
-                      </h3>
+                      <h3 className="h6 fw-bold mb-1">Conocé tus intereses</h3>
 
                       <p className="text-white-50 mb-0">
                         Lo que disfrutás y te da curiosidad.
@@ -93,9 +97,7 @@ const Hero = ({
                     </span>
 
                     <div>
-                      <h3 className="h6 fw-bold mb-1">
-                        Explorá posibilidades
-                      </h3>
+                      <h3 className="h6 fw-bold mb-1">Explorá posibilidades</h3>
 
                       <p className="text-white-50 mb-0">
                         Carreras e instituciones para descubrir.

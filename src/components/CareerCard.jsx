@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function CareerCard({
   career,
   isFavorite = false,
@@ -61,7 +63,9 @@ export default function CareerCard({
             }`}
             type="button"
           >
-            <i className={`bi ${isFavorite ? "bi-star-fill" : "bi-star"} me-2`}></i>
+            <i
+              className={`bi ${isFavorite ? "bi-star-fill" : "bi-star"} me-2`}
+            ></i>
             {isFavorite ? "Guardado" : "Favorito"}
           </button>
 

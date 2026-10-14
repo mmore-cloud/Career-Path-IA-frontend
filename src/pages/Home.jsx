@@ -23,22 +23,6 @@ const Home = () => {
       };
     }
 
-    return {
-      text: "Conocer mi recorrido",
-      link: hasCompletedTest ? "/ruta" : "/test",
-      icon: "bi-signpost-split",
-    };
-  }, [isAuthenticated, hasCompletedTest]);
-
-  const secondaryBtn = useMemo(() => {
-    if (!isAuthenticated) {
-      return {
-        text: "Conocer el recorrido",
-        link: "/ruta",
-        icon: "bi-signpost-split",
-      };
-    }
-
     if (hasCompletedTest) {
       return {
         text: "Ver mis resultados",
@@ -51,6 +35,26 @@ const Home = () => {
       text: "Realizar test vocacional",
       link: "/test",
       icon: "bi-clipboard-check",
+    };
+  }, [isAuthenticated, hasCompletedTest]);
+
+  const secondaryBtn = useMemo(() => {
+    if (!isAuthenticated) {
+      return null;
+    }
+
+    if (hasCompletedTest) {
+      return {
+        text: "Ver mi ruta",
+        link: "/ruta",
+        icon: "bi-signpost-split",
+      };
+    }
+
+    return {
+      text: "Completar mi perfil",
+      link: "/perfil",
+      icon: "bi-person-lines-fill",
     };
   }, [isAuthenticated, hasCompletedTest]);
 
@@ -71,7 +75,7 @@ const Home = () => {
         secondaryBtn={secondaryBtn}
       />
 
-      <section className="py-5 bg-light flex-grow-1">
+      <section className="py-5 bg-body-tertiary flex-grow-1">
         <div className="container">
           <div className="row g-4 text-center">
             {homeFeatures.map((feature) => (
