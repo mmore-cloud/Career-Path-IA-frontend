@@ -1,9 +1,63 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Hero from "../components/Hero";
 import FeatureCard from "../components/FeatureCard";
 import { homeFeatures } from "../data/homeFeatures";
+import { useLocalAuth } from "../hooks/useLocalAuth";
+
+const TEST_ANSWERS_KEY = "careerpath_test_answers";
 
 const Home = () => {
+  const { isAuthenticated } = useLocalAuth();
+  const [hasCompletedTest, setHasCompletedTest] = useState(false);
+
+  useEffect(() => {
+    setHasCompletedTest(Boolean(localStorage.getItem(TEST_ANSWERS_KEY)));
+  }, []);
+
+  const primaryBtn = useMemo(() => {
+    if (!isAuthenticated) {
+      return {
+        text: "Comenzar mi perfil",
+        link: "/perfil",
+        icon: "bi-person-badge",
+      };
+    }
+
+    if (hasCompletedTest) {
+      return {
+        text: "Ver mis resultados",
+        link: "/resultados",
+        icon: "bi-stars",
+      };
+    }
+
+    return {
+      text: "Realizar test vocacional",
+      link: "/test",
+      icon: "bi-clipboard-check",
+    };
+  }, [isAuthenticated, hasCompletedTest]);
+
+  const secondaryBtn = useMemo(() => {
+    if (!isAuthenticated) {
+      return null;
+    }
+
+    if (hasCompletedTest) {
+      return {
+        text: "Ver mi ruta",
+        link: "/ruta",
+        icon: "bi-signpost-split",
+      };
+    }
+
+    return {
+      text: "Completar mi perfil",
+      link: "/perfil",
+      icon: "bi-person-lines-fill",
+    };
+  }, [isAuthenticated, hasCompletedTest]);
+
   return (
     <>
       <Hero
@@ -17,19 +71,11 @@ const Home = () => {
         }
         leadText="¿Todavía no sabés qué estudiar? Descubrí qué te interesa, explorá tus posibilidades y empezá a construir tu propio camino."
         descriptionText="CareerPath AI está pensado para estudiantes que están eligiendo una carrera o buscando una nueva dirección."
-        primaryBtn={{
-          text: "Comenzar con mi perfil",
-          link: "/perfil",
-          icon: "bi-person-badge",
-        }}
-        secondaryBtn={{
-          text: "Conocer el recorrido",
-          link: "/test",
-          icon: "bi-clipboard-check",
-        }}
+        primaryBtn={primaryBtn}
+        secondaryBtn={secondaryBtn}
       />
 
-      <section className="py-5 bg-light flex-grow-1">
+      <section className="py-5 bg-body-tertiary flex-grow-1">
         <div className="container">
           <div className="row g-4 text-center">
             {homeFeatures.map((feature) => (

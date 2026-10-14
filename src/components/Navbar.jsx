@@ -2,9 +2,12 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logoCareerPath from "../assets/CareerPath.jpeg";
 import { menuItems } from "../data/menuItems";
+import { useThemeMode } from "../hooks/useThemeMode";
 
 function AppNavbar() {
   const [menuAbierto, setMenuAbierto] = useState(false);
+
+  const { isDarkMode, toggleTheme } = useThemeMode();
 
   const cerrarMenu = () => {
     setMenuAbierto(false);
@@ -60,7 +63,7 @@ function AppNavbar() {
           </button>
 
           <div className="collapse navbar-collapse d-none d-lg-flex">
-            <ul className="navbar-nav ms-auto gap-2">
+            <ul className="navbar-nav ms-auto gap-2 align-items-lg-center">
               {menuItems.map((item) => (
                 <li className="nav-item" key={item.id}>
                   <NavLink
@@ -79,6 +82,16 @@ function AppNavbar() {
                 </li>
               ))}
             </ul>
+
+            <button
+  className="btn btn-outline-info rounded-pill ms-lg-3 cp-btn-animated"
+  type="button"
+  onClick={toggleTheme}
+  aria-label={isDarkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+>
+  <i className={`bi ${isDarkMode ? "bi-sun" : "bi-moon-stars"} me-2`}></i>
+  {isDarkMode ? "Claro" : "Oscuro"}
+</button>
           </div>
         </div>
       </nav>
@@ -142,6 +155,15 @@ function AppNavbar() {
                   </li>
                 ))}
               </ul>
+
+              <button
+  className="btn btn-outline-info rounded-pill w-100 mb-3 cp-btn-animated"
+  type="button"
+  onClick={toggleTheme}
+>
+  <i className={`bi ${isDarkMode ? "bi-sun" : "bi-moon-stars"} me-2`}></i>
+  {isDarkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+</button>
 
               <div className="border border-secondary rounded-4 p-3 bg-black bg-opacity-25">
                 <p className="text-info small fw-bold text-uppercase mb-2">
