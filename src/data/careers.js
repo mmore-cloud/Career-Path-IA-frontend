@@ -10,7 +10,7 @@ export const careers = [
     "facultades": [
       "Facultad Regional Haedo"
     ],
-
+    
     "fuenteOficial": "https://frh.utn.edu.ar/carreras/",
     "planUrl": "https://frh.utn.edu.ar/carreras/ingenieria-aeronautica-aeroespacial/plan-de-estudio-ing-aeronautica/",
     "planNombre": "Plan vigente - Ingeniería Aeroespacial",
@@ -972,6 +972,7 @@ export const careers = [
     "facultades": [
       "Facultad Regional Haedo"
     ],
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/ferroviaria",
     "planUrl": "https://frh.utn.edu.ar/carreras/ingenieria-ferroviaria/plan-de-estudio-ing-ferroviaria/",
     "planNombre": "Plan 2023",
@@ -1057,6 +1058,7 @@ export const careers = [
     "planVerificado": true,
     "estadoPlan": "verificado"
   },
+
   {
     "id": "ing-industrial",
     "titulo": "Ingeniería Industrial",
@@ -1080,7 +1082,7 @@ export const careers = [
       "Tierra del Fuego",
       "Trenque Lauquen"
     ],
-    
+
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/industrial",
     "planUrl": "https://web.frtl.utn.edu.ar/plan-de-estudios-ingenieria-industrial/",
     "planNombre": "Plan 2023 - Ordenanza N° 1908",
@@ -1155,10 +1157,12 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://web.frtl.utn.edu.ar/plan-de-estudios-ingenieria-industrial/",
     "planVerificado": true,
     "estadoPlan": "verificado"
   },
+
   {
     "id": "ing-mecanica",
     "titulo": "Ingeniería Mecánica",
@@ -1254,6 +1258,7 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://frba.utn.edu.ar/mecanica/plan-de-estudios-2023/",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -1672,6 +1677,7 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://www.frbb.utn.edu.ar/frbb/info/pages/loi01.html",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -1703,6 +1709,7 @@ export const careers = [
           "Organización Empresarial"
         ]
       },
+
       {
         "nivel": "Segundo cuatrimestre",
         "materias": [
@@ -1712,6 +1719,7 @@ export const careers = [
           "Inglés I"
         ]
       },
+
       {
         "nivel": "Tercer cuatrimestre",
         "materias": [
@@ -1721,6 +1729,7 @@ export const careers = [
           "Inglés II"
         ]
       },
+
       {
         "nivel": "Cuarto cuatrimestre",
         "materias": [
@@ -1743,6 +1752,7 @@ export const careers = [
     "planVerificado": true,
     "estadoPlan": "verificado"
   },
+
   {
     "id": "tuti",
     "titulo": "Tecnicatura Universitaria en Tecnologías de la Información",
@@ -1841,6 +1851,7 @@ export const careers = [
           "Probabilidad y Estadística"
         ]
       },
+
       {
         "nivel": "Segundo cuatrimestre",
         "materias": [
@@ -1852,6 +1863,7 @@ export const careers = [
           "Redes de Acceso Fijo"
         ]
       },
+
       {
         "nivel": "Tercer cuatrimestre",
         "materias": [
@@ -1863,6 +1875,7 @@ export const careers = [
           "Satélites y Microondas"
         ]
       },
+
       {
         "nivel": "Cuarto cuatrimestre",
         "materias": [
@@ -1873,6 +1886,7 @@ export const careers = [
           "Laboratorio de Planta Externa"
         ]
       },
+
       {
         "nivel": "Quinto cuatrimestre",
         "materias": [
@@ -1887,6 +1901,7 @@ export const careers = [
     "planVerificado": true,
     "estadoPlan": "verificado"
   },
+
   {
     "id": "tu-administracion",
     "titulo": "Tecnicatura Universitaria en Administración",
@@ -1942,6 +1957,7 @@ export const careers = [
     "planVerificado": true,
     "estadoPlan": "verificado"
   },
+
   {
     "id": "tu-higiene-seguridad",
     "titulo": "Tecnicatura Universitaria en Higiene y Seguridad en el Trabajo",
@@ -2032,6 +2048,7 @@ export const careers = [
           "Participación Ciudadana"
         ]
       },
+
       {
         "nivel": "Segundo cuatrimestre",
         "materias": [
@@ -2442,6 +2459,7 @@ export const careers = [
       "Facultad Regional Chubut",
       "Otras regionales según oferta"
     ],
+
     "fuenteOficial": "https://www.frch.utn.edu.ar/inscripcion/",
     "planUrl": "https://sceu.frba.utn.edu.ar/e-learning/detalle//1603/tecnicatura-universitaria-en-comercio-electronico-y-marketing-digital?id=999196748",
     "planNombre": "Plan vigente - Tecnicatura Universitaria en Comercio Electrónico y Marketing Digital",
@@ -2483,6 +2501,7 @@ export const careers = [
           "Gestión del Conocimiento"
         ]
       },
+
       {
         "nivel": "Quinto cuatrimestre",
         "materias": [
@@ -2499,6 +2518,7 @@ export const careers = [
     "planVerificado": true,
     "estadoPlan": "verificado"
   },
+
   {
     "id": "ccc-administracion-empresas",
     "titulo": "Licenciatura en Administración de Empresas",
@@ -2528,6 +2548,7 @@ export const careers = [
           "Administración I"
         ]
       },
+
       {
         "nivel": "Segundo cuatrimestre",
         "materias": [
@@ -2536,6 +2557,7 @@ export const careers = [
           "Marketing I"
         ]
       },
+
       {
         "nivel": "Tercer cuatrimestre",
         "materias": [
@@ -2544,6 +2566,7 @@ export const careers = [
           "Administración II"
         ]
       },
+
       {
         "nivel": "Cuarto cuatrimestre",
         "materias": [
@@ -2560,6 +2583,7 @@ export const careers = [
     "planVerificado": true,
     "estadoPlan": "verificado"
   },
+
   {
     "id": "ccc-gestion-turistica-hotelera",
     "titulo": "Licenciatura en Gestión de Empresas Turísticas y Hoteleras",
@@ -2587,6 +2611,7 @@ export const careers = [
           "Calidad en Empresas Turísticas y Hoteleras"
         ]
       },
+
       {
         "nivel": "Segundo año",
         "materias": [
@@ -2604,6 +2629,7 @@ export const careers = [
     "planVerificado": true,
     "estadoPlan": "verificado"
   },
+
   {
     "id": "ccc-tecnologias-educativas-inclusivas",
     "titulo": "Licenciatura en Tecnologías Educativas Inclusivas",
@@ -2640,6 +2666,7 @@ export const careers = [
           "Tecnologías Aplicadas desde la Kinesiología"
         ]
       },
+
       {
         "nivel": "Segundo año",
         "materias": [
@@ -2659,6 +2686,7 @@ export const careers = [
     "planVerificado": true,
     "estadoPlan": "verificado"
   },
+
   {
     "id": "ccc-gestion-ambiental",
     "titulo": "Licenciatura en Gestión Ambiental",
@@ -2687,13 +2715,14 @@ export const careers = [
           "Teledetección Aplicada a los Recursos Naturales"
         ]
       },
-      
+
       {
         "nivel": "Segundo cuatrimestre",
         "materias": [
           "Política y Ética Ambiental",
           "Inglés Técnico",
-          "Evaluación y Gestión de Recursos Hídricos"]
+          "Evaluación y Gestión de Recursos Hídricos"
+        ]
       },
 
       {
@@ -2705,6 +2734,7 @@ export const careers = [
           "Gestión Ambiental en Entidades Públicas y Privadas"
         ]
       },
+
       {
         "nivel": "Cuarto cuatrimestre",
         "materias": [
@@ -2913,12 +2943,13 @@ export const careers = [
           "Problemas de la Enseñanza de las Ciencias y la Tecnología"
         ]
       }
-    ],
+      ],
 
     "fuentePlan": "https://frt.utn.edu.ar/especializacion-en-docencia-universitaria/",
     "planVerificado": true,
     "estadoPlan": "verificado"
   },
+
   {
     "id": "pos-esp-control-automatico",
     "titulo": "Especialización en Ingeniería en Control Automático",
@@ -2965,6 +2996,7 @@ export const careers = [
     "planVerificado": true,
     "estadoPlan": "verificado"
   },
+
   {
     "id": "pos-esp-gerencial",
     "titulo": "Especialización en Ingeniería Gerencial",
@@ -3083,6 +3115,7 @@ export const careers = [
     "facultades": [
       "Facultad Regional Delta"
     ],
+
     "fuenteOficial": "https://www.frd.utn.edu.ar/especializacion-en-centrales-nucleares/",
     "planUrl": "https://www.frd.utn.edu.ar/especializacion-en-centrales-nucleares/",
     "planNombre": "Consultar plan oficial",
@@ -3102,6 +3135,7 @@ export const careers = [
       "Facultad Regional Córdoba",
       "Otras regionales"
     ],
+
     "fuenteOficial": "https://frt.utn.edu.ar/maestria-en-administracion-de-negocios/",
     "planUrl": "https://frt.utn.edu.ar/maestria-en-administracion-de-negocios/",
     "planNombre": "Estructura curricular vigente publicada por UTN FRT",
@@ -3156,6 +3190,7 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://frt.utn.edu.ar/maestria-en-administracion-de-negocios/",
     "planVerificado": true,
     "estadoPlan": "verificado"
@@ -3171,6 +3206,7 @@ export const careers = [
       "Facultad Regional Córdoba",
       "Otras regionales"
     ],
+
     "fuenteOficial": "https://www.frc.utn.edu.ar/posgrado2027/",
     "planUrl": "https://www.frc.utn.edu.ar/posgrado2027/",
     "planNombre": "Consultar plan oficial",
@@ -3188,6 +3224,7 @@ export const careers = [
     "facultades": [
       "Facultad Regional Córdoba"
     ],
+
     "fuenteOficial": "https://www.frc.utn.edu.ar/posgrado2027/",
     "planUrl": "https://www.frc.utn.edu.ar/posgrado2027/",
     "planNombre": "Consultar plan oficial",
@@ -3206,6 +3243,7 @@ export const careers = [
       "Facultad Regional Córdoba",
       "Otras regionales"
     ],
+
     "fuenteOficial": "https://www.frc.utn.edu.ar/posgrado2027/",
     "planUrl": "https://www.frc.utn.edu.ar/posgrado2027/",
     "planNombre": "Consultar plan oficial",
@@ -3224,6 +3262,7 @@ export const careers = [
       "Facultad Regional Córdoba",
       "Otras regionales"
     ],
+
     "fuenteOficial": "https://www.frc.utn.edu.ar/posgrado2027/",
     "planUrl": "https://www.frc.utn.edu.ar/posgrado2027/",
     "planNombre": "Consultar plan oficial",
@@ -3278,6 +3317,7 @@ export const careers = [
         ]
       }
     ],
+
     "fuentePlan": "https://frba.utn.edu.ar/posgrado/estructura-curricular-maestria-ingenieria-en-sistemas-de-informacion/",
     "planVerificado": true,
     "estadoPlan": "verificado"
