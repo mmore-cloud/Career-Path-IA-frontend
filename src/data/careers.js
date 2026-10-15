@@ -4,7 +4,7 @@ export const careers = [
     "titulo": "Ingeniería Aeroespacial",
     "area": "grado",
     "subtipo": "Ingeniería",
-    "duracion": "6 niveles",
+    "duracion": "6 años",
     "modalidad": "Presencial",
     "descripcion": "Especialidad tecnológica centrada en aeronaves, vehículos espaciales, máquinas de vuelo, plantas propulsoras, sistemas de control, instalaciones aeroportuarias y transporte aéreo.",
     "facultades": [
@@ -679,7 +679,7 @@ export const careers = [
     "titulo": "Ingeniería en Industria Automotriz",
     "area": "grado",
     "subtipo": "Ingeniería",
-    "duracion": "5 niveles",
+    "duracion": "5 años",
     "descripcion": "Forma profesionales para planificar, programar, implementar y evaluar sistemas productivos, organizativos y de información de la industria automotriz.",
     "facultades": [
       "Facultad Regional General Pacheco"
