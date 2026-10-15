@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 
 const TEST_ANSWERS_KEY = "careerpath_test_answers";
 const RECOMMENDED_CAREERS_KEY = "careerpath_recommended_careers";
@@ -7,38 +7,32 @@ const RECOMMENDED_CAREERS_KEY = "careerpath_recommended_careers";
 function UserProfileSummary({
   user,
   recommendations = [],
-  learningRoute = null,
   onUpdateProfile,
   onLogout,
   onResetUsers,
 }) {
-  const [profileData, setProfileData] = useState({
-    intereses: "",
-    habilidades: "",
-  });
+  const [profileData, setProfileData] = useState(() => ({
+    intereses: user.intereses?.join(", ") ?? "",
+    habilidades: user.habilidades?.join(", ") ?? "",
+  }));
 
-  const [hasCompletedTest, setHasCompletedTest] = useState(false);
-  const [savedRecommendations, setSavedRecommendations] = useState([]);
+  const [hasCompletedTest] = useState(() =>
+    Boolean(localStorage.getItem(TEST_ANSWERS_KEY)),
+  );
 
-  useEffect(() => {
-    setProfileData({
-      intereses: user.intereses?.join(", ") ?? "",
-      habilidades: user.habilidades?.join(", ") ?? "",
-    });
-  }, [user]);
-
-  useEffect(() => {
-    setHasCompletedTest(Boolean(localStorage.getItem(TEST_ANSWERS_KEY)));
-
+  const [savedRecommendations] = useState(() => {
     try {
-      const storedRecommendations =
-        JSON.parse(localStorage.getItem(RECOMMENDED_CAREERS_KEY)) || [];
+      const storedRecommendations = JSON.parse(
+        localStorage.getItem(RECOMMENDED_CAREERS_KEY),
+      );
 
-      setSavedRecommendations(storedRecommendations);
+      return Array.isArray(storedRecommendations)
+        ? storedRecommendations
+        : [];
     } catch {
-      setSavedRecommendations([]);
+      return [];
     }
-  }, [user.id]);
+  });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -71,13 +65,10 @@ function UserProfileSummary({
   const hasProfileData =
     user.intereses?.length > 0 || user.habilidades?.length > 0;
 
-  const careersToShow = useMemo(() => {
-    if (savedRecommendations.length > 0) {
-      return savedRecommendations.slice(0, 4);
-    }
-
-    return recommendations.slice(0, 4);
-  }, [savedRecommendations, recommendations]);
+  const careersToShow =
+    savedRecommendations.length > 0
+      ? savedRecommendations.slice(0, 4)
+      : recommendations.slice(0, 4);
 
   return (
     <article className="card border-0 shadow-sm rounded-4 cp-profile-card cp-fade-up">
@@ -298,7 +289,10 @@ function UserProfileSummary({
 
             <div className="row g-3">
               {careersToShow.map((career, index) => (
-                <div className="col-md-6" key={career.id ?? career.titulo}>
+                <div
+                  className="col-md-6"
+                  key={career.id ?? career.titulo}
+                >
                   <article
                     className="card h-100 border-0 bg-body-tertiary rounded-4 cp-career-card"
                     style={{ animationDelay: `${index * 80}ms` }}

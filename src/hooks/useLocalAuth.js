@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { initialUsers } from "../data/users";
 
 const USERS_STORAGE_KEY = "careerpath_users";
@@ -8,113 +8,78 @@ const RECOMMENDED_CAREERS_STORAGE_KEY = "careerpath_recommended_careers";
 const LEARNING_ROUTE_STORAGE_KEY = "careerpath_learning_route";
 const ROUTE_PROGRESS_STORAGE_KEY = "careerpath_route_progress";
 
+function getStoredUsers() {
+  try {
+    const storedUsers = localStorage.getItem(USERS_STORAGE_KEY);
+
+    if (!storedUsers) {
+      return initialUsers;
+    }
+
+    const parsedUsers = JSON.parse(storedUsers);
+
+    return Array.isArray(parsedUsers) ? parsedUsers : initialUsers;
+  } catch {
+    return initialUsers;
+  }
+}
+
+function getStoredActiveUserId() {
+  const storedActiveUserId = localStorage.getItem(
+    ACTIVE_USER_STORAGE_KEY,
+  );
+
+  if (storedActiveUserId === null) {
+    return null;
+  }
+
+  const parsedActiveUserId = Number(storedActiveUserId);
+
+  return Number.isNaN(parsedActiveUserId)
+    ? null
+    : parsedActiveUserId;
+}
+
 export function useLocalAuth() {
-  const [users, setUsers] = useState([]);
-  const [activeUserId, setActiveUserId] = useState(null);
-  const [isLoadingAuth, setIsLoadingAuth] = useState(true);
+  const [users, setUsers] = useState(getStoredUsers);
+  const [activeUserId, setActiveUserId] = useState(
+    getStoredActiveUserId,
+  );
   const [authError, setAuthError] = useState("");
 
-  // Recupera usuarios y sesión guardados.
+  const isLoadingAuth = false;
+
+  const activeUser =
+    users.find((user) => user.id === activeUserId) ?? null;
+
+  // Guarda los usuarios cuando cambian.
   useEffect(() => {
-    try {
-      const storedUsers = localStorage.getItem(USERS_STORAGE_KEY);
-      const storedActiveUserId = localStorage.getItem(
-        ACTIVE_USER_STORAGE_KEY,
-      );
+    localStorage.setItem(
+      USERS_STORAGE_KEY,
+      JSON.stringify(users),
+    );
+  }, [users]);
 
-      if (storedUsers) {
-        const parsedUsers = JSON.parse(storedUsers);
-
-        setUsers(parsedUsers);
-
-        const parsedActiveUserId =
-          storedActiveUserId !== null
-            ? Number(storedActiveUserId)
-            : null;
-
-        const activeUserExists =
-          parsedActiveUserId !== null &&
-          parsedUsers.some(
-            (user) => user.id === parsedActiveUserId,
-          );
-
-        setActiveUserId(
-          activeUserExists
-            ? parsedActiveUserId
-            : null,
-        );
-      } else {
-        setUsers(initialUsers);
-
-        localStorage.setItem(
-          USERS_STORAGE_KEY,
-          JSON.stringify(initialUsers),
-        );
-      }
-    } catch (error) {
-      console.error(
-        "Error al cargar usuarios locales:",
-        error,
-      );
-
-      setUsers(initialUsers);
-
-      localStorage.setItem(
-        USERS_STORAGE_KEY,
-        JSON.stringify(initialUsers),
-      );
-
-      setActiveUserId(null);
-    } finally {
-      setIsLoadingAuth(false);
-    }
-  }, []);
-
-  // Mantiene los usuarios sincronizados con localStorage.
+  // Mantiene la sesión sincronizada con localStorage.
   useEffect(() => {
-    if (!isLoadingAuth && users.length > 0) {
-      localStorage.setItem(
-        USERS_STORAGE_KEY,
-        JSON.stringify(users),
-      );
-    }
-  }, [users, isLoadingAuth]);
-
-  // Mantiene la sesión activa en localStorage.
-  useEffect(() => {
-    if (isLoadingAuth) {
-      return;
-    }
-
-    if (activeUserId !== null) {
+    if (activeUser) {
       localStorage.setItem(
         ACTIVE_USER_STORAGE_KEY,
-        String(activeUserId),
+        String(activeUser.id),
       );
     } else {
       localStorage.removeItem(
         ACTIVE_USER_STORAGE_KEY,
       );
     }
-  }, [activeUserId, isLoadingAuth]);
-
-  // Obtiene el usuario que tiene la sesión iniciada.
-  const activeUser = useMemo(
-    () =>
-      users.find(
-        (user) => user.id === activeUserId,
-      ) ?? null,
-    [users, activeUserId],
-  );
+  }, [activeUser]);
 
   const login = ({ email, password }) => {
-    const normalizedEmail =
-      email.trim().toLowerCase();
+    const normalizedEmail = email.trim().toLowerCase();
 
     const foundUser = users.find(
       (user) =>
-        user.email.toLowerCase() ===
-          normalizedEmail &&
+        user.email.toLowerCase() === normalizedEmail &&
         user.password === password,
     );
 
@@ -127,12 +92,6 @@ export function useLocalAuth() {
     }
 
     setActiveUserId(foundUser.id);
-
-    localStorage.setItem(
-      ACTIVE_USER_STORAGE_KEY,
-      String(foundUser.id),
-    );
-
     setAuthError("");
 
     return true;
@@ -143,13 +102,11 @@ export function useLocalAuth() {
     email,
     password,
   }) => {
-    const normalizedEmail =
-      email.trim().toLowerCase();
+    const normalizedEmail = email.trim().toLowerCase();
 
     const emailExists = users.some(
       (user) =>
-        user.email.toLowerCase() ===
-        normalizedEmail,
+        user.email.toLowerCase() === normalizedEmail,
     );
 
     if (emailExists) {
@@ -176,12 +133,6 @@ export function useLocalAuth() {
     ]);
 
     setActiveUserId(newUser.id);
-
-    localStorage.setItem(
-      ACTIVE_USER_STORAGE_KEY,
-      String(newUser.id),
-    );
-
     setAuthError("");
 
     return true;
@@ -196,25 +147,19 @@ export function useLocalAuth() {
       currentUsers.map((user) =>
         user.id === activeUser.id
           ? {
-              ...user,
-              ...updatedData,
-            }
+            ...user,
+            ...updatedData,
+          }
           : user,
       ),
     );
   };
 
-  // Cierra solamente la sesión actual.
   const logout = () => {
     setActiveUserId(null);
     setAuthError("");
-
-    localStorage.removeItem(
-      ACTIVE_USER_STORAGE_KEY,
-    );
   };
 
-  // Restaura los datos locales del proyecto.
   const resetLocalUsers = () => {
     const confirmar = window.confirm(
       "Se eliminarán el test, los resultados y la ruta guardada. ¿Querés continuar?",

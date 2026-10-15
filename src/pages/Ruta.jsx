@@ -1,46 +1,30 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import RouteStep from "../components/RouteStep";
 import { useLocalAuth } from "../hooks/useLocalAuth";
 import { useSEO } from "../hooks/useSEO";
-
 import { routeStorageKeys } from "../data/routeTopics";
 
 const SELECTED_ROUTE_CAREER_KEY = "careerpath_selected_route_career";
 
-function leerJSONStorage(key, fallback = null) {
+function readStorage(key, fallback = null) {
   try {
-    const guardado = localStorage.getItem(key);
-
-    if (!guardado) {
-      return fallback;
-    }
-
-    return JSON.parse(guardado);
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : fallback;
   } catch (error) {
     console.error(`Error al leer ${key}:`, error);
     return fallback;
   }
 }
 
-function tieneRespuestasTest(respuestas) {
-  if (!respuestas) {
-    return false;
-  }
-
-  if (Array.isArray(respuestas)) {
-    return respuestas.length > 0;
-  }
-
-  if (typeof respuestas === "object") {
-    return Object.keys(respuestas).length > 0;
-  }
-
+function hasTestAnswers(answers) {
+  if (!answers) return false;
+  if (Array.isArray(answers)) return answers.length > 0;
+  if (typeof answers === "object") return Object.keys(answers).length > 0;
   return false;
 }
 
-function normalizarId(value) {
+function normalizeId(value) {
   return String(value ?? "")
     .toLowerCase()
     .normalize("NFD")
@@ -51,7 +35,11 @@ function normalizarId(value) {
 
 function getCareerKey(career) {
   return String(
-    career?.id ?? career?.careerId ?? career?.titulo ?? career?.nombre ?? "",
+    career?.id ??
+      career?.careerId ??
+      career?.titulo ??
+      career?.nombre ??
+      "",
   );
 }
 
@@ -66,10 +54,8 @@ function getCareerDescription(career) {
   );
 }
 
-function crearEtapasDesdeCarrera(career) {
-  if (!career) {
-    return [];
-  }
+function buildCareerStages(career) {
+  if (!career) return [];
 
   if (!Array.isArray(career.planEstudios) || career.planEstudios.length === 0) {
     return [
@@ -89,37 +75,50 @@ function crearEtapasDesdeCarrera(career) {
     ];
   }
 
-  return career.planEstudios.map((bloque, index) => {
-    const tituloBloque = bloque.nivel ?? `Año ${index + 1}`;
-
-    const materias = Array.isArray(bloque.materias) ? bloque.materias : [];
+  return career.planEstudios.map((block, index) => {
+    const title = block.nivel ?? `Año ${index + 1}`;
+    const subjects = Array.isArray(block.materias) ? block.materias : [];
 
     return {
-      id: `${getCareerKey(career)}-${normalizarId(tituloBloque)}-${index}`,
+      id: `${getCareerKey(career)}-${normalizeId(title)}-${index}`,
       numero: String(index + 1).padStart(2, "0"),
-      titulo: tituloBloque,
-      descripcion: `Materias correspondientes a ${tituloBloque} de ${getCareerTitle(
+      titulo: title,
+      descripcion: `Materias correspondientes a ${title} de ${getCareerTitle(
         career,
       )}. Marcá las materias que ya aprobaste o promocionaste.`,
-      temas: materias.map((materia, materiaIndex) => ({
-        id: `${getCareerKey(career)}-${normalizarId(
-          tituloBloque,
-        )}-${normalizarId(materia)}-${materiaIndex}`,
-        nombre: materia,
+      temas: subjects.map((subject, subjectIndex) => ({
+        id: `${getCareerKey(career)}-${normalizeId(title)}-${normalizeId(
+          subject,
+        )}-${subjectIndex}`,
+        nombre: subject,
       })),
     };
   });
 }
 
-function obtenerIdsTemas(etapas) {
-  return etapas.flatMap((etapa) => etapa.temas.map((tema) => tema.id));
+function getStageIds(stages) {
+  return stages.flatMap((stage) => stage.temas.map((subject) => subject.id));
 }
 
-function obtenerCantidadTemas(etapas) {
-  return etapas.reduce((total, etapa) => total + etapa.temas.length, 0);
+function getSavedProgress(scope, validIds) {
+  if (!scope) return [];
+
+  const savedProgress = readStorage(routeStorageKeys.routeProgress, {});
+  const progress =
+    savedProgress &&
+    typeof savedProgress === "object" &&
+    !Array.isArray(savedProgress)
+      ? savedProgress
+      : {};
+
+  const savedSubjects = progress[scope];
+
+  return Array.isArray(savedSubjects)
+    ? savedSubjects.filter((id) => validIds.includes(id))
+    : [];
 }
 
-function EstadoRuta({ icono, titulo, descripcion, destino, textoBoton }) {
+function RouteState({ icon, title, description, path, buttonText }) {
   return (
     <section className="bg-body py-5">
       <div className="container">
@@ -128,23 +127,21 @@ function EstadoRuta({ icono, titulo, descripcion, destino, textoBoton }) {
           style={{ maxWidth: "720px" }}
         >
           <div className="card-body p-4 p-md-5 text-center">
-            <div className="mb-4">
-              <i
-                className={`bi ${icono} display-3 text-primary`}
-                aria-hidden="true"
-              ></i>
-            </div>
+            <i
+              className={`bi ${icon} display-3 text-primary mb-4`}
+              aria-hidden="true"
+            ></i>
 
-            <h1 className="h2 fw-bold mb-3">{titulo}</h1>
+            <h1 className="h2 fw-bold mb-3">{title}</h1>
 
-            <p className="text-secondary mb-4">{descripcion}</p>
+            <p className="text-secondary mb-4">{description}</p>
 
             <Link
-              to={destino}
+              to={path}
               className="btn btn-primary rounded-pill px-4 cp-btn-animated"
             >
               <i className="bi bi-arrow-right-circle me-2"></i>
-              {textoBoton}
+              {buttonText}
             </Link>
           </div>
         </div>
@@ -163,172 +160,123 @@ function Ruta() {
 
   const { activeUser, isAuthenticated, isLoadingAuth } = useLocalAuth();
 
-  const [testAnswers, setTestAnswers] = useState(null);
-  const [recommendedCareers, setRecommendedCareers] = useState([]);
-  const [selectedCareerId, setSelectedCareerId] = useState(null);
-  const [storageLoaded, setStorageLoaded] = useState(false);
-  const [temasCompletados, setTemasCompletados] = useState([]);
-  const [progressLoaded, setProgressLoaded] = useState(false);
+  const [testAnswers] = useState(() =>
+    readStorage(routeStorageKeys.testAnswers, null),
+  );
 
-  useEffect(() => {
-    if (isLoadingAuth) {
-      return;
-    }
-
-    const respuestasGuardadas = leerJSONStorage(
-      routeStorageKeys.testAnswers,
-      null,
-    );
-
-    const recomendacionesGuardadas = leerJSONStorage(
+  const [recommendedCareers] = useState(() => {
+    const savedCareers = readStorage(
       routeStorageKeys.recommendedCareers,
       [],
     );
 
-    setTestAnswers(respuestasGuardadas);
+    return Array.isArray(savedCareers) ? savedCareers : [];
+  });
 
-    setRecommendedCareers(
-      Array.isArray(recomendacionesGuardadas) ? recomendacionesGuardadas : [],
-    );
-
-    setSelectedCareerId(localStorage.getItem(SELECTED_ROUTE_CAREER_KEY));
-
-    setStorageLoaded(true);
-  }, [isLoadingAuth, activeUser?.id]);
-
-  const selectedCareer = useMemo(() => {
-    if (!selectedCareerId) {
-      return null;
-    }
-
-    return (
-      recommendedCareers.find(
-        (career) => getCareerKey(career) === selectedCareerId,
-      ) ?? null
-    );
-  }, [recommendedCareers, selectedCareerId]);
-
-  const etapas = useMemo(
-    () => crearEtapasDesdeCarrera(selectedCareer),
-    [selectedCareer],
+  const [selectedCareerId, setSelectedCareerId] = useState(() =>
+    localStorage.getItem(SELECTED_ROUTE_CAREER_KEY),
   );
 
-  const idsValidos = useMemo(() => obtenerIdsTemas(etapas), [etapas]);
+  const selectedCareer =
+    recommendedCareers.find(
+      (career) => getCareerKey(career) === selectedCareerId,
+    ) ?? null;
 
-  const totalTemas = useMemo(() => obtenerCantidadTemas(etapas), [etapas]);
+  const stages = buildCareerStages(selectedCareer);
+  const validSubjectIds = getStageIds(stages);
+  const totalSubjects = validSubjectIds.length;
 
-  const progressScope = useMemo(() => {
-    if (!activeUser || !selectedCareer) {
-      return null;
-    }
+  const progressScope =
+    activeUser && selectedCareer
+      ? `${activeUser.id}:${getCareerKey(selectedCareer)}`
+      : null;
 
-    return `${activeUser.id}:${getCareerKey(selectedCareer)}`;
-  }, [activeUser, selectedCareer]);
-
-  useEffect(() => {
-    if (!progressScope) {
-      setTemasCompletados([]);
-      setProgressLoaded(false);
-      return;
-    }
-
-    const progresoGuardado = leerJSONStorage(
-      routeStorageKeys.routeProgress,
-      {},
-    );
-
-    const progresoValido =
-      progresoGuardado &&
-      typeof progresoGuardado === "object" &&
-      !Array.isArray(progresoGuardado)
-        ? progresoGuardado
-        : {};
-
-    const temasGuardados = progresoValido[progressScope];
-
-    const temas = Array.isArray(temasGuardados)
-      ? temasGuardados.filter((id) => idsValidos.includes(id))
-      : [];
-
-    setTemasCompletados(temas);
-    setProgressLoaded(true);
-  }, [progressScope, idsValidos]);
+  const [completedSubjects, setCompletedSubjects] = useState(() =>
+    getSavedProgress(progressScope, validSubjectIds),
+  );
 
   useEffect(() => {
-    if (!progressScope || !progressLoaded) {
-      return;
-    }
+    if (!progressScope) return;
 
-    const progresoActual = leerJSONStorage(routeStorageKeys.routeProgress, {});
+    const savedProgress = readStorage(routeStorageKeys.routeProgress, {});
 
-    const progresoValido =
-      progresoActual &&
-      typeof progresoActual === "object" &&
-      !Array.isArray(progresoActual)
-        ? progresoActual
+    const currentProgress =
+      savedProgress &&
+      typeof savedProgress === "object" &&
+      !Array.isArray(savedProgress)
+        ? savedProgress
         : {};
-
-    const nuevoProgreso = {
-      ...progresoValido,
-      [progressScope]: temasCompletados,
-    };
 
     localStorage.setItem(
       routeStorageKeys.routeProgress,
-      JSON.stringify(nuevoProgreso),
+      JSON.stringify({
+        ...currentProgress,
+        [progressScope]: completedSubjects,
+      }),
     );
-  }, [temasCompletados, progressScope, progressLoaded]);
+  }, [completedSubjects, progressScope]);
 
-  const toggleTema = (temaId) => {
-    if (!idsValidos.includes(temaId)) {
-      return;
-    }
+  const handleToggleSubject = (subjectId) => {
+    if (!validSubjectIds.includes(subjectId)) return;
 
-    setTemasCompletados((anteriores) => {
-      if (anteriores.includes(temaId)) {
-        return anteriores.filter((id) => id !== temaId);
-      }
-
-      return [...anteriores, temaId];
-    });
+    setCompletedSubjects((currentSubjects) =>
+      currentSubjects.includes(subjectId)
+        ? currentSubjects.filter((id) => id !== subjectId)
+        : [...currentSubjects, subjectId],
+    );
   };
 
   const handleSelectCareer = (career) => {
     const careerKey = getCareerKey(career);
+    const careerStages = buildCareerStages(career);
+    const careerSubjectIds = getStageIds(careerStages);
+
+    const newScope = activeUser
+      ? `${activeUser.id}:${careerKey}`
+      : null;
 
     setSelectedCareerId(careerKey);
-    setTemasCompletados([]);
-    setProgressLoaded(false);
+    setCompletedSubjects(
+      getSavedProgress(newScope, careerSubjectIds),
+    );
 
-    localStorage.setItem(SELECTED_ROUTE_CAREER_KEY, careerKey);
+    localStorage.setItem(
+      SELECTED_ROUTE_CAREER_KEY,
+      careerKey,
+    );
   };
 
   const handleChangeCareer = () => {
     localStorage.removeItem(SELECTED_ROUTE_CAREER_KEY);
     setSelectedCareerId(null);
-    setTemasCompletados([]);
-    setProgressLoaded(false);
+    setCompletedSubjects([]);
   };
 
-  const cantidadCompletados = temasCompletados.filter((id) =>
-    idsValidos.includes(id),
+  const completedCount = completedSubjects.filter((id) =>
+    validSubjectIds.includes(id),
   ).length;
 
-  const cantidadPendientes = Math.max(totalTemas - cantidadCompletados, 0);
+  const pendingCount = Math.max(
+    totalSubjects - completedCount,
+    0,
+  );
 
-  const porcentaje =
-    totalTemas === 0 ? 0 : Math.round((cantidadCompletados / totalTemas) * 100);
+  const progress =
+    totalSubjects === 0
+      ? 0
+      : Math.round((completedCount / totalSubjects) * 100);
 
-  const hayTest = tieneRespuestasTest(testAnswers);
+  const hasTest = hasTestAnswers(testAnswers);
+  const hasResults = recommendedCareers.length > 0;
 
-  const hayResultados =
-    Array.isArray(recommendedCareers) && recommendedCareers.length > 0;
-
-  if (isLoadingAuth || !storageLoaded) {
+  if (isLoadingAuth) {
     return (
       <section className="bg-body py-5">
         <div className="container text-center py-5">
-          <div className="spinner-border text-primary mb-3" role="status">
+          <div
+            className="spinner-border text-primary mb-3"
+            role="status"
+          >
             <span className="visually-hidden">Cargando...</span>
           </div>
 
@@ -342,36 +290,36 @@ function Ruta() {
 
   if (!isAuthenticated || !activeUser) {
     return (
-      <EstadoRuta
-        icono="bi-person-lock"
-        titulo="Primero iniciá sesión"
-        descripcion="Necesitás iniciar sesión o crear una cuenta antes de generar tu ruta de aprendizaje personalizada."
-        destino="/perfil"
-        textoBoton="Ir a Mi Perfil"
+      <RouteState
+        icon="bi-person-lock"
+        title="Primero iniciá sesión"
+        description="Necesitás iniciar sesión o crear una cuenta antes de generar tu ruta de aprendizaje personalizada."
+        path="/perfil"
+        buttonText="Ir a Mi Perfil"
       />
     );
   }
 
-  if (!hayTest) {
+  if (!hasTest) {
     return (
-      <EstadoRuta
-        icono="bi-clipboard-x"
-        titulo="Todavía no completaste el test"
-        descripcion="Completá el test vocacional para que CareerPath AI pueda analizar tus respuestas y preparar recomendaciones para tu perfil."
-        destino="/test"
-        textoBoton="Realizar Test Vocacional"
+      <RouteState
+        icon="bi-clipboard-x"
+        title="Todavía no completaste el test"
+        description="Completá el test vocacional para que CareerPath AI pueda analizar tus respuestas y preparar recomendaciones para tu perfil."
+        path="/test"
+        buttonText="Realizar Test Vocacional"
       />
     );
   }
 
-  if (!hayResultados) {
+  if (!hasResults) {
     return (
-      <EstadoRuta
-        icono="bi-bar-chart"
-        titulo="Todavía no tenés resultados"
-        descripcion="Tus respuestas ya están guardadas. Visitá Resultados para generar las carreras recomendadas antes de continuar con Mi Ruta."
-        destino="/resultados"
-        textoBoton="Ver Resultados"
+      <RouteState
+        icon="bi-bar-chart"
+        title="Todavía no tenés resultados"
+        description="Tus respuestas ya están guardadas. Visitá Resultados para generar las carreras recomendadas antes de continuar con Mi Ruta."
+        path="/resultados"
+        buttonText="Ver Resultados"
       />
     );
   }
@@ -410,10 +358,15 @@ function Ruta() {
                   <div className="card-body p-4 d-flex flex-column">
                     <span className="badge rounded-pill text-bg-primary align-self-start mb-3">
                       <i className="bi bi-mortarboard me-2"></i>
-                      {career.area ?? career.tipo ?? "Carrera recomendada"}
+                      {career.subtipo ??
+                        career.area ??
+                        career.tipo ??
+                        "Carrera recomendada"}
                     </span>
 
-                    <h2 className="h5 fw-bold">{getCareerTitle(career)}</h2>
+                    <h2 className="h5 fw-bold">
+                      {getCareerTitle(career)}
+                    </h2>
 
                     <p className="text-secondary small flex-grow-1">
                       {getCareerDescription(career)}
@@ -473,16 +426,14 @@ function Ruta() {
               </p>
             </div>
 
-            <div className="align-self-start">
-              <button
-                type="button"
-                className="btn btn-outline-primary rounded-pill"
-                onClick={handleChangeCareer}
-              >
-                <i className="bi bi-arrow-left-circle me-2"></i>
-                Cambiar carrera
-              </button>
-            </div>
+            <button
+              type="button"
+              className="btn btn-outline-primary rounded-pill align-self-start"
+              onClick={handleChangeCareer}
+            >
+              <i className="bi bi-arrow-left-circle me-2"></i>
+              Cambiar carrera
+            </button>
           </div>
         </header>
 
@@ -504,12 +455,13 @@ function Ruta() {
                 </p>
 
                 <div className="d-flex flex-wrap gap-2">
-                  {selectedCareer.tipo && (
-                    <span className="badge rounded-pill text-bg-secondary px-3 py-2">
-                      <i className="bi bi-award me-2"></i>
-                      {selectedCareer.tipo}
-                    </span>
-                  )}
+                  <span className="badge rounded-pill text-bg-secondary px-3 py-2">
+                    <i className="bi bi-award me-2"></i>
+                    {selectedCareer.subtipo ??
+                      selectedCareer.tipo ??
+                      selectedCareer.area ??
+                      "Carrera UTN"}
+                  </span>
 
                   {selectedCareer.duracion && (
                     <span className="badge rounded-pill text-bg-secondary px-3 py-2">
@@ -520,54 +472,50 @@ function Ruta() {
 
                   <span className="badge rounded-pill text-bg-secondary px-3 py-2">
                     <i className="bi bi-list-check me-2"></i>
-                    {totalTemas} materias
+                    {totalSubjects} materias
                   </span>
                 </div>
               </div>
 
               <div className="col-12 col-lg-5">
                 <div className="p-4 bg-body-tertiary rounded-4">
-                  <div className="d-flex justify-content-between align-items-center mb-2">
+                  <div className="d-flex justify-content-between mb-2">
                     <span className="fw-semibold">Progreso general</span>
-
-                    <strong className="text-primary">{porcentaje}%</strong>
+                    <strong className="text-primary">{progress}%</strong>
                   </div>
 
                   <div className="progress mb-3" style={{ height: "12px" }}>
                     <div
                       className={`progress-bar ${
-                        porcentaje === 100 ? "bg-success" : "bg-primary"
+                        progress === 100 ? "bg-success" : "bg-primary"
                       }`}
                       role="progressbar"
-                      style={{ width: `${porcentaje}%` }}
-                      aria-label="Progreso general de la ruta"
-                      aria-valuenow={porcentaje}
+                      style={{ width: `${progress}%` }}
+                      aria-valuenow={progress}
                       aria-valuemin="0"
                       aria-valuemax="100"
                     ></div>
                   </div>
 
                   <p className="small text-secondary mb-4">
-                    {cantidadCompletados} de {totalTemas} materias marcadas
+                    {completedCount} de {totalSubjects} materias marcadas
                   </p>
 
                   <div className="row g-3 text-center">
                     <div className="col-4">
                       <div className="bg-body rounded-3 p-3 h-100">
                         <strong className="d-block fs-4 text-success">
-                          {cantidadCompletados}
+                          {completedCount}
                         </strong>
-
                         <small className="text-secondary">Marcadas</small>
                       </div>
                     </div>
 
                     <div className="col-4">
                       <div className="bg-body rounded-3 p-3 h-100">
-                        <strong className="d-block fs-4 text-body">
-                          {cantidadPendientes}
+                        <strong className="d-block fs-4">
+                          {pendingCount}
                         </strong>
-
                         <small className="text-secondary">Pendientes</small>
                       </div>
                     </div>
@@ -575,16 +523,15 @@ function Ruta() {
                     <div className="col-4">
                       <div className="bg-body rounded-3 p-3 h-100">
                         <strong className="d-block fs-4 text-primary">
-                          {porcentaje}%
+                          {progress}%
                         </strong>
-
                         <small className="text-secondary">Avance</small>
                       </div>
                     </div>
                   </div>
 
-                  {porcentaje === 100 && (
-                    <div className="alert alert-success mt-4 mb-0" role="alert">
+                  {progress === 100 && (
+                    <div className="alert alert-success mt-4 mb-0">
                       <i className="bi bi-trophy-fill me-2"></i>
                       ¡Completaste todas las materias cargadas!
                     </div>
@@ -597,13 +544,15 @@ function Ruta() {
 
         <section className="card border border-primary-subtle bg-primary-subtle rounded-4 shadow-sm mb-5">
           <div className="card-body p-4 p-md-5">
-            <div className="mb-4 cp-fade-up">
+            <div className="mb-4">
               <span className="badge rounded-pill text-bg-primary mb-3 px-3 py-2">
                 <i className="bi bi-journal-text me-2"></i>
                 Materias por año / cuatrimestre
               </span>
 
-              <h2 className="h3 fw-bold mb-2 text-body">Plan de estudios</h2>
+              <h2 className="h3 fw-bold mb-2 text-body">
+                Plan de estudios
+              </h2>
 
               <p className="text-secondary mb-0">
                 Abrí cada bloque y marcá las materias que ya aprobaste o
@@ -612,12 +561,12 @@ function Ruta() {
             </div>
 
             <div className="d-grid gap-3">
-              {etapas.map((etapa) => (
+              {stages.map((stage) => (
                 <RouteStep
-                  key={etapa.id}
-                  etapa={etapa}
-                  temasCompletados={temasCompletados}
-                  onToggleTema={toggleTema}
+                  key={stage.id}
+                  etapa={stage}
+                  temasCompletados={completedSubjects}
+                  onToggleTema={handleToggleSubject}
                   abiertoInicial={false}
                 />
               ))}
@@ -625,7 +574,7 @@ function Ruta() {
           </div>
         </section>
 
-        <section className="card border-0 shadow-sm rounded-4 cp-fade-up">
+        <section className="card border-0 shadow-sm rounded-4">
           <div className="card-body p-4 p-md-5">
             <div className="row align-items-center g-4">
               <div className="col-12 col-lg-8">
@@ -634,7 +583,9 @@ function Ruta() {
                   Seguimiento
                 </p>
 
-                <h2 className="h4 fw-bold mb-2">Tu avance queda guardado</h2>
+                <h2 className="h4 fw-bold mb-2">
+                  Tu avance queda guardado
+                </h2>
 
                 <p className="text-secondary mb-0">
                   Las materias que marques quedan guardadas para tu usuario y
@@ -646,7 +597,7 @@ function Ruta() {
               <div className="col-12 col-lg-4 text-lg-end">
                 <Link
                   to="/resultados"
-                  className="btn btn-outline-primary btn-lg rounded-pill px-4 cp-btn-animated"
+                  className="btn btn-outline-primary btn-lg rounded-pill px-4"
                 >
                   <i className="bi bi-arrow-left-circle me-2"></i>
                   Ver mis resultados

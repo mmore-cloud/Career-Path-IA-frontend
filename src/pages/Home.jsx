@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import Hero from "../components/Hero";
 import FeatureCard from "../components/FeatureCard";
 import { homeFeatures } from "../data/homeFeatures";
@@ -8,55 +8,47 @@ const TEST_ANSWERS_KEY = "careerpath_test_answers";
 
 const Home = () => {
   const { isAuthenticated } = useLocalAuth();
-  const [hasCompletedTest, setHasCompletedTest] = useState(false);
 
-  useEffect(() => {
-    setHasCompletedTest(Boolean(localStorage.getItem(TEST_ANSWERS_KEY)));
-  }, []);
+  const [hasCompletedTest] = useState(() =>
+    Boolean(localStorage.getItem(TEST_ANSWERS_KEY)),
+  );
 
-  const primaryBtn = useMemo(() => {
-    if (!isAuthenticated) {
-      return {
-        text: "Comenzar mi perfil",
-        link: "/perfil",
-        icon: "bi-person-badge",
-      };
-    }
+  let primaryBtn;
+  let secondaryBtn;
 
-    if (hasCompletedTest) {
-      return {
-        text: "Ver mis resultados",
-        link: "/resultados",
-        icon: "bi-stars",
-      };
-    }
+  if (!isAuthenticated) {
+    primaryBtn = {
+      text: "Comenzar mi perfil",
+      link: "/perfil",
+      icon: "bi-person-badge",
+    };
 
-    return {
+    secondaryBtn = null;
+  } else if (hasCompletedTest) {
+    primaryBtn = {
+      text: "Ver mis resultados",
+      link: "/resultados",
+      icon: "bi-stars",
+    };
+
+    secondaryBtn = {
+      text: "Ver mi ruta",
+      link: "/ruta",
+      icon: "bi-signpost-split",
+    };
+  } else {
+    primaryBtn = {
       text: "Realizar test vocacional",
       link: "/test",
       icon: "bi-clipboard-check",
     };
-  }, [isAuthenticated, hasCompletedTest]);
 
-  const secondaryBtn = useMemo(() => {
-    if (!isAuthenticated) {
-      return null;
-    }
-
-    if (hasCompletedTest) {
-      return {
-        text: "Ver mi ruta",
-        link: "/ruta",
-        icon: "bi-signpost-split",
-      };
-    }
-
-    return {
+    secondaryBtn = {
       text: "Completar mi perfil",
       link: "/perfil",
       icon: "bi-person-lines-fill",
     };
-  }, [isAuthenticated, hasCompletedTest]);
+  }
 
   return (
     <>
