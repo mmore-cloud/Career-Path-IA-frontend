@@ -1,274 +1,244 @@
-# 🎓 CareerPath AI
+🎓 CareerPath AI
+Plataforma web de orientación vocacional desarrollada con React + Vite.
 
-> Plataforma web de orientación vocacional desarrollada con React + Vite.
-
-CareerPath AI es una aplicación web orientada a acompañar a estudiantes durante el proceso de explorar sus intereses, habilidades, posibles carreras y rutas de aprendizaje.
-
-El proyecto corresponde al **Trabajo Práctico Nº 7** de la **Tecnicatura Universitaria en Programación de la Universidad Tecnológica Nacional (UTN)**.
-
-La aplicación organiza el recorrido del usuario en distintas etapas: presentación de la plataforma, creación del perfil, test vocacional, exploración de carreras, resultados, seguimiento de una ruta de aprendizaje y conexión con oportunidades laborales reales.
-Esta etapa continúa la evolución de CareerPath AI incorporando autenticación local, perfil vocacional, Test Vocacional, resultados personalizados, persistencia con `localStorage`, Bootstrap Icons, animaciones y una Ruta de Aprendizaje integrada con el resto del sistema.
-
----
-
-# 👥 Equipo de desarrollo
-
-**Equipo:** C9 TUP UTN
-
-### Integrantes
-
-- **Leandro Nuñez**
-- **Valentina Perez del Rien**
-- **Tatiana Herrera**
-- **Morena Marina Noguera**
-
----
-
-# 🎯 Objetivo del proyecto
-
-El objetivo de CareerPath AI es ofrecer una experiencia clara, interactiva y organizada que ayude al estudiante a explorar alternativas académicas de acuerdo con sus intereses, habilidades y respuestas dentro del Test Vocacional.
-
-El flujo principal de la aplicación es:
-
-- conocer la propuesta de CareerPath AI;
-- completar información relacionada con el perfil del estudiante;
+CareerPath AI acompaña al usuario desde la creación de su perfil hasta la elección de una carrera y el seguimiento de una ruta académica. El sistema combina intereses, habilidades, respuestas del test vocacional, información de carreras de la UTN y ocupaciones consultadas mediante ESCO para generar recomendaciones personalizadas.
+El proyecto corresponde al Trabajo Práctico Nº 7 de la Tecnicatura Universitaria en Programación de la Universidad Tecnológica Nacional (UTN).
+👥 Equipo de desarrollo
+Equipo: C9 TUP UTN
+- Leandro Nuñez
+- Valentina Perez del Rien
+- Tatiana Herrera
+- Morena Marina Noguera
+🎯 Objetivo
+El objetivo de CareerPath AI es facilitar el proceso de orientación vocacional mediante una experiencia clara, interactiva y progresiva.
+El sistema permite:
+- crear e iniciar una sesión local;
+- completar intereses y habilidades;
 - realizar un test vocacional;
-- responder preguntas relacionadas con intereses y preferencias;
-- visualizar el progreso del test;
-- explorar carreras;
-- buscar carreras por nombre o descripción;
-- filtrar carreras por área o tipo;
+- construir un perfil vocacional;
+- consultar ocupaciones relacionadas mediante ESCO;
+- relacionar ocupaciones con carreras de la UTN;
+- visualizar recomendaciones;
+- buscar y filtrar carreras;
+- consultar información académica y planes de estudio;
 - guardar carreras favoritas;
-- consultar una ruta de aprendizaje;
-- marcar conocimientos como completados;
-- visualizar el progreso general de aprendizaje;
-- visualizar oportunidades laborales del mercado actual;
-- conservar determinada información mediante `localStorage`.
-```text
+- seleccionar una carrera;
+- registrar materias aprobadas o promocionadas;
+- visualizar el progreso académico;
+- conservar información en localStorage.
+Flujo principal
 Perfil
   ↓
 Test Vocacional
   ↓
+Perfil ESCO
+  ↓
+Consulta de ocupaciones
+  ↓
+Carreras recomendadas
+  ↓
 Resultados
   ↓
 Mi Ruta
-```
-
-Cada etapa genera información que puede ser utilizada por la siguiente.
-
----
-
-# 🔄 Flujo general del TP Nº 7
-
-## 1. Perfil
-
-- navegación SPA mediante React Router;
-- página de Inicio;
-- página de Perfil;
-- Test Vocacional interactivo;
-- sección de Resultados con integración de API pública;
-- búsqueda y filtrado de carreras;
-- favoritos almacenados en el navegador;
-- Ruta de Aprendizaje interactiva;
-- persistencia del progreso con `localStorage`;
-- SEO básico;
-- diseño responsive con Bootstrap;
-- página personalizada de error 404;
-- configuración para deploy mediante Vercel.
-El usuario puede registrarse o iniciar sesión localmente.
-
-Dentro de su perfil puede cargar información como:
-
-- backend;
-- base de datos;
-- autenticación;
-- persistencia de usuarios;
-- sistema de recomendaciones;
-- integración real de Inteligencia Artificial.
-- nombre;
-- email;
-- intereses;
-- habilidades.
-
-La aplicación conserva esta información utilizando `localStorage`.
-
----
-
-# 🔌 API Pública Utilizada
-
-- **The Muse API** (`https://www.themuse.com/api/public/jobs`)
-  - **Propósito:** Se integra en la sección de resultados para enlazar las respuestas del test vocacional, el área dominante y las carreras recomendadas con búsquedas de empleo actualizadas del mercado profesional mediante peticiones HTTP.
-
----
-
-# 🔄 Migración del proyecto
-## 2. Test Vocacional
-
-El Test Vocacional permite responder preguntas relacionadas con intereses, preferencias y posibles áreas profesionales.
-
-Las respuestas deben almacenarse mediante la clave:
-
-```text
-careerpath_test_answers
-```
-
-Esto permite que la página de Resultados pueda utilizar las respuestas posteriormente.
-
----
-
-## 3. Resultados
-
-La página de Resultados utiliza:
-
-```text
-React
-Vite
-React Router
-Bootstrap
-JSX
-Componentes reutilizables
-Hooks
-Datos separados de la interfaz
-Consumo de API con Axios
-Perfil
-+
-Respuestas del Test
-+
-Información de carreras
-```
-
-para generar recomendaciones.
-
-Las carreras recomendadas se almacenan mediante:
-
-```text
-careerpath_recommended_careers
-```
-
-También se prepara la ruta principal utilizando:
-
-```text
-careerpath_learning_route
-```
-
----
-
-## 4. Mi Ruta
-
-Mi Ruta representa el último paso del recorrido.
-
-La página lee la información generada anteriormente y muestra una ruta de aprendizaje relacionada con la recomendación principal del usuario.
-
-Permite:
-
-- visualizar la carrera recomendada;
-- consultar etapas;
-- abrir y cerrar etapas;
-- visualizar temas;
-- marcar temas como completados;
-- calcular el progreso;
-- conservar el progreso en `localStorage`;
-- mostrar mensajes cuando faltan datos.
-
----
-
-# 📌 Alcance actual
-
-CareerPath AI se encuentra desarrollado actualmente como una aplicación **frontend**.
-
-La aplicación incorpora:
-
+📌 Alcance actual
+CareerPath AI es actualmente una aplicación frontend.
+Incluye:
 - React + Vite;
 - React Router;
-- Bootstrap;
-- React Bootstrap;
+- Bootstrap y React Bootstrap;
 - Bootstrap Icons;
-- registro local;
-- inicio de sesión local;
+- Axios;
+- SweetAlert2;
+- autenticación local;
 - perfil vocacional;
-- Test Vocacional;
-- Resultados;
+- test vocacional;
+- integración con ESCO;
 - recomendaciones de carreras;
-- Ruta de Aprendizaje;
-- persistencia con `localStorage`;
+- filtros y búsqueda;
+- favoritos;
+- planes de estudio;
+- Mi Ruta;
+- progreso por usuario y carrera;
+- persistencia mediante localStorage;
 - diseño responsive;
 - animaciones CSS;
-- SEO básico;
+- estrategia SEO on-page y social;
 - página 404;
-- configuración para deploy con Vercel.
+- configuración para Vercel.
+La autenticación y la persistencia son locales y se utilizan con fines académicos. Una evolución futura puede incorporar backend, base de datos y autenticación remota.
 
-> La autenticación y persistencia utilizadas actualmente son locales y fueron desarrolladas con fines académicos. Una versión futura podrá utilizar backend, base de datos y autenticación real.
+🔌 API pública utilizada
+ESCO API
+CareerPath AI utiliza ESCO (European Skills, Competences, Qualifications and Occupations) para consultar ocupaciones relacionadas con el perfil vocacional del usuario.
+La integración se encuentra principalmente en:
+src/config/api.js
+src/services/escoService.js
+src/utils/careerMatcher.js
+src/pages/Resultados.jsx
+El flujo de consulta es:
+Respuestas del test
+      +
+Perfil del usuario
+      ↓
+careerMatcher
+      ↓
+Términos de búsqueda
+      ↓
+ESCO API
+      ↓
+Ocupaciones relacionadas
+      ↓
+Ranking de carreras UTN
+Las consultas se realizan mediante Axios.
+El servicio:
+- consulta ocupaciones por término;
+- utiliza idioma configurable;
+- utiliza versión configurable de ESCO;
+- evita búsquedas vacías;
+- limita resultados;
+- reutiliza consultas mediante caché;
+- elimina ocupaciones duplicadas;
+- permite consultar varios términos del perfil;
+- maneja respuestas parciales con Promise.allSettled;
+- permite utilizar recomendaciones locales si ESCO no responde.
+🧠 Test vocacional y perfil ESCO
+La página principal del test es:
+src/pages/Test.jsx
+Las preguntas se encuentran separadas en:
+src/data/testQuestions.js
+Cada opción puede aportar información como:
+- área;
+- palabras clave;
+- términos relacionados con ESCO;
+- icono;
+- preferencias vocacionales.
+Las respuestas se almacenan en:
+careerpath_test_answers
+Al finalizar el test se genera un perfil vocacional y se almacena en:
+careerpath_esco_profile
+Este perfil se utiliza posteriormente para consultar ESCO y construir las recomendaciones.
+📊 Resultados
+La página:
+src/pages/Resultados.jsx
+combina:
+Usuario activo
+      +
+Intereses y habilidades
+      +
+Respuestas del test
+      +
+Ocupaciones ESCO
+      +
+Datos de carreras
+      ↓
+Recomendaciones personalizadas
+La lógica principal se apoya en:
+src/data/careers.js
+src/utils/careerMatcher.js
+src/utils/learningRouteBuilder.js
+src/services/escoService.js
+La sección de Resultados permite:
+- consultar carreras recomendadas;
+- visualizar ocupaciones relacionadas obtenidas desde ESCO;
+- buscar carreras;
+- filtrar resultados;
+- cambiar entre modos de visualización;
+- guardar favoritos;
+- abrir información detallada de cada carrera;
+- consultar duración y modalidad;
+- visualizar planes de estudio;
+- acceder a fuentes académicas cuando están disponibles;
+- generar información para Mi Ruta.
+Las recomendaciones se almacenan mediante:
+careerpath_recommended_careers
+La información utilizada por la ruta también puede almacenarse mediante:
+careerpath_learning_route
+🛣️ Mi Ruta
+La página principal es:
+src/pages/Ruta.jsx
+Utiliza:
+src/components/RouteStep.jsx
+src/components/RouteTopic.jsx
+Mi Ruta permite elegir una de las carreras recomendadas y utilizar su plan de estudios como seguimiento académico.
+El usuario puede:
+- elegir una carrera recomendada;
+- consultar el plan de estudios;
+- abrir y cerrar cada bloque;
+- marcar materias como aprobadas o promocionadas;
+- visualizar materias completadas y pendientes;
+- calcular automáticamente el porcentaje de progreso;
+- cambiar de carrera;
+- mantener un progreso independiente para cada carrera.
+Estados controlados
+Antes de mostrar la ruta se verifica:
+¿Hay usuario activo?
+        ↓
+¿Hay test realizado?
+        ↓
+¿Hay resultados?
+        ↓
+¿Hay carrera seleccionada?
+        ↓
+Mostrar plan y progreso
+Persistencia del progreso
+El progreso se almacena en:
+careerpath_route_progress
+Se separa utilizando una combinación de:
+usuario + carrera
+De esta manera cada usuario mantiene su propio progreso para cada carrera.
+💾 localStorage
+Clave	Función
+careerpath_users	Usuarios locales
+careerpath_active_user_id	Usuario con sesión activa
+careerpath_test_answers	Respuestas del test
+careerpath_esco_profile	Perfil utilizado para búsquedas ESCO
+careerpath_recommended_careers	Carreras recomendadas
+careerpath_learning_route	Información de ruta generada
+careerpath_route_progress	Progreso por usuario y carrera
+careerpath_selected_route_career	Carrera seleccionada en Mi Ruta
+careerpath-favoritos-utn	Carreras favoritas
 
----
 
-# 🛠️ Tecnologías utilizadas
+🪝 Hooks utilizados
+El proyecto utiliza principalmente:
+useState
+Se utiliza para manejar información que cambia dentro de la interfaz, por ejemplo:
+- respuestas del test;
+- pregunta actual;
+- filtros;
+- recomendaciones;
+- favoritos;
+- carrera seleccionada;
+- materias completadas;
+- mensajes y estados visuales.
+useEffect
+Se utiliza para sincronizar la aplicación con procesos externos o cambios del sistema, por ejemplo:
+- guardar información en localStorage;
+- consultar ESCO;
+- actualizar metadatos SEO;
+- controlar comportamientos relacionados con la interfaz.
+Hooks personalizados
+useLocalAuth
+useSEO
+useThemeMode
+🧩 Componentes reutilizables
+Componente	Función
+Navbar	Navegación principal
+Footer	Pie de página
+Hero	Presentación del Inicio
+FeatureCard	Tarjetas informativas
+LoginForm	Registro e inicio de sesión
+UserProfileSummary	Información del perfil
+QuestionCard	Pregunta del test
+OptionButton	Opciones del test
+CareerCard	Tarjeta de carrera
+RouteStep	Bloque del plan de estudios
+RouteTopic	Materia individual
+SectionTitle	Encabezados reutilizables
+ScrollToTop	Control del scroll al cambiar de ruta
 
-## Frontend
 
-- React
-- React DOM
-- JavaScript
-- JSX
-- HTML5
-- CSS3
-
-## Diseño
-
-- Bootstrap
-- React Bootstrap
-- Bootstrap Icons
-
-## Navegación
-
-- React Router DOM
-
-## Herramientas de desarrollo
-
-- Vite
-- npm
-- ESLint
-- Git
-- GitHub
-
-## Deploy
-
-- Vercel
-
----
-
-# 📦 Dependencias principales
-
-Las dependencias se encuentran definidas dentro de:
-
-```text
-package.json
-```
-
-Entre las principales se encuentran:
-
-```text
-React
-React DOM
-React Router DOM
-Bootstrap
-React Bootstrap
-Axios (para peticiones HTTP a la API pública)
-SweetAlert2 (para alertas y manejo visual de errores)
-react
-react-dom
-react-router-dom
-bootstrap
-bootstrap-icons
-react-bootstrap
-```
-
----
-
-# 🏗️ Arquitectura general
-
-La aplicación utiliza una arquitectura basada en componentes.
-
-```text
+🏗️ Arquitectura general
 main.jsx
    │
    └── BrowserRouter
@@ -278,7 +248,6 @@ main.jsx
           │
           ├── Navbar
           ├── ScrollToTop
-          │
           ├── Routes
           │    ├── Home
           │    ├── Perfil
@@ -286,1090 +255,317 @@ main.jsx
           │    ├── Resultados
           │    ├── Ruta
           │    └── NotFound
-          │
           └── Footer
-```
-
-El punto de entrada principal es:
-
-```text
-src/main.jsx
-```
-
-Allí React renderiza el componente principal y utiliza:
-
-```jsx
-<BrowserRouter>
-  <App/>
-</BrowserRouter>
-```
-
-Esto permite que React Router administre la navegación interna de la aplicación.
-Desde allí se utiliza `BrowserRouter` para permitir que React Router controle la navegación de la aplicación.
-
----
-
-# 📂 Estructura principal del proyecto
-
-```text
-Career-Path-IA-frontend/
-│
-├── public/
-│
-├── src/
-│   │
-│   ├── assets/
-│   │
-│   ├── components/
-│   │   ├── CareerCard.jsx
-│   │   ├── FeatureCard.jsx
-│   │   ├── Footer.jsx
-│   │   ├── Hero.jsx
-│   │   ├── LoginForm.jsx
-│   │   ├── Navbar.jsx
-│   │   ├── OptionButton.jsx
-│   │   ├── ProfileForm.jsx
-│   │   ├── QuestionCard.jsx
-│   │   ├── RouteStep.jsx
-│   │   ├── RouteTopic.jsx
-│   │   ├── ScrollToTop.jsx
-│   │   ├── SectionTitle.jsx
-│   │   └── UserProfileSummary.jsx
-│   │
-│   ├── data/
-│   │   ├── careers.js
-│   │   ├── homeFeatures.js
-│   │   ├── menuItems.js
-│   │   ├── routeTopics.js
-│   │   ├── testQuestions.js
-│   │   └── users.js
-│   │
-│   ├── hooks/
-│   │   ├── useLocalAuth.js
-│   │   └── useSEO.js
-│   │
-│   ├── pages/
-│   │   ├── Home.jsx
-│   │   ├── NotFound.jsx
-│   │   ├── Perfil.jsx
-│   │   ├── Resultados.jsx
-│   │   ├── Ruta.jsx
-│   │   └── Test.jsx
-│   │
-│   ├── utils/
-│   │   ├── careerMatcher.js
-│   │   └── learningRouteBuilder.js
-│   │
-│   ├── App.jsx
-│   ├── App.css
-│   ├── index.css
-│   └── main.jsx
-│
-├── .env.example
-├── .gitignore
-├── .oxlintrc.json
-├── eslint.config.js
-├── index.html
-├── package.json
-├── package-lock.json
-├── vercel.json
-├── vite.config.js
-└── README.md
-```
-
----
-
-# 🧭 Navegación con React Router
-
-La aplicación funciona como una SPA.
-
-Las rutas principales son:
-
-| Ruta | Página | Función |
-|---|---|---|
-| `/` | Home | Página principal |
-| `/perfil` | Perfil | Información del estudiante |
-| `/test` | Test | Test vocacional |
-| `/resultados` | Resultados | Exploración de carreras y ofertas laborales |
-| `/ruta` | Ruta | Ruta de aprendizaje |
-| `*` | NotFound | Página de error 404 |
-
-La configuración general es:
-
-```jsx
-<Routes>
-  <Route element="{<Home" path="/"/>} />
-  <Route element="{<Perfil" path="/perfil"/>} />
-  <Route element="{<Test" path="/test"/>} />
-  <Route element="{<Resultados" path="/resultados"/>} />
-  <Route element="{<Ruta" path="/ruta"/>} />
-  <Route element="{<NotFound" path="*"/>} />
-</Routes>
-```
-
-Esto permite navegar entre vistas sin tener que recargar completamente la aplicación.
-
----
-| `/perfil` | Perfil | Login, registro y perfil vocacional |
-| `/test` | Test | Test Vocacional |
-| `/resultados` | Resultados | Carreras recomendadas |
-| `/ruta` | Ruta | Ruta de aprendizaje |
-| `*` | NotFound | Página 404 |
-
-La configuración general se encuentra dentro de:
-
-```text
-src/App.jsx
-```
-
----
-
-# 👤 Perfil y autenticación local
-
-La autenticación local se administra mediante:
-
-```text
-src/hooks/useLocalAuth.js
-```
-
-Este hook permite controlar:
-
-- usuarios locales;
-- usuario activo;
-- registro;
-- inicio de sesión;
-- cierre de sesión;
-- actualización del perfil;
-- restauración de datos.
-
-Las claves principales utilizadas son:
-
-```text
-careerpath_users
-careerpath_active_user_id
-```
-
-De esta manera se evita repetir manualmente la misma estructura JSX.
-
----
-
-# 👤 Perfil
-
-La página:
-
-```text
-src/pages/Perfil.jsx
-```
-
-utiliza el componente reutilizable:
-
-```text
-ProfileForm.jsx
-```
-
-El formulario incluye campos para:
-
-- nombre y apellido;
-- edad;
-- ciudad;
-- intereses principales;
-- habilidades.
-
-El componente recibe información mediante props.
-
-Ejemplo:
-
-```jsx
-<ProfileForm buttonText="Guardar y Continuar" title="Completá tus Datos Personales"/>
-```
-
-Actualmente esta sección representa la interfaz visual del perfil.
-
-La persistencia definitiva de esta información podrá conectarse posteriormente con una base de datos o backend.
-La sesión se mantiene mientras el usuario navega entre las distintas páginas.
-
----
-
-# 📝 Test Vocacional
-
-La página:
-
-```text
-src/pages/Test.jsx
-```
-
-implementa el Test Vocacional.
-
-Los componentes principales utilizados son:
-
-```text
-QuestionCard.jsx
-OptionButton.jsx
-```
-
-Las preguntas se encuentran separadas dentro de:
-
-```text
-src/data/testQuestions.js
-```
-
-Las respuestas del usuario se almacenan mediante:
-
-```text
-careerpath_test_answers
-```
-
-Esto permite que Resultados pueda procesarlas posteriormente.
-
----
-
-# 📊 Resultados y Oportunidades Laborales
-
-La página:
-
-```text
-src/pages/Resultados.jsx
-```
-
-trabaja junto con:
-
-```text
-src/data/careers.js
-src/utils/careerMatcher.js
-src/utils/learningRouteBuilder.js
-```
-
-La lógica general es:
-
-```text
-Usuario activo
-      +
-Intereses y habilidades
-      +
-Respuestas del Test
-      ↓
-careerMatcher
-      ↓
-Carreras recomendadas
-```
-
-La página implementa:
-
-- búsqueda por nombre;
-- búsqueda por descripción;
-- filtrado por área o tipo;
-- renderizado dinámico;
-- mensaje cuando no existen coincidencias;
-- almacenamiento de favoritos;
-- integración de la sección de oportunidades laborales conectada a la API de The Muse (con Axios, estados de carga y manejo de errores).
-
-Las carreras primero son filtradas utilizando:
-Las recomendaciones se almacenan mediante:
-
-```text
-careerpath_recommended_careers
-```
-
-La ruta generada se almacena mediante:
-
-```text
-careerpath_learning_route
-```
-
----
-
-# 🛣️ Mi Ruta
-
-La página principal de esta sección es:
-
-```text
-src/pages/Ruta.jsx
-```
-
-Los componentes relacionados son:
-
-```text
-src/components/RouteStep.jsx
-src/components/RouteTopic.jsx
-src/data/routeTopics.js
-```
-
-Mi Ruta lee:
-
-```text
-careerpath_learning_route
-```
-
-y transforma la información almacenada al formato utilizado por los componentes visuales.
-
----
-
-# 🚦 Estados de Mi Ruta
-
-Antes de mostrar una ruta se comprueba qué información existe.
-
-```text
-¿Hay usuario activo?
-        │
-        ├── NO → Ir a Perfil
-        │
-        └── SÍ
-             ↓
-¿Hay Test realizado?
-        │
-        ├── NO → Ir al Test
-        │
-        └── SÍ
-             ↓
-¿Hay Resultados?
-        │
-        ├── NO → Ir a Resultados
-        │
-        └── SÍ
-             ↓
-¿Existe una ruta?
-        │
-        ├── NO → Volver a Resultados
-        │
-        └── SÍ
-             ↓
-       Mostrar Mi Ruta
-```
-
-Esto evita mostrar una ruta genérica cuando todavía falta información.
-
----
-
-# 🔄 Adaptación dinámica de la ruta
-
-`routeTopics.js` contiene lógica que permite transformar la estructura generada por Resultados al formato utilizado por Mi Ruta.
-
-Conceptualmente:
-
-```text
-careerpath_learning_route
-        ↓
-adaptarRutaAprendizaje()
-        ↓
-etapas
-        ↓
-RouteStep
-        ↓
-RouteTopic
-```
-
-Esto permite mostrar rutas diferentes sin depender de una cantidad fija de etapas o temas.
-
----
-
-# 🧩 RouteStep
-
-El componente:
-
-```text
-src/components/RouteStep.jsx
-```
-
-representa una etapa de aprendizaje.
-
-Recibe mediante props:
-
-```text
-etapa
-temasCompletados
-onToggleTema
-abiertoInicial
-```
-
-Utiliza:
-
-```javascript
-useState
-```
-
-para controlar si una etapa se encuentra abierta o cerrada.
-
-Los temas son generados utilizando:
-
-```jsx
-etapa.temas.map(...)
-```
-
----
-
-# ✅ RouteTopic
-
-El componente:
-
-```text
-src/components/RouteTopic.jsx
-```
-
-representa cada tema individual.
-
-Recibe:
-
-```text
-topic
-completado
-onToggle
-```
-
-El checkbox utiliza el estado recibido desde el componente padre.
-
-Когда el usuario marca o desmarca un tema:
-Cuando cambia:
-
-```text
-RouteTopic
-    ↓
-RouteStep
-    ↓
-Ruta
-```
-
-la página actualiza el progreso general.
-
----
-
-# 📈 Progreso dinámico
-
-El porcentaje de progreso se calcula automáticamente.
-
-```text
-temas completados / total de temas × 100
-```
-
-La interfaz muestra:
-
-- porcentaje general;
-- cantidad de temas completados;
-- cantidad de temas pendientes;
-- barra de progreso;
-- estado de cada tema;
-- mensaje cuando se alcanza el 100%.
-
-El cálculo funciona independientemente de la cantidad de etapas o materias que tenga una ruta.
-
----
-
-# 💾 Persistencia de Mi Ruta
-
-El progreso se almacena utilizando:
-
-```text
-careerpath_route_progress
-```
-
-Para separar los datos se utiliza una combinación entre:
-
-```text
-usuario + carrera
-```
-
-De esta forma cada usuario puede tener su propio progreso.
-
-Esto evita que dos cuentas compartan accidentalmente los mismos temas completados.
-
----
-
-# 🗃️ Claves principales de localStorage
-
-| Clave | Función |
-|---|---|
-| `careerpath_users` | Usuarios registrados localmente |
-| `careerpath_active_user_id` | Usuario con sesión iniciada |
-| `careerpath_test_answers` | Respuestas del Test |
-| `careerpath_recommended_careers` | Carreras recomendadas |
-| `careerpath_learning_route` | Ruta de aprendizaje |
-| `careerpath_route_progress` | Progreso de Mi Ruta |
-| `utn_favorites` | Carreras favoritas |
-
----
-
-# 🪝 Hooks utilizados
-
-## useState
-
-Se utiliza para manejar estados como:
-
-```jsx
-<RouteTopic completado="{temasCompletados.includes(topic.id)}" onToggle="{onToggleTema}" topic="{topic}"/>
-```text
-usuario activo
-pregunta actual
-respuestas
-filtros
-etapas abiertas
-temas completados
-```
-
-## useEffect
-
-Se utiliza para:
-
-```text
-recuperar información
-sincronizar localStorage
-guardar progreso
-administrar SEO
-```
-
-## useMemo
-
-Se utiliza para calcular datos derivados sin repetir cálculos innecesarios.
-
-En Mi Ruta se utiliza, por ejemplo, para:
-
-```text
-etapas adaptadas
-IDs válidos
-cantidad total de temas
-identificador del progreso
-```
-
-## useLocation
-
-Se utiliza dentro de:
-
-```text
-ScrollToTop.jsx
-```
-
-para detectar cambios de ruta.
-
----
-
-# 🧩 Componentes reutilizables
-
-Entre los principales componentes se encuentran:
-
-| Componente | Función |
-|---|---|
-| `Navbar` | Navegación principal |
-| `Footer` | Pie de página |
-| `Hero` | Presentación del Inicio |
-| `FeatureCard` | Tarjetas reutilizables |
-| `LoginForm` | Login y registro |
-| `UserProfileSummary` | Información del usuario |
-| `QuestionCard` | Pregunta del Test |
-| `OptionButton` | Opción del Test |
-| `CareerCard` | Tarjeta de carrera |
-| `RouteStep` | Etapa de Mi Ruta |
-| `RouteTopic` | Tema individual |
-| `SectionTitle` | Encabezados |
-| `ScrollToTop` | Control de scroll |
-
----
-
-# 🔁 Uso de map()
-
-El proyecto utiliza `map()` para generar elementos dinámicamente.
-
-Ejemplos:
-
-```text
-menuItems.map(...)
-homeFeatures.map(...)
-question.options.map(...)
-filteredCareers.map(...)
-etapas.map(...)
-etapa.temas.map(...)
-```
-
-Esto permite evitar JSX repetido y trabajar con componentes reutilizables.
-
----
-
-# 🔎 Uso de filter()
-
-`filter()` se utiliza para distintas operaciones como:
-
-- filtrar carreras;
-- buscar coincidencias;
-- obtener temas completados;
-- eliminar elementos seleccionados;
-- validar progreso.
-
----
-
-# 🎨 Bootstrap
-
-Bootstrap se utiliza principalmente para:
-
+Estructura principal
+src/
+├── assets/
+├── components/
+├── config/
+│   └── api.js
+├── data/
+│   ├── careers.js
+│   ├── homeFeatures.js
+│   ├── menuItems.js
+│   ├── routeTopics.js
+│   ├── testQuestions.js
+│   └── users.js
+├── hooks/
+│   ├── useLocalAuth.js
+│   ├── useSEO.js
+│   └── useThemeMode.js
+├── pages/
+│   ├── Home.jsx
+│   ├── Perfil.jsx
+│   ├── Test.jsx
+│   ├── Resultados.jsx
+│   ├── Ruta.jsx
+│   └── NotFound.jsx
+├── services/
+│   └── escoService.js
+├── utils/
+│   ├── careerMatcher.js
+│   └── learningRouteBuilder.js
+├── App.jsx
+├── App.css
+└── main.jsx
+🧭 Navegación
+CareerPath AI funciona como una SPA mediante React Router.
+Ruta	Página	Función
+/	Home	Presentación de CareerPath AI
+/perfil	Perfil	Registro, login y perfil vocacional
+/test	Test	Test vocacional
+/resultados	Resultados	Carreras y ocupaciones relacionadas
+/ruta	Ruta	Plan de estudios y progreso
+*	NotFound	Página 404
+
+
+🔍 Estrategia SEO implementada
+CareerPath AI incorpora una estrategia SEO orientada al contenido real del sistema y a sus rutas principales.
+La implementación se distribuye entre:
+index.html
+src/hooks/useSEO.js
+Metadatos generales
+index.html define información global de la aplicación:
+- charset;
+- viewport;
+- description;
+- keywords;
+- author;
+- robots;
+- título principal;
+- Open Graph;
+- imagen social.
+El contenido está orientado a términos relacionados con:
+orientación vocacional
+test vocacional
+carreras
+UTN
+Tucumán
+perfil vocacional
+CareerPath AI
+SEO dinámico por ruta
+El hook:
+src/hooks/useSEO.js
+permite actualizar dinámicamente la información SEO según la vista que está visitando el usuario.
+Actualmente administra:
+document.title
+meta description
+robots
+canonical URL
+og:title
+og:description
+og:type
+og:url
+twitter:title
+twitter:description
+twitter:card
+Esto permite que páginas importantes del sistema puedan tener un título y una descripción relacionados con su contenido real.
+Por ejemplo:
+/test
+Test Vocacional UTN | CareerPath AI
+
+/resultados
+Resultados y Carreras UTN | CareerPath AI
+
+/ruta
+Mi Ruta de Aprendizaje | CareerPath AI
+URL canónica
+Cada vista que utiliza useSEO puede definir una URL canónica.
+Ejemplo conceptual:
+https://dominio-del-proyecto.com/test
+https://dominio-del-proyecto.com/resultados
+https://dominio-del-proyecto.com/ruta
+Esto ayuda a identificar la URL principal de cada contenido y evita referencias duplicadas.
+Open Graph y redes sociales
+El sistema utiliza metadatos Open Graph para mejorar la presentación de CareerPath AI cuando una URL es compartida.
+Se gestionan datos como:
+og:title
+og:description
+og:type
+og:url
+og:image
+Twitter Cards
+El hook también incorpora:
+twitter:card
+twitter:title
+twitter:description
+para mejorar la vista previa cuando el sitio se comparte en plataformas compatibles.
+Indexación
+El proyecto utiliza:
+<meta name="robots" content="index, follow" />
+para indicar que las páginas públicas pueden ser indexadas y que los enlaces pueden ser seguidos.
+Contenido semántico
+La interfaz utiliza elementos HTML como:
+main
+section
+header
+article
+h1
+h2
+h3
+p
+junto con títulos y descripciones vinculados al contenido de cada página.
+Esto mejora la organización semántica y también beneficia:
+- accesibilidad;
+- lectura del documento;
+- comprensión del contenido por motores de búsqueda.
+SEO y experiencia de usuario
+La estrategia SEO se complementa con:
+- diseño responsive;
+- navegación SPA clara;
+- títulos descriptivos;
+- página 404 personalizada;
+- contenido organizado;
+- enlaces internos entre Perfil, Test, Resultados y Mi Ruta;
+- textos relacionados con orientación vocacional y carreras.
+El proyecto implementa SEO on-page y metadatos sociales acordes al alcance actual de una SPA académica. Funciones como sitemap automático, datos estructurados JSON-LD o renderizado del lado del servidor pueden incorporarse en una evolución futura.
+
+📱 Diseño responsive
+La interfaz utiliza Bootstrap para adaptarse a distintos tamaños de pantalla.
+Se utilizan:
 - sistema de grillas;
+- flexbox;
+- breakpoints;
 - cards;
 - formularios;
 - botones;
 - badges;
 - barras de progreso;
-- flexbox;
-- espaciado;
-- responsive;
-- sombras;
-- bordes.
-
-Esto permite mantener un diseño consistente evitando una cantidad excesiva de CSS personalizado.
-
----
-
-# ✨ Bootstrap Icons
-
-El proyecto integra:
-
-```text
-bootstrap-icons
-```
-
-Se utiliza mediante clases como:
-
-```html
-<i className="bi bi-person"></i>
-```
-
-Algunos ejemplos utilizados dentro del proyecto son:
-
-```text
-bi-person-lock
-bi-clipboard-check
-bi-signpost-split
-bi-mortarboard
-bi-list-check
-bi-trophy-fill
-```
-
----
-
-# 🎞️ Animaciones
-
-La interfaz incorpora animaciones CSS suaves.
-
-Estas animaciones se utilizan principalmente en:
-
-- cards;
-- formularios;
-- botones;
-- opciones;
-- menú móvil;
-- secciones.
-
-Las animaciones se mantienen integradas al diseño de Bootstrap y no utilizan Tailwind.
-
----
-
-# 📱 Responsive Design
-
-CareerPath AI utiliza Bootstrap para adaptarse a diferentes tamaños de pantalla.
-
-Durante la revisión de Mi Ruta se probaron tamaños como:
-
-```text
-375 × 667
-768 × 1024
-1366 × 768
-```
-
-Se verificaron:
-
-- títulos;
-- tarjetas;
-- barra de progreso;
-- estadísticas;
-- etapas;
-- checkboxes;
-- botones;
-- Navbar;
-- Footer.
-
----
-
-# 🔍 SEO
-
-El proyecto implementa estrategias SEO.
-
-Dentro de:
-El proyecto implementa SEO básico mediante:
-
-```text
-index.html
-src/hooks/useSEO.js
-```
-
-El hook permite modificar dinámicamente:
-
-```text
-document.title
-meta description
-og:title
-og:description
-og:type
-canonical URL
-```
-
-Mi Ruta también utiliza este hook.
-
----
-
-# ❌ Página 404
-
-El proyecto incorpora:
-
-```text
+- espaciado responsive;
+- Navbar adaptativo.
+La aplicación contempla visualización en:
+móvil
+tablet
+notebook
+desktop
+🎨 Diseño e interfaz
+El proyecto utiliza:
+- Bootstrap;
+- React Bootstrap;
+- Bootstrap Icons;
+- CSS personalizado;
+- animaciones suaves;
+- tarjetas reutilizables;
+- jerarquía visual;
+- estados de carga;
+- mensajes de error;
+- alertas mediante SweetAlert2.
+No utiliza Tailwind.
+❌ Página 404
+La ruta * renderiza:
 src/pages/NotFound.jsx
-```
-
-React Router utiliza:
-
-```jsx
-<Route element="{<NotFound" path="*"/>} />
-```
-
-para mostrar una página personalizada cuando la ruta solicitada no existe.
-
----
-
-# ⚙️ Configuración del archivo .env
-
-Para configurar correctamente el consumo de la API pública en el proyecto:
-
-1. Duplicar el archivo de ejemplo `.env.example` en la raíz del proyecto y renombrarlo a `.env`.
-2. Verificar que incluya la variable de entorno:
-   ```env
-   VITE_API_URL=[https://www.themuse.com/api/public/jobs](https://www.themuse.com/api/public/jobs)
-   ```
-*(Nota: El archivo `.env` se encuentra protegido en el `.gitignore` para evitar subir credenciales o URLs de entornos locales a GitHub).*
-
----
-
-# 📥 Instalación
-
-## 1. Clonar el repositorio
-
-```bash
-git clone [https://github.com/mmore-cloud/Career-Path-IA-frontend.git](https://github.com/mmore-cloud/Career-Path-IA-frontend.git)
-```
-
-## 2. Entrar a la carpeta
-
-```bash
+cuando el usuario intenta acceder a una URL inexistente.
+La página permite volver al Inicio sin romper la navegación de la SPA.
+⚙️ Variables de entorno
+Las variables relacionadas con ESCO se leen desde:
+src/config/api.js
+Para trabajar localmente se puede crear un archivo .env en la raíz:
+VITE_ESCO_API_URL=https://ec.europa.eu/esco/api
+VITE_ESCO_LANGUAGE=es
+VITE_ESCO_VERSION=v1.2.0
+Los archivos .env se encuentran ignorados mediante .gitignore.
+🛠️ Tecnologías
+Frontend
+- React
+- React DOM
+- JavaScript
+- JSX
+- HTML5
+- CSS3
+Navegación
+- React Router DOM
+Diseño
+- Bootstrap
+- React Bootstrap
+- Bootstrap Icons
+Peticiones y experiencia de usuario
+- Axios
+- SweetAlert2
+Desarrollo
+- Vite
+- npm
+- ESLint
+- Git
+- GitHub
+Deploy
+- Vercel
+📦 Dependencias principales
+Las dependencias se encuentran en package.json.
+axios
+bootstrap
+bootstrap-icons
+react
+react-bootstrap
+react-dom
+react-router-dom
+sweetalert2
+🚀 Instalación y ejecución
+1. Clonar el repositorio
+git clone https://github.com/mmore-cloud/Career-Path-IA-frontend.git
+2. Entrar al proyecto
 cd Career-Path-IA-frontend
-```
-
-## 3. Instalar dependencias
-
-```bash
+3. Instalar dependencias
 npm install
-```
-
-También puede utilizarse:
-
-```bash
-npm i
-```
-
----
-
-# ▶️ Ejecutar el proyecto
-
-Para iniciar el entorno de desarrollo:
-
-```bash
+4. Crear .env
+VITE_ESCO_API_URL=https://ec.europa.eu/esco/api
+VITE_ESCO_LANGUAGE=es
+VITE_ESCO_VERSION=v1.2.0
+5. Ejecutar desarrollo
 npm run dev
-```
-
-Vite mostrará una dirección similar a:
-
-```text
-http://localhost:5173/
-```
-
----
-
-# 🏗️ Build de producción
-
-Para generar la versión optimizada:
-
-```bash
-npm run build
-```
-
-La aplicación genera los archivos dentro de:
-
-```text
-dist/
-```
-
-Durante la implementación de la Parte 4 del TP Nº 7 se verificó correctamente el build utilizando Vite.
-
----
-
-# 📜 Scripts disponibles
-
-```bash
-npm run dev
-npm run build
+6. Revisar ESLint
 npm run lint
-npm run preview
-```
-
-### Desarrollo
-
-```bash
-npm run dev
-```
-
-Inicia el servidor de desarrollo.
-
-### Build
-
-```bash
+7. Generar build
 npm run build
-```
-
-Genera la versión de producción.
-
-### Lint
-
-```bash
-npm run lint
-```
-
-Ejecuta ESLint.
-
-### Preview
-
-```bash
-npm run preview
-```
-
-Permite probar localmente la versión generada por el build.
-
----
-
-# 🌿 Organización con Git
-
-La rama utilizada como base de desarrollo es:
-
-```text
-dev
-```
-
-Cada integrante trabaja utilizando una rama independiente.
-
-Flujo recomendado:
-
-```bash
-git switch dev
-git pull --ff-only origin dev
-git switch -c nombre-de-rama
-```
-
-Después de completar el trabajo:
-
-```bash
-git add .
-git commit -m "mensaje descriptivo"
-git push -u origin nombre-de-rama
-```
-
-Finalmente se crea un Pull Request hacia:
-
-```text
-dev
-```
-
-No se realizan integraciones directas hacia `main` durante el desarrollo.
-
----
-
-# 🌱 Ramas del TP Nº 7
-
-La división de trabajo utiliza ramas independientes.
-
-```text
-feat/react-router-navigation
-feat/home-profile-seo
-feat/test-results
-feat/route-readme-deploy
-feat/integracion-final-documentacion
-feat/local-users-bootstrap-icons
-feat/test-vocacional
-feat/resultados-integracion
-feat/ruta-integracion
-```
-
-La rama correspondiente a la Parte 4 es:
-
-```text
-feat/ruta-integracion
-```
-
----
-
-# 👥 División del trabajo
-
-## Parte 1
-
-Login local, registro, perfil vocacional, usuarios locales, Bootstrap Icons y animaciones.
-
-## Parte 2
-
-Test Vocacional y guardado de respuestas.
-
-Parte 4
-Mi Ruta + README + Responsive + Deploy + Integración de API Pública
-```
-## Parte 3
-
-Resultados conectados al Test y al perfil, recomendaciones y generación de la ruta.
-
-## Parte 4
-
-Mi Ruta, estados vacíos, progreso, integración final, README, responsive y build.
-
----
-
-# 🌐 Deploy con Vercel
-
-El proyecto está preparado para desplegarse mediante:
-
-```text
-Vercel
-```
-
-URL:
-
-```text
-[https://career-path-ia-frontend.vercel.app](https://career-path-ia-frontend.vercel.app)
-```
-
-El archivo:
-
-```text
-vercel.json
-```
-
-contiene la configuración necesaria para que React Router funcione correctamente al acceder directamente a rutas como:
-
-```text
-/perfil
-/test
-/resultados
-/ruta
-```
-
----
-
-# 🔗 Repositorios
-
-## Repositorio actual
-
-```text
-[https://github.com/mmore-cloud/Career-Path-IA-frontend](https://github.com/mmore-cloud/Career-Path-IA-frontend)
-```
-
-## Repositorio original
-
-```text
-[https://github.com/Leandro-Nunez21/TP1-C9-TUP-UTN](https://github.com/Leandro-Nunez21/TP1-C9-TUP-UTN)
-```
-
----
-
-# ✅ Estado técnico del TP Nº 7
-
-Actualmente la aplicación cuenta con:
-
-```text
-✅ React + Vite
-✅ React Router
-✅ BrowserRouter
-✅ Navbar con NavLink
-✅ Bootstrap
-✅ Bootstrap Icons
-✅ Login local
-✅ Registro local
-✅ Sesión persistente
-✅ Perfil vocacional
-✅ Test Vocacional
-✅ Resultados
-✅ Carreras recomendadas
-✅ localStorage
-✅ Mi Ruta dinámica
-✅ Estados vacíos
-✅ RouteStep reutilizable
-✅ RouteTopic reutilizable
-✅ 3 etapas de aprendizaje
-✅ 12 temas de aprendizaje
-✅ Progreso dinámico
-✅ Estadísticas de progreso
-✅ Persistencia de Mi Ruta
-✅ Uso de props
-✅ Uso de map()
-✅ Uso de filter()
-✅ Uso de useState
-✅ Uso de useEffect
-✅ Datos separados de la interfaz
-✅ Hook personalizado de SEO
-✅ Responsive revisado
-✅ Configuración de Vercel incluida
-✅ Integración con la API de The Muse (Axios y SweetAlert2)
-✅ Etapas dinámicas
-✅ Temas dinámicos
-✅ Progreso automático
-✅ Progreso por usuario y carrera
-✅ Diseño responsive
-✅ Animaciones CSS
-✅ SEO básico
-✅ Página 404
-✅ Configuración de Vercel
-✅ Build de producción verificado
-```
-
----
-
-# 🔮 Posibles mejoras futuras
-
-La arquitectura actual permite continuar incorporando:
-
-- backend;
-- base de datos real;
-- autenticación segura;
-- recuperación de contraseña;
-- Inteligencia Artificial real;
-- recomendaciones más avanzadas;
-- historial de tests;
-- historial de rutas;
-- sincronización entre dispositivos;
-- APIs de universidades;
-- panel administrativo.
-
----
-
-# 📚 Información académica
-
-**Proyecto:** CareerPath AI
-
-**Trabajo Práctico:** Nº 7
-
-**Carrera:** Tecnicatura Universitaria en Programación
-
-**Institución:** Universidad Tecnológica Nacional
-
-**Tipo de proyecto:** Frontend
-
-**Tecnología principal:** React + Vite
-
-**Equipo:** C9 TUP UTN
-
-### Integrantes
-
-- Leandro Nuñez
-- Valentina Perez del Rien
-- Tatiana Herrera
-- Morena Marina Noguera
-
----
-
-## © 2026 CareerPath AI
-
+✅ Funcionalidades implementadas
+- ✅ SPA con React Router
+- ✅ Registro e inicio de sesión local
+- ✅ Perfil vocacional
+- ✅ Test vocacional interactivo
+- ✅ Persistencia de respuestas
+- ✅ Perfil ESCO
+- ✅ Integración con ESCO mediante Axios
+- ✅ Consulta de ocupaciones según el perfil
+- ✅ Recomendación de carreras UTN
+- ✅ Fallback cuando la API no responde
+- ✅ Búsqueda de carreras
+- ✅ Filtros
+- ✅ Favoritos
+- ✅ Información académica
+- ✅ Planes de estudio
+- ✅ Mi Ruta
+- ✅ Selección de carrera
+- ✅ Seguimiento de materias
+- ✅ Progreso por usuario y carrera
+- ✅ Persistencia mediante localStorage
+- ✅ Componentes reutilizables
+- ✅ useState
+- ✅ useEffect
+- ✅ SweetAlert2
+- ✅ Bootstrap
+- ✅ Bootstrap Icons
+- ✅ Diseño responsive
+- ✅ Animaciones CSS
+- ✅ SEO dinámico por ruta
+- ✅ Canonical URLs
+- ✅ Open Graph
+- ✅ Twitter Cards
+- ✅ Meta robots
+- ✅ Página 404
+- ✅ ESLint
+- ✅ Build con Vite
+- ✅ Configuración para Vercel
+🔮 Posibles mejoras futuras
+- backend propio;
+- base de datos;
+- autenticación remota;
+- persistencia en servidor;
+- panel de administración;
+- historial de resultados;
+- más fuentes académicas;
+- sitemap dinámico;
+- robots.txt específico;
+- datos estructurados con JSON-LD;
+- renderizado del lado del servidor o generación estática;
+- pruebas automatizadas;
+- optimización adicional del bundle.
+📄 Estado del proyecto
+CareerPath AI se encuentra en una etapa funcional del Trabajo Práctico Nº 7.
+El flujo principal actualmente permite:
+registrarse
+   ↓
+completar perfil
+   ↓
+realizar test
+   ↓
+generar perfil vocacional
+   ↓
+consultar ESCO
+   ↓
+recibir carreras recomendadas
+   ↓
+elegir una carrera
+   ↓
+seguir el plan de estudios
+   ↓
+guardar progreso
+El sistema mantiene una arquitectura basada en componentes y separación entre interfaz, datos, servicios y utilidades.
