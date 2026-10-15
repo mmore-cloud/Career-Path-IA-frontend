@@ -190,7 +190,7 @@ export const careers = [
     "titulo": "Ingeniería Civil",
     "area": "grado",
     "subtipo": "Ingeniería",
-    "duracion": "6 años",
+    "duracion": "5 años y medio",
     "descripcion": "Forma profesionales para el diseño, construcción y mantenimiento de infraestructuras como carreteras, ferrocarriles, puentes, canales, presas, puertos y aeropuertos.",
     "facultades": [
       "Avellaneda",
@@ -290,7 +290,8 @@ export const careers = [
     ],
     "fuentePlan": "https://impulso.frbb.utn.edu.ar/frbb/info/pages/civil01.html",
     "planVerificado": true,
-    "estadoPlan": "verificado"
+    "estadoPlan": "verificado",
+    "modalidad": "Presencial"
   },
   {
     "id": "ing-electromecanica",
@@ -396,7 +397,7 @@ export const careers = [
     "titulo": "Ingeniería Electrónica",
     "area": "grado",
     "subtipo": "Ingeniería",
-    "duracion": "6 años",
+    "duracion": "5 años y medio",
     "descripcion": "Forma profesionales para el planeamiento, desarrollo, dirección, control y automatización de sistemas electrónicos y para proyectos de investigación y desarrollo.",
     "facultades": [
       "Avellaneda",
@@ -490,7 +491,8 @@ export const careers = [
     ],
     "planVerificado": true,
     "estadoPlan": "verificado",
-    "fuentePlan": "https://www.frlr.utn.edu.ar/estudiantes/planificaciones-y-horarios-carreras-grado/"
+    "fuentePlan": "https://www.frlr.utn.edu.ar/estudiantes/planificaciones-y-horarios-carreras-grado/",
+    "modalidad": "Presencial"
   },
   {
     "id": "ing-energia",
@@ -858,7 +860,8 @@ export const careers = [
     ],
     "fuentePlan": "https://frba.utn.edu.ar/sistemas/plan-de-estudios-2023/",
     "planVerificado": true,
-    "estadoPlan": "verificado"
+    "estadoPlan": "verificado",
+    "modalidad": "Presencial"
   },
   {
     "id": "ing-telecomunicaciones",
@@ -1034,7 +1037,8 @@ export const careers = [
     ],
     "fuentePlan": "https://frh.utn.edu.ar/carreras/ingenieria-ferroviaria/plan-de-estudio-ing-ferroviaria/",
     "planVerificado": true,
-    "estadoPlan": "verificado"
+    "estadoPlan": "verificado",
+    "modalidad": "Presencial"
   },
   {
     "id": "ing-industrial",
@@ -1135,7 +1139,8 @@ export const careers = [
     ],
     "fuentePlan": "https://web.frtl.utn.edu.ar/plan-de-estudios-ingenieria-industrial/",
     "planVerificado": true,
-    "estadoPlan": "verificado"
+    "estadoPlan": "verificado",
+    "modalidad": "Presencial"
   },
   {
     "id": "ing-mecanica",
@@ -1233,7 +1238,8 @@ export const careers = [
     ],
     "fuentePlan": "https://frba.utn.edu.ar/mecanica/plan-de-estudios-2023/",
     "planVerificado": true,
-    "estadoPlan": "verificado"
+    "estadoPlan": "verificado",
+    "modalidad": "Presencial"
   },
   {
     "id": "ing-metalurgica",
@@ -1331,26 +1337,29 @@ export const careers = [
     ],
     "planVerificado": true,
     "estadoPlan": "verificado",
-    "fuentePlan": "https://www.frsn.utn.edu.ar/wp-content/uploads/2024/09/Plan-de-estudio-Ing-Metalurgica-2023.pdf"
+    "fuentePlan": "https://www.frsn.utn.edu.ar/wp-content/uploads/2024/09/Plan-de-estudio-Ing-Metalurgica-2023.pdf",
+    "modalidad": "Presencial"
   },
   {
     "id": "ing-naval",
     "titulo": "Ingeniería Naval",
     "area": "grado",
     "subtipo": "Ingeniería",
-    "duracion": "6 años",
+    "duracion": "5 años y medio",
     "descripcion": "Se orienta al diseño, planificación, proyecto y construcción de material flotante, buques, plataformas y otras estructuras vinculadas al ámbito naval.",
     "facultades": [
       "Buenos Aires",
       "Mar del Plata"
     ],
     "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/naval",
-    "planUrl": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/naval",
-    "planNombre": "Consultar plan oficial",
+    "planUrl": "https://www.utn.edu.ar/es/articulos-slider-principal/utn-redefine-la-estructura-de-ingenieria-naval",
+    "planNombre": "Nuevo Diseño Curricular 2026 - detalle completo pendiente de publicación",
     "planEstudios": [],
     "planVerificado": false,
     "estadoPlan": "actualizacion",
-    "notaPlan": "Nuevo diseño curricular aprobado por el Consejo Superior el 25/02/2026; detalle completo del nuevo plan pendiente de publicación/localización."
+    "notaPlan": "El Consejo Superior de la UTN aprobó el nuevo diseño curricular el 25/02/2026. La UTN informó una duración de 5 años y medio; se mantiene pendiente la publicación/localización del detalle completo de asignaturas del nuevo plan.",
+    "modalidad": "Presencial",
+    "fuentePlan": "https://www.utn.edu.ar/es/articulos-slider-principal/utn-redefine-la-estructura-de-ingenieria-naval"
   },
   {
     "id": "ing-pesquera",
@@ -1364,13 +1373,15 @@ export const careers = [
       "Mar del Plata",
       "Tierra del Fuego"
     ],
-    "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/pesquera",
-    "planUrl": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/pesquera",
-    "planNombre": "Consultar plan oficial",
+    "fuenteOficial": "https://mdp.utn.edu.ar/ingenierias/ingenieria-pesquera/",
+    "planUrl": "https://mdp.utn.edu.ar/novedad/ingenieria-pesquera-se-renueva/",
+    "planNombre": "Nuevo Plan 2026 - Ordenanza 2166/2025",
     "planEstudios": [],
     "planVerificado": false,
     "estadoPlan": "actualizacion",
-    "notaPlan": "La Facultad Regional Mar del Plata anunció un nuevo plan en agosto de 2026; se conserva pendiente hasta localizar el detalle completo del nuevo diseño."
+    "notaPlan": "UTN Mar del Plata anunció en agosto de 2026 el nuevo Plan 2026, con 35 materias obligatorias y una electiva. Se evita mezclar el plan anterior publicado en la página de la carrera con el nuevo diseño hasta contar con el detalle curricular completo del Plan 2026.",
+    "modalidad": "Presencial",
+    "fuentePlan": "https://mdp.utn.edu.ar/novedad/ingenieria-pesquera-se-renueva/"
   },
   {
     "id": "ing-quimica",
@@ -1466,7 +1477,8 @@ export const careers = [
     ],
     "planVerificado": true,
     "estadoPlan": "verificado",
-    "fuentePlan": "https://frm.utn.edu.ar/plan-de-estudio-ing-quimica/"
+    "fuentePlan": "https://frm.utn.edu.ar/plan-de-estudio-ing-quimica/",
+    "modalidad": "Presencial"
   },
   {
     "id": "ing-textil",
@@ -1478,12 +1490,79 @@ export const careers = [
     "facultades": [
       "Facultad Regional Buenos Aires"
     ],
-    "fuenteOficial": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/textil",
-    "planUrl": "https://utn.edu.ar/es/federacion-universitaria-tecnologica/feria-de-carreras/textil",
-    "planNombre": "Consultar plan oficial",
-    "planEstudios": [],
-    "planVerificado": false,
-    "estadoPlan": "pendiente"
+    "fuenteOficial": "https://frba.utn.edu.ar/ingreso/ingenieria-textil/",
+    "planUrl": "https://frba.utn.edu.ar/textil/plan-estudios-2016/",
+    "planNombre": "Plan de Estudios 2016",
+    "planEstudios": [
+      {
+        "nivel": "Primer año",
+        "materias": [
+          "Análisis Matemático I",
+          "Álgebra y Geometría Analítica",
+          "Ingeniería y Sociedad",
+          "Física I",
+          "Inglés I",
+          "Química General",
+          "Introducción a la Industria Textil (Integradora)"
+        ]
+      },
+      {
+        "nivel": "Segundo año",
+        "materias": [
+          "Análisis Matemático II",
+          "Física II",
+          "Probabilidad y Estadística",
+          "Fundamentos de Química Orgánica y Analítica",
+          "Sistemas de Representación",
+          "Inglés II",
+          "Diseño I",
+          "Fibras Textiles (Integradora)"
+        ]
+      },
+      {
+        "nivel": "Tercer año",
+        "materias": [
+          "Cálculo Numérico",
+          "Fundamentos de Informática Textil",
+          "Fundamentos Eléctricos y Mecánicos",
+          "Diseño II",
+          "Química Textil (Integradora)",
+          "Hilandería de Lana",
+          "Termodinámica",
+          "Hilandería de Algodón"
+        ]
+      },
+      {
+        "nivel": "Cuarto año",
+        "materias": [
+          "Legislación",
+          "Economía",
+          "Seguridad e Higiene Industrial",
+          "Gestión de Calidad e Ingeniería Ambiental",
+          "Tejeduría de Punto y sus Ligamentos",
+          "Tintorería y Estampado",
+          "Confección Industrial",
+          "Tejeduría de Calada y sus Ligamentos"
+        ]
+      },
+      {
+        "nivel": "Quinto año",
+        "materias": [
+          "Fabricación de Tejido de Calada",
+          "Procesos de Ennoblecimiento Textil",
+          "Fabricación de Tejido de Punto",
+          "Proyecto Final (Integradora)",
+          "Electiva 1",
+          "Electiva 2",
+          "Práctica Profesional Supervisada"
+        ]
+      }
+    ],
+    "planVerificado": true,
+    "estadoPlan": "verificado",
+    "modalidad": "Presencial con algunas instancias virtuales",
+    "fuentePlan": "https://frba.utn.edu.ar/textil/plan-estudios-2016/",
+    "cargaHoraria": "3.824 horas reloj"
   },
   {
     "id": "lic-administracion-rural",
@@ -1564,7 +1643,8 @@ export const careers = [
     ],
     "fuentePlan": "https://www.frcon.utn.edu.ar/lic-en-administracion-rural/plan-de-estudios-lic-en-administracion-rural/",
     "planVerificado": true,
-    "estadoPlan": "verificado"
+    "estadoPlan": "verificado",
+    "modalidad": "Presencial"
   },
   {
     "id": "lic-organizacion-industrial",
@@ -1641,7 +1721,8 @@ export const careers = [
     ],
     "fuentePlan": "https://www.frbb.utn.edu.ar/frbb/info/pages/loi01.html",
     "planVerificado": true,
-    "estadoPlan": "verificado"
+    "estadoPlan": "verificado",
+    "modalidad": "Presencial"
   },
   {
     "id": "tup",
@@ -1960,7 +2041,8 @@ export const careers = [
     ],
     "planVerificado": true,
     "estadoPlan": "verificado",
-    "fuentePlan": "https://www.frlr.utn.edu.ar/carreras/tecnicatura-universitaria-en-higiene-y-seguridad-en-el-trabajo/"
+    "fuentePlan": "https://www.frlr.utn.edu.ar/carreras/tecnicatura-universitaria-en-higiene-y-seguridad-en-el-trabajo/",
+    "modalidad": "Presencial / A distancia según Facultad Regional"
   },
   {
     "id": "tu-ciudades-inteligentes",
@@ -2024,7 +2106,8 @@ export const careers = [
     ],
     "fuentePlan": "https://www.frn.utn.edu.ar/media/attachments/2023/10/24/informacin-tuci-completo.pdf",
     "planVerificado": true,
-    "estadoPlan": "verificado"
+    "estadoPlan": "verificado",
+    "duracion": "2 años y medio"
   },
   {
     "id": "tu-logistica",
@@ -2078,9 +2161,10 @@ export const careers = [
     ],
     "planVerificado": true,
     "estadoPlan": "verificado",
-    "duracion": "3 años",
+    "duracion": "2 años y medio",
     "cargaHoraria": "1.768 horas reloj",
-    "fuentePlan": "https://utn.edu.ar/images/oferta_academica/planes_estudio/Plan-Estudio-TS-en-Logistica.pdf"
+    "fuentePlan": "https://utn.edu.ar/images/oferta_academica/planes_estudio/Plan-Estudio-TS-en-Logistica.pdf",
+    "modalidad": "Presencial / A distancia según Facultad Regional"
   },
   {
     "id": "tu-mecatronica",
@@ -2140,7 +2224,8 @@ export const careers = [
     "planVerificado": true,
     "estadoPlan": "verificado",
     "duracion": "2 años",
-    "fuentePlan": "https://www.frc.utn.edu.ar/carreras/tecnicatura-universitaria-en-mecatronica/"
+    "fuentePlan": "https://www.frc.utn.edu.ar/carreras/tecnicatura-universitaria-en-mecatronica/",
+    "modalidad": "Presencial / Híbrida según Facultad Regional"
   },
   {
     "id": "tu-mantenimiento-industrial",
@@ -2188,7 +2273,9 @@ export const careers = [
     ],
     "fuentePlan": "https://www.frsn.utn.edu.ar/wp-content/uploads/2023/06/Tecnicatura-univ-en-mantenimiento-industrial.pdf",
     "planVerificado": true,
-    "estadoPlan": "verificado"
+    "estadoPlan": "verificado",
+    "duracion": "2 años",
+    "modalidad": "Presencial"
   },
   {
     "id": "tu-gestion-industria-automotriz",
@@ -2319,7 +2406,9 @@ export const careers = [
     "planVerificado": true,
     "estadoPlan": "verificado",
     "cargaHoraria": "1.924 horas reloj",
-    "fuentePlan": "https://www.frch.utn.edu.ar/wp-content/uploads/2024/12/Anexo-II-.pdf"
+    "fuentePlan": "https://www.frch.utn.edu.ar/wp-content/uploads/2024/12/Anexo-II-.pdf",
+    "duracion": "2 años y medio",
+    "modalidad": "Presencial con apoyo virtual según Facultad Regional"
   },
   {
     "id": "tu-videojuegos",
@@ -2332,9 +2421,9 @@ export const careers = [
       "Facultad Regional Chubut",
       "otras regionales según oferta"
     ],
-    "fuenteOficial": "https://www.frch.utn.edu.ar/inscripcion/",
+    "fuenteOficial": "https://sceu.frba.utn.edu.ar/e-learning/detalle//3401/tecnicatura-universitaria-en-desarrollo-y-produccion-de-videojuegos",
     "planUrl": "https://sceu.frba.utn.edu.ar/e-learning/detalle//3401/tecnicatura-universitaria-en-desarrollo-y-produccion-de-videojuegos",
-    "planNombre": "Plan vigente - Tecnicatura Universitaria en Desarrollo y Producción de Videojuegos",
+    "planNombre": "Plan vigente UTN.BA",
     "planEstudios": [
       {
         "nivel": "Primer cuatrimestre",
@@ -2378,7 +2467,8 @@ export const careers = [
     ],
     "fuentePlan": "https://sceu.frba.utn.edu.ar/e-learning/detalle//3401/tecnicatura-universitaria-en-desarrollo-y-produccion-de-videojuegos",
     "planVerificado": true,
-    "estadoPlan": "verificado"
+    "estadoPlan": "verificado",
+    "duracion": "2 años"
   },
   {
     "id": "tu-comercio-electronico-marketing",
@@ -2666,7 +2756,7 @@ export const careers = [
     "titulo": "Licenciatura en Higiene y Seguridad en el Trabajo",
     "area": "complementacion",
     "subtipo": "Ciclo de Complementación Curricular",
-    "modalidad": "A distancia según oferta",
+    "modalidad": "Presencial / A distancia según Facultad Regional",
     "descripcion": "Ciclo de licenciatura UTN para profundizar la formación profesional en higiene, prevención y seguridad laboral.",
     "facultades": [
       "Facultad Regional Chubut",
@@ -2708,7 +2798,8 @@ export const careers = [
     ],
     "fuentePlan": "https://www.frc.utn.edu.ar/carreras/licenciatura-en-higiene-y-seguridad-en-el-trabajo/",
     "planVerificado": true,
-    "estadoPlan": "verificado"
+    "estadoPlan": "verificado",
+    "duracion": "2 años"
   },
   {
     "id": "ccc-tecnologia-educativa",
@@ -2766,9 +2857,9 @@ export const careers = [
     "facultades": [
       "Facultad Regional Venado Tuerto"
     ],
-    "fuenteOficial": "https://frvt.utn.edu.ar/carreras/",
-    "planUrl": "https://www.utn.edu.ar/images/oferta_academica/planes_estudio/Plan-Estudio-Lic-en-Produccion-de-Bioimagenes.pdf",
-    "planNombre": "Ordenanza N.º 1488",
+    "fuenteOficial": "https://frvt.utn.edu.ar/produccion-de-bioimagenes/",
+    "planUrl": "https://frvt.utn.edu.ar/produccion-de-bioimagenes/",
+    "planNombre": "Plan de Estudio 2023",
     "planEstudios": [
       {
         "nivel": "Primer año",
@@ -2799,7 +2890,8 @@ export const careers = [
     "estadoPlan": "verificado",
     "duracion": "2 años",
     "cargaHoraria": "1.248 horas",
-    "fuentePlan": "https://www.utn.edu.ar/images/oferta_academica/planes_estudio/Plan-Estudio-Lic-en-Produccion-de-Bioimagenes.pdf"
+    "fuentePlan": "https://www.utn.edu.ar/images/oferta_academica/planes_estudio/Plan-Estudio-Lic-en-Produccion-de-Bioimagenes.pdf",
+    "modalidad": "Presencial"
   },
   {
     "id": "pos-esp-docencia-universitaria",
@@ -2965,18 +3057,33 @@ export const careers = [
     "area": "posgrado",
     "subtipo": "Especialización",
     "duracion": "1 año y medio",
-    "cargaHoraria": "420 h reloj",
-    "modalidad": "Presencial",
+    "cargaHoraria": "420 horas reloj",
+    "modalidad": "Presencial mediada por tecnologías y prácticas presenciales",
     "descripcion": "Especialización en ingeniería, reglamentación y gestión aplicada al desarrollo integral de automóviles de competición.",
     "facultades": [
       "Facultad Regional Córdoba"
     ],
     "fuenteOficial": "https://www.frc.utn.edu.ar/carreras/especializacion-en-automoviles-de-competicion/",
     "planUrl": "https://www.frc.utn.edu.ar/carreras/especializacion-en-automoviles-de-competicion/",
-    "planNombre": "Consultar plan oficial",
-    "planEstudios": [],
-    "planVerificado": false,
-    "estadoPlan": "pendiente"
+    "planNombre": "Plan de estudios vigente",
+    "planEstudios": [
+      {
+        "nivel": "Plan de estudios",
+        "materias": [
+          "Fundamentos de un automóvil de competición",
+          "Dinámica de automóviles de competición",
+          "Aerodinámica de automóviles de competición",
+          "Motores de combustión interna para la alta competencia",
+          "Sistemas de tracción híbrida: Simulación y optimización",
+          "Instrumentación del vehículo",
+          "Gestión de equipos e Ingeniería de pista",
+          "Seminario Integrador"
+        ]
+      }
+    ],
+    "planVerificado": true,
+    "estadoPlan": "verificado",
+    "fuentePlan": "https://www.frc.utn.edu.ar/carreras/especializacion-en-automoviles-de-competicion/"
   },
   {
     "id": "pos-esp-ensenanza-innovacion",
@@ -2984,8 +3091,8 @@ export const careers = [
     "area": "posgrado",
     "subtipo": "Especialización",
     "duracion": "1 año y medio",
-    "cargaHoraria": "416 h reloj",
-    "modalidad": "A distancia / implementación UTN",
+    "cargaHoraria": "416 horas reloj",
+    "modalidad": "Presencial mediada por tecnologías / implementación a distancia",
     "descripcion": "Desarrolla competencias docentes para implementar enfoques innovadores y centrados en estudiantes de carreras tecnológicas.",
     "facultades": [
       "Universidad Tecnológica Nacional"
@@ -2993,26 +3100,72 @@ export const careers = [
     "fuenteOficial": "https://www.frc.utn.edu.ar/carreras/especializacion-en-ensenanza-e-innovacion-para-carreras-tecnologicas/",
     "planUrl": "https://www.frc.utn.edu.ar/carreras/especializacion-en-ensenanza-e-innovacion-para-carreras-tecnologicas/",
     "planNombre": "Ordenanza Rectoral CSU N° 2125/2025",
-    "planEstudios": [],
-    "planVerificado": false,
-    "estadoPlan": "pendiente"
+    "planEstudios": [
+      {
+        "nivel": "Cursos obligatorios",
+        "materias": [
+          "Nuevos escenarios educativos",
+          "Modelo de enseñanza centrado en estudiantes y para el desarrollo de competencias",
+          "Modelo por competencias para la evaluación de los aprendizajes",
+          "Educación STEAM",
+          "Producción, recursos y ambientes digitales educativos",
+          "Innovación educativa en el nivel Superior",
+          "Modelización para la enseñanza de las ciencias",
+          "Seminario Integrador"
+        ]
+      },
+      {
+        "nivel": "Seminarios optativos",
+        "materias": [
+          "Innovación Abierta",
+          "Sostenibilidad en la formación de carreras tecnológicas"
+        ]
+      }
+    ],
+    "planVerificado": true,
+    "estadoPlan": "verificado",
+    "fuentePlan": "https://www.frc.utn.edu.ar/carreras/especializacion-en-ensenanza-e-innovacion-para-carreras-tecnologicas/"
   },
   {
     "id": "pos-esp-centrales-nucleares",
     "titulo": "Especialización en Centrales Nucleares",
     "area": "posgrado",
     "subtipo": "Especialización",
-    "duracion": "4 cuatrimestres",
+    "duracion": "2 años (4 cuatrimestres)",
     "descripcion": "Carrera de posgrado orientada a profesionales de ingeniería y áreas afines vinculadas con centrales nucleares.",
     "facultades": [
       "Facultad Regional Delta"
     ],
     "fuenteOficial": "https://www.frd.utn.edu.ar/especializacion-en-centrales-nucleares/",
     "planUrl": "https://www.frd.utn.edu.ar/especializacion-en-centrales-nucleares/",
-    "planNombre": "Consultar plan oficial",
-    "planEstudios": [],
-    "planVerificado": false,
-    "estadoPlan": "pendiente"
+    "planNombre": "Plan de estudios vigente - acreditación CONEAU Acta N° 638/2025",
+    "planEstudios": [
+      {
+        "nivel": "Primer año",
+        "materias": [
+          "Conceptos básicos de Mecánica de Fluidos, Termodinámica, Electrotecnia y Química orientados a Reactores Nucleares",
+          "Física Nuclear",
+          "Física de Reactores",
+          "Seguridad Radiológica (Radioprotección)"
+        ]
+      },
+      {
+        "nivel": "Segundo año",
+        "materias": [
+          "Seguridad Nuclear",
+          "Tipos de Centrales Nucleares",
+          "Sistemas de Planta de una Central PHWR de Recipiente de Presión",
+          "Sistemas de Planta de una Central PHWR de Tubo de Presión",
+          "Garantía de Calidad - Procedimientos de Planta",
+          "Relaciones Humanas orientadas al Work-Management - Programa de Experiencia Operativa",
+          "Seminario de Integración"
+        ]
+      }
+    ],
+    "planVerificado": true,
+    "estadoPlan": "verificado",
+    "modalidad": "Presencial con 30% virtual",
+    "fuentePlan": "https://www.frd.utn.edu.ar/especializacion-en-centrales-nucleares/"
   },
   {
     "id": "pos-mae-administracion-negocios",
@@ -3080,9 +3233,10 @@ export const careers = [
     ],
     "planVerificado": true,
     "estadoPlan": "verificado",
-    "duracion": "700 horas",
+    "duracion": "2 años y medio",
     "cargaHoraria": "700 horas",
-    "fuentePlan": "https://frt.utn.edu.ar/maestria-en-administracion-de-negocios/"
+    "fuentePlan": "https://frt.utn.edu.ar/maestria-en-administracion-de-negocios/",
+    "modalidad": "Presencial y aula híbrida según Facultad Regional"
   },
   {
     "id": "pos-mae-docencia",
@@ -3094,12 +3248,63 @@ export const careers = [
       "Facultad Regional Córdoba",
       "otras regionales"
     ],
-    "fuenteOficial": "https://www.frc.utn.edu.ar/posgrado2027/",
-    "planUrl": "https://www.frc.utn.edu.ar/posgrado2027/",
-    "planNombre": "Consultar plan oficial",
-    "planEstudios": [],
-    "planVerificado": false,
-    "estadoPlan": "pendiente"
+    "fuenteOficial": "https://www.frc.utn.edu.ar/carreras/maestria-en-docencia-universitaria/",
+    "planUrl": "https://www.frc.utn.edu.ar/carreras/maestria-en-docencia-universitaria/",
+    "planNombre": "Plan de estudios vigente",
+    "planEstudios": [
+      {
+        "nivel": "Eje socio-político-institucional",
+        "materias": [
+          "La Universidad en el Contexto Político, Social y Económico",
+          "La Universidad como Organización",
+          "Políticas y Planeamiento de la Educación Universitaria"
+        ]
+      },
+      {
+        "nivel": "Eje pedagógico-didáctico",
+        "materias": [
+          "Pedagogía Universitaria",
+          "Teorías y Diseño del Curriculum Universitario",
+          "Didáctica Universitaria",
+          "Estrategias de Enseñanza",
+          "Evaluación de los Aprendizajes",
+          "Tecnologías y Sistemas Multimediales para la Enseñanza"
+        ]
+      },
+      {
+        "nivel": "Eje epistemológico-metodológico",
+        "materias": [
+          "Metodología de la Investigación",
+          "Epistemología",
+          "Concepciones Epistemológicas sobre la Ciencia y la Tecnología",
+          "Enfoques Actuales de la Investigación Educativa. Estudios de Caso",
+          "Seminario de Tesis"
+        ]
+      },
+      {
+        "nivel": "Optativas",
+        "materias": [
+          "Problemas Contemporáneos de la Educación Universitaria",
+          "Financiamiento Universitario",
+          "Estudios Comparados en la Educación Universitaria",
+          "Enseñanza, Formación y Práctica Docente",
+          "Historia de las Ciencias y la Tecnología",
+          "Perspectivas Actuales de las Teorías del Aprendizaje"
+        ]
+      },
+      {
+        "nivel": "Requisito de idioma",
+        "materias": [
+          "Prueba de Suficiencia en Idioma Inglés"
+        ]
+      }
+    ],
+    "planVerificado": true,
+    "estadoPlan": "verificado",
+    "duracion": "2 años",
+    "modalidad": "Presencial mediada por tecnologías",
+    "fuentePlan": "https://www.frc.utn.edu.ar/carreras/maestria-en-docencia-universitaria/",
+    "cargaHoraria": "620 horas reloj"
   },
   {
     "id": "pos-mae-energias-renovables",
@@ -3110,12 +3315,52 @@ export const careers = [
     "facultades": [
       "Facultad Regional Córdoba"
     ],
-    "fuenteOficial": "https://www.frc.utn.edu.ar/posgrado2027/",
-    "planUrl": "https://www.frc.utn.edu.ar/posgrado2027/",
-    "planNombre": "Consultar plan oficial",
-    "planEstudios": [],
-    "planVerificado": false,
-    "estadoPlan": "pendiente"
+    "fuenteOficial": "https://www.frc.utn.edu.ar/carreras/maestria-en-energias-renovables/",
+    "planUrl": "https://www.frc.utn.edu.ar/carreras/maestria-en-energias-renovables/",
+    "planNombre": "Plan de estudios vigente - Mención Solar",
+    "planEstudios": [
+      {
+        "nivel": "Módulo de Fundamento",
+        "materias": [
+          "Evaluación de proyectos energéticos",
+          "Mercado eléctrico mayorista y mercado de carbono",
+          "Meteorología aplicada",
+          "Energía renovable para el desarrollo sustentable",
+          "Máquinas eléctricas y redes de transmisión",
+          "Física aplicada y energía solar",
+          "Termodinámica técnica y energía de la biomasa",
+          "Energía eólica y probabilidad aplicada",
+          "Empresa, sociedad y legislación",
+          "Tecnología del hidrógeno",
+          "Procesos físico-químicos aplicados",
+          "Impacto Ambiental"
+        ]
+      },
+      {
+        "nivel": "Especialización en Energía Solar",
+        "materias": [
+          "Radiación Solar",
+          "Arquitectura solar bio-climática",
+          "Energía solar térmica",
+          "Energía solar fotovoltaica",
+          "Silicio y tecnología de fabricación de celdas solares",
+          "Diseño de sistemas solares integrados"
+        ]
+      },
+      {
+        "nivel": "Tesis y práctica",
+        "materias": [
+          "Seminario de tesis",
+          "Práctica solar"
+        ]
+      }
+    ],
+    "planVerificado": true,
+    "estadoPlan": "verificado",
+    "duracion": "2 años",
+    "modalidad": "Presencial mediada por tecnologías",
+    "fuentePlan": "https://www.frc.utn.edu.ar/carreras/maestria-en-energias-renovables/",
+    "cargaHoraria": "580 horas reloj"
   },
   {
     "id": "pos-mae-ing-ambiental",
@@ -3127,12 +3372,63 @@ export const careers = [
       "Facultad Regional Córdoba",
       "otras regionales"
     ],
-    "fuenteOficial": "https://www.frc.utn.edu.ar/posgrado2027/",
-    "planUrl": "https://www.frc.utn.edu.ar/posgrado2027/",
-    "planNombre": "Consultar plan oficial",
-    "planEstudios": [],
-    "planVerificado": false,
-    "estadoPlan": "pendiente"
+    "fuenteOficial": "https://www.frc.utn.edu.ar/carreras/maestria-en-ingenieria-ambiental/",
+    "planUrl": "https://www.frc.utn.edu.ar/carreras/maestria-en-ingenieria-ambiental/",
+    "planNombre": "Plan de estudios vigente",
+    "planEstudios": [
+      {
+        "nivel": "Introducción a las Ciencias Ambientales",
+        "materias": [
+          "Problemática ambiental y ecología aplicada",
+          "Procesos físico-químicos y microbiológicos",
+          "Ecotoxicología",
+          "Geología e hidrología ambiental",
+          "Energías Renovables"
+        ]
+      },
+      {
+        "nivel": "Bases del diagnóstico ambiental",
+        "materias": [
+          "Contaminación del aire",
+          "Contaminación de aguas",
+          "Contaminación física",
+          "Modelización ambiental",
+          "Riesgo Ambiental"
+        ]
+      },
+      {
+        "nivel": "Gestión Ambiental",
+        "materias": [
+          "Normativas ambientales y fundamentos éticos",
+          "Evaluación de impacto ambiental",
+          "Sistemas de Gestión Ambiental"
+        ]
+      },
+      {
+        "nivel": "Tecnología Ambiental",
+        "materias": [
+          "Control de efluentes gaseosos",
+          "Tratamiento de las aguas",
+          "Residuos sólidos y peligrosos",
+          "Recuperación de sitios contaminados",
+          "Monitoreo Ambiental",
+          "Residuos Tóxicos"
+        ]
+      },
+      {
+        "nivel": "Módulo de Tesis",
+        "materias": [
+          "Metodología de la Investigación y Taller de Tesis"
+        ]
+      }
+    ],
+    "planVerificado": true,
+    "estadoPlan": "verificado",
+    "duracion": "2 años",
+    "modalidad": "Presencial mediada por tecnologías",
+    "fuentePlan": "https://www.frc.utn.edu.ar/carreras/maestria-en-ingenieria-ambiental/",
+    "cargaHoraria": "666 horas reloj",
+    "notaPlan": "La página oficial informa 666 horas reloj para la carrera; la tabla de cursos publicada en el plan suma 550 horas de espacios curriculares, además de los requisitos de tesis y actividades correspondientes."
   },
   {
     "id": "pos-mae-ing-calidad",
@@ -3144,12 +3440,68 @@ export const careers = [
       "Facultad Regional Córdoba",
       "otras regionales"
     ],
-    "fuenteOficial": "https://www.frc.utn.edu.ar/posgrado2027/",
-    "planUrl": "https://www.frc.utn.edu.ar/posgrado2027/",
-    "planNombre": "Consultar plan oficial",
-    "planEstudios": [],
-    "planVerificado": false,
-    "estadoPlan": "pendiente"
+    "fuenteOficial": "https://www.frc.utn.edu.ar/carreras/maestria-en-ingenieria-en-calidad/",
+    "planUrl": "https://www.frc.utn.edu.ar/carreras/maestria-en-ingenieria-en-calidad/",
+    "planNombre": "Plan de estudios vigente",
+    "planEstudios": [
+      {
+        "nivel": "Organización de los Procesos",
+        "materias": [
+          "Gestión de los procesos de una organización",
+          "Calidad de los Servicios de una Organización",
+          "Liderazgo Estratégico de las Organizaciones",
+          "Sistema de Gestión Integrada"
+        ]
+      },
+      {
+        "nivel": "Control de los Procesos",
+        "materias": [
+          "Control Estadístico de la Calidad",
+          "Confiabilidad",
+          "Planificación de la Calidad en los Procesos",
+          "Auditorías"
+        ]
+      },
+      {
+        "nivel": "Mejora de los Procesos",
+        "materias": [
+          "Herramientas Aplicadas en la mejora de los Procesos Organizacionales",
+          "Diseño de experimentos",
+          "Gerenciamiento de las Restricciones y Análisis de Costos",
+          "Calidad de las mediciones"
+        ]
+      },
+      {
+        "nivel": "Desarrollo de Tesis",
+        "materias": [
+          "Seminario - Taller Herramientas para el desarrollo de la Tesis",
+          "Trabajo de tesis y otras actividades complementarias"
+        ]
+      },
+      {
+        "nivel": "Cursos optativos",
+        "materias": [
+          "Investigación + Desarrollo + Innovación (I+D+i)",
+          "Calidad en Software",
+          "Gestión del conocimiento",
+          "Sistemas de Gestión Sostenibles",
+          "Metodología de la Investigación",
+          "Gestión de la Calidad y la Inocuidad en la Industria Alimentaria",
+          "Motivación para el Cambio",
+          "Calidad y Seguridad en Sistemas Biológicos",
+          "Responsabilidad Social en las Organizaciones",
+          "Calidad en los Laboratorios Bioquímicos",
+          "Calidad 4.0",
+          "Eficiencia Energética"
+        ]
+      }
+    ],
+    "planVerificado": true,
+    "estadoPlan": "verificado",
+    "duracion": "2 años",
+    "modalidad": "Presencial mediada por tecnologías",
+    "fuentePlan": "https://www.frc.utn.edu.ar/carreras/maestria-en-ingenieria-en-calidad/",
+    "cargaHoraria": "760 horas reloj"
   },
   {
     "id": "pos-mae-sistemas",
@@ -3200,8 +3552,9 @@ export const careers = [
     ],
     "planVerificado": true,
     "estadoPlan": "verificado",
-    "duracion": "700 horas",
-    "cargaHoraria": "700 horas",
-    "fuentePlan": "https://frba.utn.edu.ar/posgrado/estructura-curricular-maestria-ingenieria-en-sistemas-de-informacion/"
+    "duracion": "2 años",
+    "cargaHoraria": "700 horas reloj",
+    "fuentePlan": "https://frba.utn.edu.ar/posgrado/estructura-curricular-maestria-ingenieria-en-sistemas-de-informacion/",
+    "modalidad": "Presencial mediada por tecnologías"
   }
 ];

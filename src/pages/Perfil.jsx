@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import LoginForm from "../components/LoginForm";
 import SectionTitle from "../components/SectionTitle";
 import UserProfileSummary from "../components/UserProfileSummary";
@@ -24,58 +24,63 @@ function Perfil() {
     resetLocalUsers,
   } = useLocalAuth();
 
-  const [learningRoute, setLearningRoute] = useState(null);
-
   const hasVocationalData =
-    activeUser?.intereses?.length > 0 || activeUser?.habilidades?.length > 0;
+    activeUser?.intereses?.length > 0 ||
+    activeUser?.habilidades?.length > 0;
 
-  const recommendations = useMemo(() => {
-    if (!activeUser || !hasVocationalData) {
-      return [];
-    }
+  let recommendations = [];
 
-    return getCareerRecommendations({
+  if (activeUser && hasVocationalData) {
+    recommendations = getCareerRecommendations({
       careers,
       user: activeUser,
       answers: [],
       limit: 4,
     });
-  }, [activeUser, hasVocationalData]);
+  }
 
   useEffect(() => {
-    const hasStoredTest = Boolean(localStorage.getItem(TEST_ANSWERS_KEY));
+    const hasStoredTest = Boolean(
+      localStorage.getItem(TEST_ANSWERS_KEY),
+    );
 
     if (hasStoredTest) {
-      try {
-        const storedRoute = JSON.parse(
-          localStorage.getItem(LEARNING_ROUTE_KEY),
-        );
-        setLearningRoute(storedRoute);
-      } catch {
-        setLearningRoute(null);
-      }
-
       return;
     }
 
-    if (recommendations.length === 0) {
+    if (!activeUser || !hasVocationalData) {
       localStorage.removeItem(RECOMMENDED_CAREERS_KEY);
       localStorage.removeItem(LEARNING_ROUTE_KEY);
-      setLearningRoute(null);
       return;
     }
 
-    const generatedRoute = buildLearningRouteFromCareer(recommendations[0]);
+    const generatedRecommendations = getCareerRecommendations({
+      careers,
+      user: activeUser,
+      answers: [],
+      limit: 4,
+    });
 
-    setLearningRoute(generatedRoute);
+    if (generatedRecommendations.length === 0) {
+      localStorage.removeItem(RECOMMENDED_CAREERS_KEY);
+      localStorage.removeItem(LEARNING_ROUTE_KEY);
+      return;
+    }
+
+    const generatedRoute = buildLearningRouteFromCareer(
+      generatedRecommendations[0],
+    );
 
     localStorage.setItem(
       RECOMMENDED_CAREERS_KEY,
-      JSON.stringify(recommendations),
+      JSON.stringify(generatedRecommendations),
     );
 
-    localStorage.setItem(LEARNING_ROUTE_KEY, JSON.stringify(generatedRoute));
-  }, [recommendations]);
+    localStorage.setItem(
+      LEARNING_ROUTE_KEY,
+      JSON.stringify(generatedRoute),
+    );
+  }, [activeUser, hasVocationalData]);
 
   return (
     <section className="py-5 bg-body-tertiary cp-profile-section">
@@ -110,7 +115,6 @@ function Perfil() {
           <UserProfileSummary
             user={activeUser}
             recommendations={recommendations}
-            learningRoute={learningRoute}
             onUpdateProfile={updateActiveUser}
             onLogout={logout}
             onResetUsers={resetLocalUsers}

@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { questions } from "../data/testQuestions";
-import { careers } from "../data/careers";
 import QuestionCard from "../components/QuestionCard";
 import { useSEO } from "../hooks/useSEO";
 import { useLocalAuth } from "../hooks/useLocalAuth";
-import {
-  getCareerRecommendations,
-  getDominantArea,
-} from "../utils/careerMatcher";
-import { buildLearningRouteFromCareer } from "../utils/learningRouteBuilder";
+import { buildEscoProfile } from "../utils/careerMatcher";
 
 const TEST_ANSWERS_KEY = "careerpath_test_answers";
+const ESCO_PROFILE_KEY = "careerpath_esco_profile";
 const RECOMMENDED_CAREERS_KEY = "careerpath_recommended_careers";
 const LEARNING_ROUTE_KEY = "careerpath_learning_route";
 
@@ -20,7 +16,7 @@ export default function Test() {
   useSEO({
     title: "Test Vocacional UTN | CareerPath AI",
     description:
-      "Realizá el test vocacional de CareerPath AI y descubrí qué carrera de la UTN se adapta mejor a tu perfil.",
+      "Realizá el test vocacional de CareerPath AI y descubrí qué áreas profesionales y carreras de la UTN se relacionan con tu perfil.",
     canonicalPath: "/test",
   });
 
@@ -29,17 +25,32 @@ export default function Test() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
-  const [hasPreviousTest, setHasPreviousTest] = useState(false);
+  const [hasPreviousTest, setHasPreviousTest] = useState(() =>
+    Boolean(localStorage.getItem(TEST_ANSWERS_KEY)),
+  );
   const [isRetaking, setIsRetaking] = useState(false);
 
   useEffect(() => {
-    setHasPreviousTest(Boolean(localStorage.getItem(TEST_ANSWERS_KEY)));
+    const handleStorageChange = () => {
+      setHasPreviousTest(Boolean(localStorage.getItem(TEST_ANSWERS_KEY)));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
+
+  const clearPreviousResults = () => {
+    localStorage.removeItem(ESCO_PROFILE_KEY);
+    localStorage.removeItem(RECOMMENDED_CAREERS_KEY);
+    localStorage.removeItem(LEARNING_ROUTE_KEY);
+  };
 
   const handleStartAgain = () => {
     localStorage.removeItem(TEST_ANSWERS_KEY);
-    localStorage.removeItem(RECOMMENDED_CAREERS_KEY);
-    localStorage.removeItem(LEARNING_ROUTE_KEY);
+    clearPreviousResults();
 
     setUserAnswers({});
     setCurrentIndex(0);
@@ -54,49 +65,43 @@ export default function Test() {
     }));
   };
 
-  const saveResultsAndGoToRoute = (answersToSave) => {
-    localStorage.setItem(TEST_ANSWERS_KEY, JSON.stringify(answersToSave));
-
-    const answerList = Object.entries(answersToSave)
+  const getSelectedAnswers = (answersToSave) =>
+    Object.entries(answersToSave)
       .map(
         ([questionIndex, optionIndex]) =>
           questions[Number(questionIndex)]?.options?.[optionIndex],
       )
       .filter(Boolean);
 
-    const recommendations = getCareerRecommendations({
-      careers,
+  const saveTestAndGoToResults = (answersToSave) => {
+    const selectedAnswers = getSelectedAnswers(answersToSave);
+
+    if (selectedAnswers.length !== questions.length) {
+      Swal.fire({
+        icon: "warning",
+        title: "Test incompleto",
+        text: "Respondé todas las preguntas antes de generar tus resultados.",
+        confirmButtonText: "Entendido",
+      });
+      return;
+    }
+
+    const escoProfile = buildEscoProfile({
+      answers: selectedAnswers,
       user: activeUser,
-      answers: answerList,
-      limit: 8,
     });
 
-    const finalRecommendations =
-      recommendations.length > 0 ? recommendations : careers.slice(0, 8);
-
-    localStorage.setItem(
-      RECOMMENDED_CAREERS_KEY,
-      JSON.stringify(finalRecommendations),
-    );
-
-    const dominantArea = getDominantArea(answerList);
-
-    const learningRoute = buildLearningRouteFromCareer(
-      finalRecommendations[0],
-      dominantArea,
-    );
-
-    if (learningRoute) {
-      localStorage.setItem(LEARNING_ROUTE_KEY, JSON.stringify(learningRoute));
-    }
+    clearPreviousResults();
+    localStorage.setItem(TEST_ANSWERS_KEY, JSON.stringify(answersToSave));
+    localStorage.setItem(ESCO_PROFILE_KEY, JSON.stringify(escoProfile));
 
     Swal.fire({
       icon: "success",
       title: "Test completado",
-      text: "Ya generamos tus recomendaciones y tu ruta de aprendizaje.",
-      confirmButtonText: "Ver mi ruta",
+      text: "Generamos tu perfil vocacional. Ahora vamos a relacionarlo con ocupaciones de ESCO y carreras de la UTN.",
+      confirmButtonText: "Ver resultados",
     }).then(() => {
-      navigate("/ruta");
+      navigate("/resultados");
     });
   };
 
@@ -108,7 +113,6 @@ export default function Test() {
         text: "Seleccioná una opción para continuar con el test.",
         confirmButtonText: "Entendido",
       });
-
       return;
     }
 
@@ -117,7 +121,7 @@ export default function Test() {
       return;
     }
 
-    saveResultsAndGoToRoute(userAnswers);
+    saveTestAndGoToResults(userAnswers);
   };
 
   const handlePrev = () => {
@@ -141,14 +145,11 @@ export default function Test() {
       <main className="container py-5 text-center cp-fade-up">
         <div className="py-5">
           <i className="bi bi-person-lock display-1 text-secondary mb-4 d-block"></i>
-
           <h2 className="fw-bold mb-3">Primero creá tu perfil</h2>
-
           <p className="text-muted mb-4 lead">
             Necesitás tener una cuenta iniciada para realizar y guardar tu test
             vocacional.
           </p>
-
           <Link to="/perfil" className="btn btn-primary rounded-pill px-5 py-2">
             Comenzar mi perfil
           </Link>
@@ -163,14 +164,11 @@ export default function Test() {
         <div className="card border-0 shadow-sm rounded-4 mx-auto">
           <div className="card-body p-4 p-md-5">
             <i className="bi bi-check-circle-fill display-1 text-success mb-4 d-block"></i>
-
             <h1 className="fw-bold mb-3">Ya completaste el test</h1>
-
             <p className="text-muted mb-4 lead">
-              Podés ver tus resultados, continuar tu ruta o rehacer el test para
-              actualizar tus recomendaciones.
+              Podés ver tus resultados o rehacer el test para actualizar tu
+              perfil vocacional.
             </p>
-
             <div className="d-flex flex-column flex-sm-row justify-content-center gap-3">
               <Link
                 to="/resultados"
@@ -179,7 +177,6 @@ export default function Test() {
                 <i className="bi bi-stars me-2"></i>
                 Ver resultados
               </Link>
-
               <Link
                 to="/ruta"
                 className="btn btn-outline-primary rounded-pill px-4"
@@ -187,7 +184,6 @@ export default function Test() {
                 <i className="bi bi-signpost-split me-2"></i>
                 Ver mi ruta
               </Link>
-
               <button
                 type="button"
                 className="btn btn-outline-secondary rounded-pill px-4"
@@ -212,12 +208,11 @@ export default function Test() {
           <i className="bi bi-clipboard-check me-2"></i>
           Test vocacional
         </span>
-
         <h1 className="fw-bold">Test Vocacional UTN</h1>
-
         <p className="text-muted">
           Respondé pensando en tus intereses, habilidades, valores y forma de
-          trabajar.
+          trabajar. Tus respuestas se utilizarán para consultar ocupaciones
+          relacionadas en ESCO.
         </p>
       </header>
 
@@ -264,7 +259,7 @@ export default function Test() {
             {currentIndex === questions.length - 1 ? (
               <>
                 <i className="bi bi-flag me-2"></i>
-                Finalizar y ver mi ruta
+                Finalizar y ver resultados
               </>
             ) : (
               <>
