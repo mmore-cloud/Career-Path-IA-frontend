@@ -82,7 +82,6 @@ h1 {
 }
 
 h2,
-
 h3,
 .navbar-brand {
   font-weight: 700;
@@ -91,7 +90,6 @@ h3,
 h4,
 h5,
 h6,
-
 .cp-nav-link,
 .cp-mobile-link strong,
 .btn,
@@ -253,12 +251,18 @@ body.dark-mode .btn-close {
   left: 0;
   right: 0;
   z-index: 1055;
+  width: 100%;
   padding: 0 1rem;
+  box-sizing: border-box;
   pointer-events: none;
 }
 
 .cp-mobile-panel {
-  width: min(100%, 430px);
+  width: 100%;
+  max-width: 430px;
+  max-height: calc(100dvh - 96px);
+  overflow-x: hidden;
+  overflow-y: auto;
   margin: 0 auto;
   padding: 1.25rem;
   background: var(--cp-gradient-menu);
@@ -270,6 +274,7 @@ body.dark-mode .btn-close {
 }
 
 .cp-close-button {
+  flex-shrink: 0;
   width: 38px;
   height: 38px;
   display: inline-flex;
@@ -279,6 +284,7 @@ body.dark-mode .btn-close {
 }
 
 .cp-mobile-link {
+  min-width: 0;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -335,6 +341,10 @@ body.dark-mode .btn-close {
 
 .cp-mobile-link.active .cp-mobile-number {
   color: #ffffff;
+}
+
+.cp-mobile-link>span:last-child {
+  min-width: 0;
 }
 
 .cp-mobile-link strong {
@@ -560,11 +570,11 @@ body.dark-mode .btn-close {
   }
 }
 
-/* Responsive */
+/* Responsive: navegación en pantallas pequeñas */
 @media (max-width: 575.98px) {
   .cp-mobile-menu {
     top: 84px;
-    padding: 0 0.75rem;
+    padding-inline: 0.75rem;
   }
 
   .cp-mobile-panel {
@@ -573,5 +583,116 @@ body.dark-mode .btn-close {
 
   .cp-auth-tabs {
     flex-direction: column;
+  }
+
+  .cp-header-react .navbar>.container {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .cp-header-react .navbar-brand {
+    min-width: 0;
+    margin-right: 0;
+    gap: 0.5rem;
+  }
+
+  .cp-header-react .navbar-brand img {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
+  .cp-header-react .navbar-brand>span>span {
+    font-size: clamp(0.9rem, 4.5vw, 1.1rem);
+    white-space: nowrap;
+  }
+
+  .cp-header-react .navbar-toggler {
+    flex-shrink: 0;
+    padding: 0.4rem 0.5rem;
+  }
+}
+
+/* Alertas SweetAlert2*/
+.swal2-container .swal2-popup:not(.swal2-toast) {
+  width: min(440px, calc(100vw - 2rem));
+  padding: 1.75rem 1.5rem;
+  border: 1px solid var(--cp-border);
+  border-radius: 1.35rem;
+  background: var(--cp-surface-bg);
+  color: var(--cp-text);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+}
+
+.swal2-container .swal2-title {
+  color: var(--cp-text);
+  font-family: var(--cp-font-heading);
+  font-size: clamp(1.3rem, 4.5vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.swal2-container .swal2-html-container {
+  color: var(--cp-muted);
+  font-family: var(--cp-font-body);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+}
+
+.swal2-container .swal2-actions .swal2-confirm {
+  padding: 0.8rem 1.6rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--cp-primary);
+  color: #fff;
+  font-family: var(--cp-font-heading);
+  font-weight: 600;
+  box-shadow: var(--cp-shadow-primary);
+  transition: transform var(--cp-transition-fast), box-shadow var(--cp-transition-fast);
+}
+
+.swal2-container .swal2-actions .swal2-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(var(--cp-primary-rgb), 0.32);
+}
+
+.swal2-container .swal2-actions .swal2-confirm:focus-visible {
+  outline: 3px solid var(--cp-info);
+  outline-offset: 3px;
+}
+
+.swal2-container .swal2-icon.swal2-warning {
+  border-color: var(--cp-info);
+  color: var(--cp-info);
+}
+
+.swal2-container .swal2-icon.swal2-success .swal2-success-line-tip,
+.swal2-container .swal2-icon.swal2-success .swal2-success-line-long {
+  background-color: var(--bs-success);
+}
+
+.swal2-container .swal2-icon.swal2-success .swal2-success-ring {
+  border-color: rgba(25, 135, 84, 0.28);
+}
+
+.swal2-container .swal2-success-circular-line-left,
+.swal2-container .swal2-success-circular-line-right,
+.swal2-container .swal2-success-fix {
+  background: var(--cp-surface-bg);
+}
+
+.swal2-container.swal2-backdrop-show {
+  background: rgba(3, 8, 15, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+@media (max-width: 575.98px) {
+  .swal2-container .swal2-popup:not(.swal2-toast) {
+    padding: 1.5rem 1rem;
+  }
+
+  .swal2-container .swal2-html-container {
+    font-size: 0.92rem;
   }
 }

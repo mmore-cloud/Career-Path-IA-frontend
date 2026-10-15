@@ -672,7 +672,7 @@ export default function Resultados() {
 
 			{selectedCareer && (
 				<div
-					className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center p-3 bg-dark bg-opacity-75"
+					className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-start justify-content-center overflow-auto p-2 p-sm-3 bg-dark bg-opacity-75"
 					style={{
 						zIndex: 2000,
 						backdropFilter: "blur(8px)",
@@ -682,7 +682,7 @@ export default function Resultados() {
 					onClick={closeModal}
 				>
 					<article
-						className="card border-0 shadow-lg rounded-4 w-100"
+						className="card border-0 shadow-lg rounded-4 w-100 my-auto cp-fade-up"
 						style={{ maxWidth: "680px" }}
 						onClick={(event) => event.stopPropagation()}
 					>
@@ -730,32 +730,42 @@ export default function Resultados() {
 								</div>
 							)}
 
+
 							<div className="row g-2 mb-3">
-								<div className="col-4">
-									<div className="bg-body-tertiary border rounded-3 p-2 h-100">
-										<i className="bi bi-clock text-primary d-block mb-1"></i>
-										<small className="text-secondary d-block">Duración</small>
-										<strong className="small">
+								{/* Duración */}
+								<div className="col-12 col-md-4">
+									<div className="bg-body-tertiary border rounded-3 p-3 h-100">
+										<i className="bi bi-clock text-primary d-block mb-2"></i>
+										<small className="text-secondary d-block mb-1">
+											Duración
+										</small>
+										<strong className="d-block">
 											{selectedCareer.duracion ?? "No especificada"}
 										</strong>
 									</div>
 								</div>
 
-								<div className="col-4">
-									<div className="bg-body-tertiary border rounded-3 p-2 h-100">
-										<i className="bi bi-display text-primary d-block mb-1"></i>
-										<small className="text-secondary d-block">Modalidad</small>
-										<strong className="small">
+								{/* Modalidad */}
+								<div className="col-12 col-md-4">
+									<div className="bg-body-tertiary border rounded-3 p-3 h-100">
+										<i className="bi bi-display text-primary d-block mb-2"></i>
+										<small className="text-secondary d-block mb-1">
+											Modalidad
+										</small>
+										<strong className="d-block">
 											{selectedCareer.modalidad ?? "No especificada"}
 										</strong>
 									</div>
 								</div>
 
-								<div className="col-4">
-									<div className="bg-body-tertiary border rounded-3 p-2 h-100">
-										<i className="bi bi-award text-primary d-block mb-1"></i>
-										<small className="text-secondary d-block">Tipo</small>
-										<strong className="small">
+								{/* Tipo */}
+								<div className="col-12 col-md-4">
+									<div className="bg-body-tertiary border rounded-3 p-3 h-100">
+										<i className="bi bi-award text-primary d-block mb-2"></i>
+										<small className="text-secondary d-block mb-1">
+											Tipo
+										</small>
+										<strong className="d-block">
 											{selectedCareer.subtipo ??
 												selectedCareer.tipo ??
 												"UTN"}

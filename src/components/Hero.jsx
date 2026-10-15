@@ -14,10 +14,14 @@ const Hero = ({
       <div className="container py-5">
         <div className="row align-items-center g-5">
           <div className="col-lg-7">
-            <span className="badge rounded-pill text-bg-info mb-4 px-3 py-2">
+
+            <span
+              className="badge rounded-pill text-bg-info mb-4 px-3 py-2 d-inline-block mw-100 text-wrap lh-base"
+            >
               <i className="bi bi-stars me-2"></i>
               {badgeText}
             </span>
+
 
             <h1 className="display-3 fw-bold lh-sm mb-4">{title}</h1>
 

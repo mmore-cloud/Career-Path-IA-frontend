@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -97,12 +98,15 @@ export default function Test() {
 
     Swal.fire({
       icon: "success",
-      title: "Test completado",
-      text: "Generamos tu perfil vocacional. Ahora vamos a relacionarlo con ocupaciones de ESCO y carreras de la UTN.",
-      confirmButtonText: "Ver resultados",
+      title: "¡Tu perfil vocacional está listo!",
+      text:
+        "Analizamos tus respuestas para identificar tus intereses y preferencias. " +
+        "Ahora podés descubrir las carreras que mejor se relacionan con tu perfil y explorar tus oportunidades académicas.",
+      confirmButtonText: "Ver mis resultados",
     }).then(() => {
       navigate("/resultados");
     });
+
   };
 
   const handleNext = () => {

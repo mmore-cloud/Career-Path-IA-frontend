@@ -36,10 +36,10 @@ function normalizeId(value) {
 function getCareerKey(career) {
   return String(
     career?.id ??
-      career?.careerId ??
-      career?.titulo ??
-      career?.nombre ??
-      "",
+    career?.careerId ??
+    career?.titulo ??
+    career?.nombre ??
+    "",
   );
 }
 
@@ -106,8 +106,8 @@ function getSavedProgress(scope, validIds) {
   const savedProgress = readStorage(routeStorageKeys.routeProgress, {});
   const progress =
     savedProgress &&
-    typeof savedProgress === "object" &&
-    !Array.isArray(savedProgress)
+      typeof savedProgress === "object" &&
+      !Array.isArray(savedProgress)
       ? savedProgress
       : {};
 
@@ -202,8 +202,8 @@ function Ruta() {
 
     const currentProgress =
       savedProgress &&
-      typeof savedProgress === "object" &&
-      !Array.isArray(savedProgress)
+        typeof savedProgress === "object" &&
+        !Array.isArray(savedProgress)
         ? savedProgress
         : {};
 
@@ -478,7 +478,7 @@ function Ruta() {
               </div>
 
               <div className="col-12 col-lg-5">
-                <div className="p-4 bg-body-tertiary rounded-4">
+                <div className="p-3 p-sm-4 bg-body-tertiary rounded-4">
                   <div className="d-flex justify-content-between mb-2">
                     <span className="fw-semibold">Progreso general</span>
                     <strong className="text-primary">{progress}%</strong>
@@ -486,9 +486,8 @@ function Ruta() {
 
                   <div className="progress mb-3" style={{ height: "12px" }}>
                     <div
-                      className={`progress-bar ${
-                        progress === 100 ? "bg-success" : "bg-primary"
-                      }`}
+                      className={`progress-bar ${progress === 100 ? "bg-success" : "bg-primary"
+                        }`}
                       role="progressbar"
                       style={{ width: `${progress}%` }}
                       aria-valuenow={progress}
@@ -501,34 +500,47 @@ function Ruta() {
                     {completedCount} de {totalSubjects} materias marcadas
                   </p>
 
-                  <div className="row g-3 text-center">
-                    <div className="col-4">
-                      <div className="bg-body rounded-3 p-3 h-100">
+
+                  <div className="row g-2 text-center">
+
+                    {/* Materias marcadas */}
+                    <div className="col-12 col-sm-4 col-lg-12 col-xl-4">
+                      <div className="bg-body rounded-3 p-2 h-100">
                         <strong className="d-block fs-4 text-success">
                           {completedCount}
                         </strong>
-                        <small className="text-secondary">Marcadas</small>
+                        <small className="text-secondary d-block text-nowrap">
+                          Marcadas
+                        </small>
                       </div>
                     </div>
 
-                    <div className="col-4">
-                      <div className="bg-body rounded-3 p-3 h-100">
+                    {/* Materias pendientes */}
+                    <div className="col-12 col-sm-4 col-lg-12 col-xl-4">
+                      <div className="bg-body rounded-3 p-2 h-100">
                         <strong className="d-block fs-4">
                           {pendingCount}
                         </strong>
-                        <small className="text-secondary">Pendientes</small>
+                        <small className="text-secondary d-block text-nowrap">
+                          Pendientes
+                        </small>
                       </div>
                     </div>
 
-                    <div className="col-4">
-                      <div className="bg-body rounded-3 p-3 h-100">
+                    {/* Porcentaje de avance */}
+                    <div className="col-12 col-sm-4 col-lg-12 col-xl-4">
+                      <div className="bg-body rounded-3 p-2 h-100">
                         <strong className="d-block fs-4 text-primary">
                           {progress}%
                         </strong>
-                        <small className="text-secondary">Avance</small>
+                        <small className="text-secondary d-block text-nowrap">
+                          Avance
+                        </small>
                       </div>
                     </div>
+
                   </div>
+
 
                   {progress === 100 && (
                     <div className="alert alert-success mt-4 mb-0">
